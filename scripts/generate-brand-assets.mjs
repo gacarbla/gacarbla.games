@@ -62,7 +62,7 @@ const og = `
   <!-- Titular -->
   <text x="72" y="298" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="82" font-weight="600" fill="#f2f5f7" letter-spacing="-4">Juegos pequeños.</text>
   <text x="72" y="392" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="82" font-weight="600" fill="#c8ff4d" letter-spacing="-4">Muy bien hechos.</text>
-  <text x="76" y="452" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="25" fill="#a7b2bf" letter-spacing="-.4">Originales, gratis y sin anuncios. Entra y juega.</text>
+  <text x="76" y="452" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="25" fill="#a7b2bf" letter-spacing="-.4">Cuatro juegos originales. Gratis y sin anuncios.</text>
 
   <!-- Línea inferior -->
   <line x1="72" y1="518" x2="1128" y2="518" stroke="#ffffff" stroke-opacity=".1"/>

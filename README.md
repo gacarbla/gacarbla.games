@@ -16,6 +16,17 @@ Sin anuncios, sin registro y sin descargas. El progreso se guarda en el navegado
 | Tests     | Vitest                         | Lógica de juego pura y catálogo verificables.                          |
 | CI/CD     | GitHub Actions + Pages         | Build, checks y despliegue automático desde `main`.                    |
 
+## Los juegos
+
+| Juego                                             | Categoría | Mecánica                                                    |
+| ------------------------------------------------- | --------- | ----------------------------------------------------------- |
+| [Órbita](https://games.gacarbla.es/jugar/orbita/) | Acción    | Cambia de órbita, recoge núcleos y esquiva escombros.       |
+| [Prisma](https://games.gacarbla.es/jugar/prisma/) | Puzzle    | Rota espejos y divisores para encender todos los cristales. |
+| [Fusión](https://games.gacarbla.es/jugar/fusion/) | Puzzle    | Conecta tres orbes iguales y provoca cadenas de fusiones.   |
+| [Pulso](https://games.gacarbla.es/jugar/pulso/)   | Reflejos  | Repite secuencias de pads que crecen y aceleran.            |
+
+Los cuatro comparten motor, lenguaje visual, HUD, sonido sintetizado y controles de teclado.
+
 ## Desarrollo
 
 ```bash
@@ -25,6 +36,7 @@ npm run check    # Astro + TypeScript
 npm test         # tests de lógica
 npm run build    # build de producción en dist/
 npm run preview  # sirve el build
+npm run qa       # capturas y flujos reales en Chrome (requiere Chrome/Edge)
 ```
 
 ## Añadir un juego
@@ -63,6 +75,8 @@ Consulta [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) para la configuración de DNS.
 - Commits: prefijo de acción en mayúsculas (`ADD:`, `EDIT:`, `FIX:`, `REMOVE:`, `DOCS:`).
 - Cada cambio entra por Pull Request con CI en verde.
 - `main` siempre desplegable.
+
+Más detalle en [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licencia
 

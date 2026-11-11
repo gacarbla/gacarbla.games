@@ -1,0 +1,60 @@
+name: Informe de error
+description: Algo no funciona como debería.
+title: '[Bug] '
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por el informe. Cuanto más concreto, más rápido se arregla.
+        Si el fallo afecta a un juego, indica la ronda, nivel o acción exacta.
+  - type: input
+    id: page
+    attributes:
+      label: Página o juego
+      placeholder: https://games.gacarbla.es/jugar/prisma/
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducirlo
+      description: Qué haces, qué esperas y qué ocurre.
+      placeholder: |
+        1. Abro ...
+        2. Pulso ...
+        3. Ocurre ...
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: Dispositivo
+      options:
+        - Escritorio
+        - Móvil
+        - Tablet
+        - Varios
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Navegador y versión
+      placeholder: Chrome 140, Safari 18, Firefox 142...
+  - type: textarea
+    id: console
+    attributes:
+      label: Errores de consola o capturas
+      description: Pega el error si lo hay. Puedes arrastrar capturas.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmación
+      options:
+        - label: He probado a recargar y a abrir la página en una ventana privada.
+          required: true
+        - label: No incluyo datos personales en el informe.
+          required: true

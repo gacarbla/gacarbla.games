@@ -1,0 +1,53 @@
+name: Idea de juego
+description: Propón una mecánica, un tema o una mejora para el catálogo.
+title: '[Idea] '
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Las mejores ideas son pequeñas y se entienden en una frase. No hace falta
+        diseñar el juego entero: la mecánica central y por qué engancha es suficiente.
+  - type: textarea
+    id: pitch
+    attributes:
+      label: La idea en una frase
+      placeholder: Un puzzle en el que...
+    validations:
+      required: true
+  - type: textarea
+    id: loop
+    attributes:
+      label: El bucle de juego
+      description: Qué hace el jugador, qué consigue y por qué quiere otra partida.
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Categoría
+      options:
+        - Acción
+        - Puzzle
+        - Reflejos
+        - Nueva categoría
+  - type: input
+    id: controls
+    attributes:
+      label: Controles
+      placeholder: Un botón, teclado, puntero, gestos...
+  - type: textarea
+    id: references
+    attributes:
+      label: Referencias visuales o mecánicas
+      description: Sin enlaces a juegos de terceros que quieras copiar; mejor describe la sensación.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmación
+      options:
+        - label: La propuesta es original y no un clon de una franquicia existente.
+          required: true
+        - label: Entiendo que el catálogo es pequeño y no todas las ideas entran.
+          required: true
