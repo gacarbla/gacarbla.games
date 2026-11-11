@@ -1,0 +1,19 @@
+{
+  "slug": "orbita",
+  "title": "Órbita",
+  "tagline": "Un botón. Tres carriles. Gravedad infinita.",
+  "description": "Gira alrededor de una estrella, cambia de carril y recoge núcleos mientras esquivas escombros. Un arcade orbital de un solo botón que se vuelve más rápido cada segundo.",
+  "category": "accion",
+  "tags": ["Un botón", "Endless", "Reflejos"],
+  "accent": "#c8ff4d",
+  "cover": "orbit",
+  "controls": "Espacio, clic o toque para cambiar de órbita. P o Esc para pausar.",
+  "goal": "Recoge todos los núcleos que puedas y sobrevive a los escombros. Tienes tres vidas.",
+  "duration": "2–5 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 1,
+  "featured": true,
+  "released": "2026-11-11",
+  "version": "1.0.0"
+}

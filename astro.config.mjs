@@ -12,6 +12,9 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: 'viewport',
   },
+  devToolbar: {
+    enabled: false,
+  },
   build: {
     inlineStylesheets: 'auto',
   },

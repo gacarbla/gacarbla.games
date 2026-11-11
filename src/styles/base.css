@@ -50,6 +50,10 @@ canvas {
   max-width: 100%;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 img {
   height: auto;
 }
@@ -153,17 +157,23 @@ p {
   top: 0.75rem;
   left: 0.75rem;
   z-index: 200;
-  transform: translateY(-160%);
+  transform: translateY(-220%);
   border-radius: var(--radius-pill);
   background: var(--lime);
   padding: 0.65rem 1rem;
   color: #08090b;
   font-weight: 600;
-  transition: transform var(--dur-fast) var(--ease-out);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
 }
 
-.skip-link:focus-visible {
+.skip-link:focus {
   transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Tipografía -------------------------------------------------------------- */

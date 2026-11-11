@@ -318,10 +318,6 @@
 }
 
 @media (max-width: 420px) {
-  .site-nav a[href='/sobre/'] {
-    display: none;
-  }
-
   .header-play {
     display: none;
   }

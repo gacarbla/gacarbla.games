@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GameShell from '../../components/GameShell.astro';
+import { CATEGORY_LABELS, games, type GameMeta } from '../../data/games';
+import { SITE } from '../../data/site';
+
+interface Props {
+  game: GameMeta;
+  index: number;
+}
+
+export function getStaticPaths() {
+  return games.map((game, index) => ({
+    params: { slug: game.slug },
+    props: { game, index },
+  }));
+}
+
+const { game, index } = Astro.props;
+const gameUrl = new URL(`/jugar/${game.slug}/`, SITE.url).href;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoGame',
+    name: game.title,
+    description: game.description,
+    url: gameUrl,
+    image: new URL('/og.png', SITE.url).href,
+    genre: CATEGORY_LABELS[game.category],
+    gamePlatform: 'Web',
+    playMode: 'SinglePlayer',
+    applicationCategory: 'Game',
+    operatingSystem: 'Any',
+    isAccessibleForFree: true,
+    inLanguage: 'es',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'gacarbla',
+      url: 'https://gacarbla.es',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Inicio',
+        item: new URL('/', SITE.url).href,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Juegos',
+        item: new URL('/juegos/', SITE.url).href,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: game.title,
+        item: gameUrl,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${game.title} — Jugar gratis`}
+  description={`${game.tagline} ${game.description}`}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <GameShell game={game} index={index} />
+</BaseLayout>

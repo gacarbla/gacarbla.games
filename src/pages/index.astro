@@ -1,24 +1,294 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import GameCover from '../components/GameCover.astro';
+import GameGrid from '../components/GameGrid.astro';
 import Icon from '../components/Icon.astro';
+import { CATEGORY_LABELS, featuredGame, games, getCategoryCounts } from '../data/games';
+import type { GameCategory } from '../games/engine/types';
+
+const featured = featuredGame;
+if (!featured) throw new Error('[home] El catálogo necesita al menos un juego.');
+
+const counts = getCategoryCounts();
+const categories = (Object.keys(counts) as GameCategory[]).filter(
+  (category) => counts[category] > 0,
+);
+const featuredIndex = games.findIndex((game) => game.slug === featured.slug);
+
+const tickerItems = [
+  'Sin anuncios',
+  'Sin registro',
+  'Sin descargas',
+  'Progreso local',
+  'Teclado y táctil',
+  'Hecho a mano',
+];
+
+const recentGames = games.map((game) => ({
+  slug: game.slug,
+  title: game.title,
+  category: CATEGORY_LABELS[game.category],
+  duration: game.duration,
+  accent: game.accent,
+}));
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'gacarbla games',
+    url: 'https://games.gacarbla.es',
+    description:
+      'Juegos originales, pequeños y muy bien hechos. Sin anuncios, sin registro y sin descargas.',
+    inLanguage: 'es',
+    publisher: {
+      '@type': 'Organization',
+      name: 'gacarbla',
+      url: 'https://gacarbla.es',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Catálogo de juegos',
+    itemListElement: games.map((game, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: game.title,
+      url: `https://games.gacarbla.es/jugar/${game.slug}/`,
+    })),
+  },
+];
 ---
 
-<BaseLayout>
-  <section class="section container">
-    <p class="eyebrow eyebrow--lime">En preparación</p>
-    <h1 class="display" style="margin-top: 1.5rem;">
-      Juegos pequeños.<br /><em>Muy bien hechos.</em>
-    </h1>
-    <p class="lede" style="margin-top: 1.5rem;">
-      Estamos montando el arcade. Cuatro juegos originales, sin anuncios y sin registro.
-    </p>
-    <a
-      class="btn btn--primary btn--lg"
-      href="https://github.com/gacarbla/gacarbla.games"
-      style="margin-top: 2rem;"
-    >
-      Ver el proyecto
-      <Icon name="arrow-up-right" size={16} />
-    </a>
+<BaseLayout jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero__ambient" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__copy reveal">
+        <p class="eyebrow eyebrow--lime">
+          Arcade independiente · {games.length} juego{games.length === 1 ? '' : 's'}
+        </p>
+        <h1 class="display">Juegos pequeños.<br /><em>Muy bien hechos.</em></h1>
+        <p class="lede">
+          Originales, gratis y sin ruido. Entra, elige uno y juega la próxima pausa como si fuera la
+          última. Sin cuentas, sin anuncios y sin descargas.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="#catalogo">
+            Explorar el catálogo
+            <Icon name="arrow-down" size={16} />
+          </a>
+          <a class="btn btn--ghost btn--lg" href={`/jugar/${featured.slug}/`}>
+            <Icon name="play" size={14} />
+            Jugar a {featured.title}
+          </a>
+        </div>
+        <dl class="hero__stats">
+          <div>
+            <dt>Juegos</dt>
+            <dd>{String(games.length).padStart(2, '0')}</dd>
+          </div>
+          <div>
+            <dt>Anuncios</dt>
+            <dd>00</dd>
+          </div>
+          <div>
+            <dt>Registro</dt>
+            <dd>Nunca</dd>
+          </div>
+          <div>
+            <dt>Precio</dt>
+            <dd>0 €</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hero__feature reveal" style="--reveal-delay: 140ms">
+        <div class="hero-feature" style={`--accent:${featured.accent}`}>
+          <div class="hero-feature__top">
+            <span>Destacado</span>
+            <span
+              >{String(featuredIndex + 1).padStart(2, '0')} / {
+                String(games.length).padStart(2, '0')
+              }</span
+            >
+          </div>
+          <a
+            class="hero-feature__cover"
+            href={`/jugar/${featured.slug}/`}
+            aria-label={`Jugar a ${featured.title}`}
+          >
+            <GameCover game={featured} index={featuredIndex} />
+            <span class="hero-feature__play">
+              <Icon name="play" size={13} />
+              Jugar
+            </span>
+          </a>
+          <div class="hero-feature__body">
+            <div class="hero-feature__head">
+              <h2>{featured.title}</h2>
+              <span class="tag">{CATEGORY_LABELS[featured.category]}</span>
+            </div>
+            <p>{featured.tagline}</p>
+            <div class="hero-feature__foot">
+              <span>
+                <Icon name="clock" size={12} />
+                {featured.duration}
+              </span>
+              <a href={`/jugar/${featured.slug}/`}>
+                Jugar ahora
+                <Icon name="arrow-up-right" size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      {
+        [0, 1].map(() => (
+          <div class="ticker__group">
+            {tickerItems.map((item) => (
+              <span class="ticker__item">
+                <Icon name="spark" size={11} />
+                {item}
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <section class="continue container" data-recent-section hidden>
+    <div class="continue__head">
+      <p class="eyebrow">Sigue donde lo dejaste</p>
+      <button class="continue__clear" type="button" data-clear-recent>Limpiar historial</button>
+    </div>
+    <div class="continue__list" data-recent-list></div>
+    <script
+      type="application/json"
+      data-games-json
+      is:inline
+      set:html={JSON.stringify(recentGames)}
+    />
+  </section>
+
+  <section class="section catalog" id="catalogo">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">El catálogo</p>
+          <h2>Elige tu próxima pausa.</h2>
+        </div>
+        <a class="link-arrow" href="/juegos/">
+          Ver todos los juegos
+          <Icon name="arrow-right" size={15} />
+        </a>
+      </div>
+
+      <div data-catalog>
+        <div class="catalog-toolbar">
+          <div class="filters" role="group" aria-label="Filtrar por categoría">
+            <button class="chip" type="button" data-filter="todos" aria-pressed="true">
+              Todos
+              <span>{String(games.length).padStart(2, '0')}</span>
+            </button>
+            {
+              categories.map((category) => (
+                <button class="chip" type="button" data-filter={category} aria-pressed="false">
+                  {CATEGORY_LABELS[category]}
+                  <span>{String(counts[category]).padStart(2, '0')}</span>
+                </button>
+              ))
+            }
+          </div>
+
+          {
+            games.length >= 3 && (
+              <label class="search">
+                <Icon name="search" size={16} />
+                <input
+                  type="search"
+                  placeholder="Buscar por nombre o etiqueta…"
+                  aria-label="Buscar juego"
+                  data-game-search
+                />
+                <button class="search__clear" type="button" data-search-clear>
+                  Borrar
+                </button>
+              </label>
+            )
+          }
+        </div>
+
+        <GameGrid games={games} />
+
+        <div class="catalog-empty" data-empty hidden>
+          <Icon name="search" size={28} />
+          <h3>Nada por aquí</h3>
+          <p>Prueba con otra categoría o con menos palabras.</p>
+          <button class="btn btn--ghost btn--sm" type="button" data-reset-filters>
+            Ver todos los juegos
+          </button>
+        </div>
+
+        <p class="sr-only" aria-live="polite" data-results-live></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section manifesto">
+    <div class="container">
+      <div class="manifesto__head">
+        <div>
+          <p class="eyebrow">El manifiesto</p>
+          <h2>Nada de ruido.<br /><span class="accent">Solo el juego.</span></h2>
+        </div>
+        <p>
+          Un portal de juegos puede ser muchas cosas. Para nosotros es una pausa bien aprovechada:
+          entras, juegas, sales. Sin cuenta, sin anuncios y sin pedirte nada a cambio.
+        </p>
+      </div>
+
+      <ol class="principles">
+        <li>
+          <Icon name="zap" size={20} />
+          <span>01 · Inmediatez</span>
+          <h3>Un clic y estás dentro</h3>
+          <p>
+            Sin pantallas de carga, sin registro y sin descargas. El catálogo pesa poco y los juegos
+            arrancan en el mismo gesto.
+          </p>
+        </li>
+        <li>
+          <Icon name="layers" size={20} />
+          <span>02 · Coherencia</span>
+          <h3>Todos hablan el mismo idioma</h3>
+          <p>
+            Comparten color, tipografía, sonido y controles. Aprender a jugar a uno es aprender a
+            jugar a todos.
+          </p>
+        </li>
+        <li>
+          <Icon name="shield" size={20} />
+          <span>03 · Respeto</span>
+          <h3>Tu tiempo es tuyo</h3>
+          <p>
+            Cero cookies, cero analítica y cero peticiones a terceros. Solo se guarda tu récord en
+            este navegador.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <script>
+    import '../scripts/catalog';
+    import '../scripts/recent';
+  </script>
 </BaseLayout>
