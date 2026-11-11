@@ -105,9 +105,20 @@ const filtered = await entry.page.locator('[data-game-card]:visible').count();
 if (filtered === 0) problems.push('catalog desktop: el filtro acción no muestra juegos');
 await entry.page.locator('[data-filter="todos"]').click();
 const total = await entry.page.locator('[data-game-card]:visible').count();
-if (total === 0) problems.push('catalog desktop: el filtro todos no muestra juegos');
+if (total !== 4) problems.push(`catalog desktop: se esperaban 4 juegos, hay ${total}`);
+await entry.page.locator('[data-filter="puzzle"]').click();
+const puzzles = await entry.page.locator('[data-game-card]:visible').count();
+if (puzzles !== 2) problems.push(`catalog desktop: se esperaban 2 puzzles, hay ${puzzles}`);
+await entry.page.locator('[data-game-search]').fill('pulso');
+const searchCount = await entry.page.locator('[data-game-card]:visible').count();
+const emptyVisible = await entry.page.locator('[data-empty]').isVisible();
+if (searchCount !== 0 || !emptyVisible)
+  problems.push('catalog desktop: búsqueda sin resultados incorrecta');
+await entry.page.locator('[data-reset-filters]').click();
+const resetCount = await entry.page.locator('[data-game-card]:visible').count();
+if (resetCount !== 4) problems.push(`catalog desktop: reset deja ${resetCount} juegos`);
 await shot(entry.page, 'catalog-desktop');
-console.info('catalog desktop', entry.info, { filtered, total });
+console.info('catalog desktop', entry.info, { filtered, total, puzzles, searchCount, resetCount });
 
 entry = await openPage(desktop, '/jugar/orbita/', 'game desktop');
 await shot(entry.page, 'game-start-desktop');
@@ -216,6 +227,65 @@ if (!canvasBox) {
   }
 }
 
+{
+  const pulsoPage = await desktop.newPage();
+  const errors = [];
+  pulsoPage.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text());
+  });
+  pulsoPage.on('pageerror', (error) => errors.push(error.message));
+  await pulsoPage.addInitScript(() => {
+    Math.random = () => 0;
+  });
+  await pulsoPage.goto(`${base}/jugar/pulso/`, { waitUntil: 'networkidle' });
+  await pulsoPage.evaluate(() => document.fonts.ready);
+  await pulsoPage.waitForTimeout(400);
+  await shot(pulsoPage, 'pulso-start-desktop');
+  await pulsoPage.locator('[data-play]').click();
+  await pulsoPage.waitForTimeout(1600);
+  const pulsoBox = await pulsoPage.locator('[data-game-canvas]').boundingBox();
+  if (!pulsoBox) {
+    problems.push('pulso desktop: no se encontró el canvas');
+  } else {
+    const unit = Math.min(pulsoBox.width, pulsoBox.height);
+    const radius = Math.min(250, Math.max(110, unit * 0.33));
+    const cx = pulsoBox.x + pulsoBox.width / 2;
+    const cy = pulsoBox.y + pulsoBox.height / 2 + 8;
+    await pulsoPage.mouse.click(cx, cy - radius);
+    await pulsoPage.waitForFunction(
+      () => document.querySelector('[data-score-value]')?.textContent === '2',
+      undefined,
+      { timeout: 5000 },
+    );
+    await shot(pulsoPage, 'pulso-playing-desktop');
+    console.info('pulso desktop: ronda 1 completada');
+
+    await pulsoPage.waitForTimeout(2000);
+    await pulsoPage.mouse.click(cx, cy + radius);
+    await pulsoPage.waitForTimeout(1600);
+    const failVisible = await pulsoPage.locator('[data-overlay="finish"]').isVisible();
+    const failTitle = await pulsoPage.locator('[data-finish-title]').textContent();
+    if (!failVisible) problems.push('pulso desktop: no muestra el overlay tras fallar');
+    if (!failTitle?.includes('Secuencia rota')) {
+      problems.push(`pulso desktop: título inesperado "${failTitle}"`);
+    }
+    if (errors.length) problems.push(`pulso desktop: ${errors.join(' | ')}`);
+    await shot(pulsoPage, 'pulso-fail-desktop');
+    console.info('pulso desktop', { failVisible, failTitle });
+  }
+}
+
+entry = await openPage(desktop, '/', 'home recent');
+await entry.page.waitForTimeout(500);
+const recentCount = await entry.page.locator('[data-recent-list] .continue-card').count();
+const recentVisible = await entry.page.locator('[data-recent-section]').isVisible();
+if (!recentVisible || recentCount === 0) {
+  problems.push('home recent: no aparece el historial de partidas');
+}
+await scrollThrough(entry.page);
+await shot(entry.page, 'home-recent-desktop');
+console.info('home recent', { recentCount, recentVisible });
+
 entry = await openPage(desktop, '/sobre/', 'about desktop');
 await scrollThrough(entry.page);
 await shot(entry.page, 'about-desktop');
@@ -263,6 +333,10 @@ console.info('prisma mobile', entry.info);
 entry = await openPage(mobile, '/jugar/fusion/', 'fusion mobile');
 await shot(entry.page, 'fusion-start-mobile');
 console.info('fusion mobile', entry.info);
+
+entry = await openPage(mobile, '/jugar/pulso/', 'pulso mobile');
+await shot(entry.page, 'pulso-start-mobile');
+console.info('pulso mobile', entry.info);
 await mobile.close();
 
 await browser.close();
