@@ -24,7 +24,7 @@ describe('catálogo', () => {
     const first = games[0]!;
     expect(getGame(first.slug)?.title).toBe(first.title);
     expect(getGame('no-existe')).toBeUndefined();
-    expect(getRelatedGames(first.slug)).toHaveLength(0);
+    expect(getRelatedGames(first.slug)).toHaveLength(games.length - 1);
   });
 
   it('suma las categorías correctamente', () => {
