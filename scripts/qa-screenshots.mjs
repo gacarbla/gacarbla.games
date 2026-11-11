@@ -146,6 +146,33 @@ if (!paused) problems.push('game desktop: la pausa no muestra el overlay');
 await shot(entry.page, 'game-pause-desktop');
 console.info('game desktop', entry.info, playing, { paused });
 
+entry = await openPage(desktop, '/jugar/prisma/', 'prisma desktop');
+await shot(entry.page, 'prisma-start-desktop');
+await entry.page.locator('[data-play]').click();
+await entry.page.waitForTimeout(700);
+await shot(entry.page, 'prisma-playing-desktop');
+const canvasBox = await entry.page.locator('[data-game-canvas]').boundingBox();
+if (!canvasBox) {
+  problems.push('prisma desktop: no se encontró el canvas');
+} else {
+  const cell = Math.min((canvasBox.width * 0.84) / 7, (canvasBox.height * 0.64) / 7, 86);
+  const originX = canvasBox.x + (canvasBox.width - cell * 7) / 2;
+  const originY = canvasBox.y + Math.max(72, (canvasBox.height - cell * 7) / 2 - 10);
+  await entry.page.mouse.click(originX + 3.5 * cell, originY + 5.5 * cell);
+  await entry.page.waitForTimeout(1500);
+  const winVisible = await entry.page.locator('[data-overlay="finish"]').isVisible();
+  const winTitle = await entry.page.locator('[data-finish-title]').textContent();
+  if (!winVisible) problems.push('prisma desktop: el nivel 1 no muestra el overlay de victoria');
+  if (!winTitle?.includes('Nivel 1'))
+    problems.push(`prisma desktop: título inesperado "${winTitle}"`);
+  await shot(entry.page, 'prisma-win-desktop');
+  await entry.page.locator('[data-replay]').click();
+  await entry.page.waitForTimeout(500);
+  const nextLevel = await entry.page.locator('[data-score-value]').textContent();
+  if (nextLevel !== '2/8') problems.push(`prisma desktop: no avanza al nivel 2 (${nextLevel})`);
+  console.info('prisma desktop', { winVisible, winTitle, nextLevel });
+}
+
 entry = await openPage(desktop, '/sobre/', 'about desktop');
 await scrollThrough(entry.page);
 await shot(entry.page, 'about-desktop');
@@ -185,6 +212,10 @@ const mobilePlaying = await entry.page.evaluate(() => ({
 if (!mobilePlaying.playing || !mobilePlaying.startHidden)
   problems.push('game mobile: no entra en modo partida');
 console.info('game mobile', entry.info, mobilePlaying);
+
+entry = await openPage(mobile, '/jugar/prisma/', 'prisma mobile');
+await shot(entry.page, 'prisma-start-mobile');
+console.info('prisma mobile', entry.info);
 await mobile.close();
 
 await browser.close();
