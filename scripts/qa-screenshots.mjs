@@ -173,6 +173,49 @@ if (!canvasBox) {
   console.info('prisma desktop', { winVisible, winTitle, nextLevel });
 }
 
+{
+  const fusionPage = await desktop.newPage();
+  const errors = [];
+  fusionPage.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text());
+  });
+  fusionPage.on('pageerror', (error) => errors.push(error.message));
+  await fusionPage.addInitScript(() => {
+    Math.random = () => 0.1;
+  });
+  await fusionPage.goto(`${base}/jugar/fusion/`, { waitUntil: 'networkidle' });
+  await fusionPage.evaluate(() => document.fonts.ready);
+  await fusionPage.waitForTimeout(400);
+  await fusionPage.locator('[data-play]').click();
+  await fusionPage.waitForTimeout(500);
+  const box = await fusionPage.locator('[data-game-canvas]').boundingBox();
+  if (!box) {
+    problems.push('fusion desktop: no se encontró el canvas');
+  } else {
+    const cell = Math.min(
+      (box.width - (box.width >= 1000 ? 254 : 22)) / 7,
+      (box.height * 0.68) / 8,
+      76,
+    );
+    const boardWidth = cell * 7;
+    const sideWidth = box.width >= 1000 ? 210 : 0;
+    const originX = (box.width - (boardWidth + sideWidth)) / 2;
+    const originY = Math.max(76, (box.height - cell * 8) / 2 - 6);
+    const x = box.x + originX + 3.5 * cell;
+    const y = box.y + originY + 4 * cell;
+    for (let drop = 0; drop < 3; drop += 1) {
+      await fusionPage.mouse.click(x, y);
+      await fusionPage.waitForTimeout(700);
+    }
+    await fusionPage.waitForTimeout(900);
+    const score = await fusionPage.locator('[data-score-value]').textContent();
+    if (score === '0') problems.push('fusion desktop: tres piezas iguales no han fusionado');
+    if (errors.length) problems.push(`fusion desktop: ${errors.join(' | ')}`);
+    await shot(fusionPage, 'fusion-playing-desktop');
+    console.info('fusion desktop', { score });
+  }
+}
+
 entry = await openPage(desktop, '/sobre/', 'about desktop');
 await scrollThrough(entry.page);
 await shot(entry.page, 'about-desktop');
@@ -216,6 +259,10 @@ console.info('game mobile', entry.info, mobilePlaying);
 entry = await openPage(mobile, '/jugar/prisma/', 'prisma mobile');
 await shot(entry.page, 'prisma-start-mobile');
 console.info('prisma mobile', entry.info);
+
+entry = await openPage(mobile, '/jugar/fusion/', 'fusion mobile');
+await shot(entry.page, 'fusion-start-mobile');
+console.info('fusion mobile', entry.info);
 await mobile.close();
 
 await browser.close();
