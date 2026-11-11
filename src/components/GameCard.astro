@@ -1,0 +1,47 @@
+---
+import type { GameMeta } from '../data/games';
+import { CATEGORY_LABELS } from '../data/games';
+import GameCover from './GameCover.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  game: GameMeta;
+  index?: number;
+  featured?: boolean;
+}
+
+const { game, index = 0, featured = false } = Astro.props;
+const cardStyle = `--reveal-delay:${Math.min(index, 5) * 70}ms;--accent:${game.accent}`;
+---
+
+<article
+  class:list={['game-card', { 'game-card--featured': featured, reveal: !featured }]}
+  style={cardStyle}
+  data-game-card
+  data-category={game.category}
+  data-search={`${game.title} ${game.tagline} ${game.tags.join(' ')}`}
+>
+  <a class="game-card__link" href={`/jugar/${game.slug}/`} aria-label={`Jugar a ${game.title}`}>
+    <div class="game-card__cover">
+      <GameCover game={game} index={index} />
+      <span class="game-card__category">{CATEGORY_LABELS[game.category]}</span>
+      <span class="game-card__play">
+        <Icon name="play" size={13} />
+        Jugar
+      </span>
+    </div>
+    <div class="game-card__body">
+      <div class="game-card__head">
+        <h3>{game.title}</h3>
+        <span class="game-card__time mono">
+          <Icon name="clock" size={12} />
+          {game.duration}
+        </span>
+      </div>
+      <p class="game-card__tagline">{game.tagline}</p>
+      <ul class="game-card__tags" aria-label="Etiquetas">
+        {game.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    </div>
+  </a>
+</article>

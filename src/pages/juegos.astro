@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GameGrid from '../components/GameGrid.astro';
+import Icon from '../components/Icon.astro';
+import { CATEGORY_LABELS, games, getCategoryCounts } from '../data/games';
+import type { GameCategory } from '../games/engine/types';
+
+const counts = getCategoryCounts();
+const categories = (Object.keys(counts) as GameCategory[]).filter(
+  (category) => counts[category] > 0,
+);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Catálogo de juegos',
+    url: 'https://games.gacarbla.es/juegos/',
+    inLanguage: 'es',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: games.length,
+      itemListElement: games.map((game, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: game.title,
+        url: `https://games.gacarbla.es/jugar/${game.slug}/`,
+      })),
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Juegos"
+  description="Todos los juegos de gacarbla games: arcades originales, puzzles y reflejos. Gratis, sin anuncios y sin registro."
+  jsonLd={jsonLd}
+>
+  <section class="page-hero">
+    <div class="container page-hero__grid">
+      <div>
+        <p class="eyebrow eyebrow--lime">Catálogo completo</p>
+        <h1>Todo lo que puedes jugar.<br /><span class="accent">Nada más.</span></h1>
+        <p class="lede">
+          Una colección pequeña y cuidada. Cada juego está hecho para caber en una pausa y dejar
+          ganas de otra partida.
+        </p>
+      </div>
+      <div class="page-hero__aside" aria-label="Resumen del catálogo">
+        <span class="chip">{games.length} juego{games.length === 1 ? '' : 's'}</span>
+        <span class="chip">0 anuncios</span>
+        <span class="chip">0 registros</span>
+        <span class="chip">100 % gratis</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="catalog-page">
+    <div class="container">
+      <h2 class="sr-only">Todos los juegos</h2>
+      <div data-catalog>
+        <div class="catalog-toolbar">
+          <div class="filters" role="group" aria-label="Filtrar por categoría">
+            <button class="chip" type="button" data-filter="todos" aria-pressed="true">
+              Todos
+              <span>{String(games.length).padStart(2, '0')}</span>
+            </button>
+            {
+              categories.map((category) => (
+                <button class="chip" type="button" data-filter={category} aria-pressed="false">
+                  {CATEGORY_LABELS[category]}
+                  <span>{String(counts[category]).padStart(2, '0')}</span>
+                </button>
+              ))
+            }
+          </div>
+
+          {
+            games.length >= 3 && (
+              <label class="search">
+                <Icon name="search" size={16} />
+                <input
+                  type="search"
+                  placeholder="Buscar por nombre o etiqueta…"
+                  aria-label="Buscar juego"
+                  data-game-search
+                />
+                <button class="search__clear" type="button" data-search-clear>
+                  Borrar
+                </button>
+              </label>
+            )
+          }
+        </div>
+
+        <GameGrid games={games} />
+
+        <div class="catalog-empty" data-empty hidden>
+          <Icon name="search" size={28} />
+          <h3>Nada por aquí</h3>
+          <p>Prueba con otra categoría o con menos palabras.</p>
+          <button class="btn btn--ghost btn--sm" type="button" data-reset-filters>
+            Ver todos los juegos
+          </button>
+        </div>
+
+        <p class="sr-only" aria-live="polite" data-results-live></p>
+      </div>
+
+      <div class="catalog-foot">
+        <p>
+          ¿Buscas algo concreto? Los juegos nuevos entran por el mismo sitio: el catálogo. Sin
+          secciones escondidas ni sorpresas.
+        </p>
+        <a class="link-arrow" href="/sobre/">
+          Cómo se hacen
+          <Icon name="arrow-right" size={15} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import '../scripts/catalog';
+  </script>
+</BaseLayout>
+
+<style>
+  .catalog-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+  }
+
+  .catalog-foot p {
+    max-width: 52ch;
+    color: var(--ink-500);
+    font-size: var(--text-sm);
+  }
+</style>

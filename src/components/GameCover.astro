@@ -1,0 +1,290 @@
+---
+import type { GameMeta } from '../data/games';
+
+interface Props {
+  game: GameMeta;
+  index?: number;
+  class?: string;
+  decorative?: boolean;
+}
+
+const { game, index, class: className = '', decorative = true } = Astro.props;
+const number = typeof index === 'number' ? String(index + 1).padStart(2, '0') : null;
+---
+
+<div
+  class={`cover cover--${game.cover} ${className}`}
+  style={`--accent:${game.accent}`}
+  role={decorative ? undefined : 'img'}
+  aria-label={decorative ? undefined : `Portada de ${game.title}`}
+  aria-hidden={decorative ? 'true' : undefined}
+>
+  <div class="cover__grid"></div>
+  <div class="cover__glow"></div>
+
+  <svg class="cover__motif" viewBox="0 0 400 300" fill="none" aria-hidden="true">
+    {
+      game.cover === 'orbit' && (
+        <g>
+          <g class="cover__spin">
+            <circle cx="200" cy="150" r="106" stroke="rgba(255,255,255,.1)" />
+            <circle
+              cx="200"
+              cy="150"
+              r="78"
+              stroke="var(--accent)"
+              stroke-opacity=".42"
+              stroke-dasharray="3 9"
+            />
+            <circle cx="200" cy="150" r="50" stroke="rgba(255,255,255,.12)" />
+            <path
+              d="M94 150a106 106 0 0 0 212 0"
+              stroke="var(--accent)"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M122 150a78 78 0 0 1 156 0"
+              stroke="#5ce1e6"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-opacity=".65"
+            />
+            <circle cx="306" cy="150" r="6" fill="var(--accent)" />
+            <circle cx="200" cy="44" r="4" fill="#5ce1e6" />
+          </g>
+          <circle cx="200" cy="150" r="17" fill="#f2f5f7" />
+          <circle cx="200" cy="150" r="7" fill="#07080a" />
+          <circle cx="139" cy="77" r="4" fill="#ff6b57" />
+          <circle cx="200" cy="256" r="3" fill="#c8ff4d" />
+        </g>
+      )
+    }
+
+    {
+      game.cover === 'prism' && (
+        <g>
+          <path
+            d="M200 62 274 208H126L200 62Z"
+            fill="var(--accent)"
+            fill-opacity=".06"
+            stroke="rgba(255,255,255,.22)"
+          />
+          <path d="M172 180 200 104l28 76" stroke="rgba(255,255,255,.18)" />
+          <path d="M42 150h96" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" />
+          <path
+            d="M138 150h34l28-48h34l28 48h96"
+            stroke="var(--accent)"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-opacity=".8"
+          />
+          <path
+            d="M200 198v34l54 22"
+            stroke="#ff6b57"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-opacity=".8"
+          />
+          <path d="M254 254l12 4-4-12" stroke="#ff6b57" stroke-width="2" stroke-linecap="round" />
+          <rect
+            x="132"
+            y="144"
+            width="12"
+            height="12"
+            rx="2"
+            fill="#f2f5f7"
+            transform="rotate(45 138 150)"
+          />
+          <rect
+            x="194"
+            y="92"
+            width="12"
+            height="12"
+            rx="2"
+            fill="var(--accent)"
+            transform="rotate(45 200 98)"
+          />
+          <rect
+            x="248"
+            y="144"
+            width="12"
+            height="12"
+            rx="2"
+            fill="#f2f5f7"
+            transform="rotate(45 254 150)"
+          />
+          <circle cx="138" cy="150" r="18" fill="var(--accent)" fill-opacity=".12" />
+          <circle cx="254" cy="150" r="18" fill="var(--accent)" fill-opacity=".12" />
+          <circle cx="42" cy="150" r="4" fill="#ff6b57" />
+        </g>
+      )
+    }
+
+    {
+      game.cover === 'fusion' && (
+        <g class="cover__float">
+          {[0, 1, 2, 3].map((row) => (
+            <g>
+              {[0, 1, 2, 3].map((column) => {
+                const value = (row + column) % 5;
+                const x = 122 + column * 40;
+                const y = 84 + row * 38;
+                const merged = row === 1 && column === 2;
+                return (
+                  <g>
+                    <rect
+                      x={x}
+                      y={y}
+                      width={32}
+                      height={32}
+                      rx="8"
+                      fill={merged ? 'var(--accent)' : 'rgba(255,255,255,.04)'}
+                      stroke={merged ? 'var(--accent)' : 'rgba(255,255,255,.13)'}
+                    />
+                    <text
+                      x={x + 16}
+                      y={y + 22}
+                      text-anchor="middle"
+                      font-family="JetBrains Mono, monospace"
+                      font-size="13"
+                      font-weight="600"
+                      fill={
+                        merged ? '#07080a' : value > 2 ? 'var(--accent)' : 'rgba(255,255,255,.5)'
+                      }
+                    >
+                      {value + 1}
+                    </text>
+                  </g>
+                );
+              })}
+            </g>
+          ))}
+          <circle cx="258" cy="122" r="34" stroke="var(--accent)" stroke-opacity=".35" />
+          <circle cx="258" cy="122" r="46" stroke="var(--accent)" stroke-opacity=".12" />
+        </g>
+      )
+    }
+
+    {
+      game.cover === 'pulse' && (
+        <g>
+          <circle
+            cx="200"
+            cy="150"
+            r="104"
+            stroke="rgba(255,255,255,.08)"
+            stroke-dasharray="2 10"
+            class="cover__spin"
+            style="transform-origin:200px 150px"
+          />
+          {[
+            { x: 136, y: 86 },
+            { x: 230, y: 86 },
+            { x: 136, y: 180 },
+            { x: 230, y: 180 },
+          ].map((pad, padIndex) => (
+            <g class={padIndex === 0 ? 'cover__pulse' : undefined}>
+              <rect
+                x={pad.x}
+                y={pad.y}
+                width={62}
+                height={62}
+                rx="16"
+                fill={padIndex === 0 ? 'var(--accent)' : 'rgba(255,255,255,.04)'}
+                fill-opacity={padIndex === 0 ? '.9' : '1'}
+                stroke={padIndex === 0 ? 'var(--accent)' : 'rgba(255,255,255,.16)'}
+              />
+              <circle
+                cx={pad.x + 31}
+                cy={pad.y + 31}
+                r="7"
+                fill={padIndex === 0 ? '#07080a' : 'rgba(255,255,255,.25)'}
+              />
+            </g>
+          ))}
+          <circle
+            cx="200"
+            cy="150"
+            r="26"
+            fill="var(--accent)"
+            fill-opacity=".08"
+            stroke="rgba(255,255,255,.14)"
+          />
+          <circle cx="200" cy="150" r="4" fill="#f2f5f7" />
+        </g>
+      )
+    }
+
+    {
+      game.cover === 'wave' && (
+        <g>
+          {[0, 1, 2, 3].map((line) => (
+            <path
+              d={`M20 ${110 + line * 26} C 90 ${60 + line * 26}, 150 ${180 + line * 10}, 210 ${120 + line * 26} S 330 ${70 + line * 20}, 380 ${120 + line * 26}`}
+              stroke="var(--accent)"
+              stroke-opacity={0.2 + line * 0.18}
+              stroke-width="2"
+            />
+          ))}
+          <circle cx="210" cy="146" r="9" fill="#f2f5f7" />
+        </g>
+      )
+    }
+
+    {
+      game.cover === 'stack' && (
+        <g>
+          <rect
+            x="112"
+            y="196"
+            width="176"
+            height="28"
+            rx="8"
+            fill="var(--accent)"
+            fill-opacity=".22"
+          />
+          <rect
+            x="128"
+            y="158"
+            width="144"
+            height="28"
+            rx="8"
+            fill="var(--accent)"
+            fill-opacity=".42"
+          />
+          <rect
+            x="146"
+            y="120"
+            width="108"
+            height="28"
+            rx="8"
+            fill="var(--accent)"
+            fill-opacity=".7"
+          />
+          <rect x="166" y="82" width="68" height="28" rx="8" fill="var(--accent)" />
+          <circle cx="200" cy="54" r="5" fill="#ff6b57" />
+        </g>
+      )
+    }
+
+    {
+      game.cover === 'grid' && (
+        <g>
+          {[0, 1, 2, 3, 4].map((row) =>
+            [0, 1, 2, 3, 4].map((column) => (
+              <circle
+                cx={128 + column * 36}
+                cy={78 + row * 36}
+                r={row === 2 && column === 2 ? 8 : 2.4}
+                fill={row === 2 && column === 2 ? 'var(--accent)' : 'rgba(255,255,255,.26)'}
+              />
+            )),
+          )}
+        </g>
+      )
+    }
+  </svg>
+
+  {number && <span class="cover__index mono">{number}</span>}
+</div>

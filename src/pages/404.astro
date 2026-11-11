@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GameCover from '../components/GameCover.astro';
+import Icon from '../components/Icon.astro';
+import { featuredGame } from '../data/games';
+
+const game = featuredGame;
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="Esta órbita no existe. Vuelve al catálogo y elige otro juego."
+  noindex
+>
+  <section class="not-found">
+    <div class="container not-found__grid">
+      <div>
+        <p class="not-found__code" aria-hidden="true">404</p>
+        <h1>Te has salido de órbita.</h1>
+        <p>
+          La página que buscas no existe o se ha movido. No pasa nada: el catálogo sigue justo aquí
+          al lado.
+        </p>
+        <div class="not-found__actions">
+          <a class="btn btn--primary" href="/juegos/">
+            <Icon name="gamepad" size={16} />
+            Ir al catálogo
+          </a>
+          <a class="btn btn--ghost" href="/">Volver al inicio</a>
+        </div>
+      </div>
+      <div aria-hidden="true">
+        {game && <GameCover game={game} index={0} />}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,236 @@
+---
+import type { GameMeta } from '../data/games';
+import { CATEGORY_LABELS, getRelatedGames } from '../data/games';
+import GameCover from './GameCover.astro';
+import GameGrid from './GameGrid.astro';
+import Icon from './Icon.astro';
+import '../styles/game.css';
+
+interface Props {
+  game: GameMeta;
+  index: number;
+}
+
+const { game, index } = Astro.props;
+const related = getRelatedGames(game.slug, 3);
+const number = String(index + 1).padStart(2, '0');
+---
+
+<section
+  class="game-page"
+  data-game-root
+  data-game={game.slug}
+  data-score-label={game.scoreLabel}
+  data-best-suffix={game.bestSuffix}
+>
+  <div class="game-stage" data-stage style={`--accent:${game.accent}`}>
+    <div class="stage-ambient" aria-hidden="true"></div>
+
+    <header class="game-topbar">
+      <a class="game-back" href="/juegos/">
+        <Icon name="arrow-left" size={16} />
+        <span>Catálogo</span>
+      </a>
+
+      <p class="game-id">
+        <span class="game-id__dot" aria-hidden="true"></span>
+        {game.title}
+      </p>
+
+      <div class="game-score" aria-label="Marcador">
+        <span class="game-score__label" data-score-label>{game.scoreLabel}</span>
+        <strong class="game-score__value mono" data-score-value>0</strong>
+      </div>
+
+      <div class="game-tools">
+        <button
+          class="game-tool"
+          type="button"
+          data-audio
+          aria-label="Silenciar sonido"
+          aria-pressed="false"
+        >
+          <span class="icon-sound-on"><Icon name="volume" size={17} /></span>
+          <span class="icon-sound-off"><Icon name="volume-off" size={17} /></span>
+        </button>
+        <button class="game-tool" type="button" data-pause aria-label="Pausar partida" disabled>
+          <Icon name="pause" size={16} />
+        </button>
+        <button
+          class="game-tool"
+          type="button"
+          data-fullscreen
+          aria-label="Pantalla completa"
+          aria-pressed="false"
+        >
+          <span class="icon-expand"><Icon name="expand" size={17} /></span>
+          <span class="icon-compress"><Icon name="compress" size={17} /></span>
+        </button>
+      </div>
+    </header>
+
+    <canvas
+      class="game-canvas"
+      data-game-canvas
+      tabindex="0"
+      aria-label={`${game.title}. ${game.controls}`}></canvas>
+
+    <p class="sr-only" data-live aria-live="polite"></p>
+    <div class="game-toast" data-toast role="status"></div>
+
+    <div class="game-overlay" data-overlay="start">
+      <div class="overlay-card overlay-card--start">
+        <div class="overlay-art">
+          <GameCover game={game} index={index} />
+          <span class="overlay-art__badge">{CATEGORY_LABELS[game.category]}</span>
+        </div>
+        <div class="overlay-body">
+          <p class="eyebrow eyebrow--lime">Juego {number} · {game.duration}</p>
+          <p class="overlay-title">{game.title}</p>
+          <p class="overlay-tagline">{game.tagline}</p>
+
+          <dl class="overlay-meta">
+            <div>
+              <dt>Mejor marca</dt>
+              <dd data-best-inline>—</dd>
+            </div>
+            <div>
+              <dt>Formato</dt>
+              <dd>1 jugador</dd>
+            </div>
+          </dl>
+
+          <button class="btn btn--primary btn--lg overlay-play" type="button" data-play>
+            <Icon name="play" size={16} />
+            Jugar ahora
+          </button>
+
+          <p class="overlay-controls">
+            <Icon name="keyboard" size={14} />
+            {game.controls}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-overlay" data-overlay="pause" hidden>
+      <div class="overlay-card overlay-card--compact">
+        <p class="eyebrow">En pausa</p>
+        <h2>Respira.</h2>
+        <p class="overlay-tagline">La partida te espera justo donde la dejaste.</p>
+        <div class="overlay-actions">
+          <button class="btn btn--primary" type="button" data-resume>Continuar</button>
+          <button class="btn btn--ghost" type="button" data-restart>Reiniciar</button>
+        </div>
+        <a class="overlay-link" href="/juegos/">Salir al catálogo</a>
+      </div>
+    </div>
+
+    <div class="game-overlay" data-overlay="finish" hidden>
+      <div class="overlay-card overlay-card--compact">
+        <p class="eyebrow eyebrow--lime" data-finish-eyebrow>Partida terminada</p>
+        <h2 data-finish-title>Fin de la partida</h2>
+        <p class="overlay-tagline" data-finish-message></p>
+        <div class="finish-score">
+          <span data-finish-score-label>{game.scoreLabel}</span>
+          <strong class="mono" data-finish-score>0</strong>
+          <span class="finish-record" data-finish-record hidden>Nuevo récord</span>
+        </div>
+        <p class="finish-detail mono" data-finish-detail></p>
+        <div class="overlay-actions">
+          <button class="btn btn--primary" type="button" data-replay>Jugar otra vez</button>
+          <a class="btn btn--ghost" href="/juegos/">Más juegos</a>
+        </div>
+      </div>
+    </div>
+
+    <noscript>
+      <div class="game-noscript">Activa JavaScript para jugar a {game.title}.</div>
+    </noscript>
+  </div>
+
+  <div class="game-info">
+    <div class="container game-info__grid">
+      <div class="game-info__content">
+        <nav class="breadcrumb mono" aria-label="Migas de pan">
+          <a href="/">Inicio</a>
+          <span aria-hidden="true">/</span>
+          <a href="/juegos/">Juegos</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{game.title}</span>
+        </nav>
+
+        <div class="game-info__tags">
+          <span class="tag">{CATEGORY_LABELS[game.category]}</span>
+          {game.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+
+        <h1>{game.title}</h1>
+        <p class="game-info__tagline">{game.tagline}</p>
+        <p class="game-info__description">{game.description}</p>
+
+        <div class="game-how">
+          <div class="game-how__item">
+            <span class="eyebrow eyebrow--plain">Objetivo</span>
+            <p>{game.goal}</p>
+          </div>
+          <div class="game-how__item">
+            <span class="eyebrow eyebrow--plain">Controles</span>
+            <p>{game.controls}</p>
+          </div>
+          <div class="game-how__item">
+            <span class="eyebrow eyebrow--plain">Duración</span>
+            <p>Partidas de {game.duration}. Sin instalar nada.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="game-side" aria-label="Tu progreso">
+        <div class="record-panel">
+          <div class="record-panel__icon">
+            <Icon name="trophy" size={22} />
+          </div>
+          <span class="eyebrow eyebrow--plain">Tu mejor marca</span>
+          <p class="record-panel__value mono">
+            <span data-best-value>—</span>
+            <small>{game.bestSuffix}</small>
+          </p>
+          <p class="record-panel__note">Se guarda solo en este navegador.</p>
+          <button class="btn btn--primary" type="button" data-side-play>
+            <Icon name="play" size={14} />
+            Jugar ahora
+          </button>
+        </div>
+
+        <div class="game-side__note">
+          <Icon name="shield" size={16} />
+          <p>Sin anuncios, sin cuenta y sin enviar tu progreso a ningún sitio.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  {
+    related.length > 0 && (
+      <section class="section section--tight related">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Sigue jugando</p>
+              <h2>Otro juego, otra pausa.</h2>
+            </div>
+            <a class="link-arrow" href="/juegos/">
+              Ver catálogo
+              <Icon name="arrow-right" size={15} />
+            </a>
+          </div>
+          <GameGrid games={related} />
+        </div>
+      </section>
+    )
+  }
+</section>
+
+<script>
+  import '../scripts/play';
+</script>
