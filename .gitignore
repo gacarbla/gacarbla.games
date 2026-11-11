@@ -24,3 +24,6 @@ Thumbs.db
 coverage/
 playwright-report/
 test-results/
+
+# QA local
+.qa/
