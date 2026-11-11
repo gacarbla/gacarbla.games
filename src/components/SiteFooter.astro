@@ -1,0 +1,61 @@
+---
+import BrandMark from './BrandMark.astro';
+import Icon from './Icon.astro';
+import { SITE } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta reveal">
+      <p class="footer-cta__text">¿Un rato libre?</p>
+      <a class="footer-cta__link" href="/juegos/">
+        <span>Encuentra tu juego</span>
+        <Icon name="arrow-up-right" size={28} />
+      </a>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="gacarbla games — Inicio">
+          <BrandMark class="brand__mark" size={28} />
+          <span class="brand__word">gacarbla</span>
+          <span class="brand__pill">games</span>
+        </a>
+        <p>Un pequeño arcade independiente. Juegos originales que caben en una pausa.</p>
+        <a class="footer-domain mono" href="https://games.gacarbla.es">games.gacarbla.es</a>
+      </div>
+
+      <nav class="footer-col" aria-label="Explorar">
+        <h2>Explorar</h2>
+        <a href="/juegos/">Todos los juegos</a>
+        <a href="/sobre/">Sobre el proyecto</a>
+        <a href={SITE.github} target="_blank" rel="noopener noreferrer">
+          GitHub <Icon name="external" size={12} />
+        </a>
+      </nav>
+
+      <div class="footer-col">
+        <h2>La promesa</h2>
+        <span><Icon name="shield" size={13} /> Sin anuncios</span>
+        <span><Icon name="lock" size={13} /> Sin registro</span>
+        <span><Icon name="heart" size={13} /> Gratis para siempre</span>
+      </div>
+
+      <div class="footer-col">
+        <h2>Hecho con</h2>
+        <span><Icon name="code" size={13} /> Astro + TypeScript</span>
+        <span><Icon name="zap" size={13} /> Canvas a 60 fps</span>
+        <span><Icon name="grid" size={13} /> Mobile first</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="mono">© {SITE.year} {SITE.author}</p>
+      <p class="footer-status mono">
+        <span class="status-dot" aria-hidden="true"></span>
+        Sin cookies · Progreso guardado en tu navegador
+      </p>
+      <a class="mono footer-top-link" href="#top">Volver arriba ↑</a>
+    </div>
+  </div>
+</footer>

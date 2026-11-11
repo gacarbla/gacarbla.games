@@ -1,0 +1,39 @@
+---
+import BrandMark from './BrandMark.astro';
+import Icon from './Icon.astro';
+
+const pathname = Astro.url.pathname;
+const isGames = pathname.startsWith('/juegos') || pathname.startsWith('/jugar');
+const isAbout = pathname.startsWith('/sobre');
+---
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="gacarbla games — Inicio">
+      <BrandMark class="brand__mark" size={30} />
+      <span class="brand__word">gacarbla</span>
+      <span class="brand__pill">games</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+      <a href="/juegos/" aria-current={isGames ? 'page' : undefined}>Juegos</a>
+      <a href="/sobre/" aria-current={isAbout ? 'page' : undefined}>Sobre</a>
+    </nav>
+
+    <div class="header-actions">
+      <a
+        class="header-github"
+        href="https://github.com/gacarbla/gacarbla.games"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ver el proyecto en GitHub"
+      >
+        <Icon name="github" size={18} />
+      </a>
+      <a class="btn btn--primary btn--sm header-play" href="/juegos/">
+        <Icon name="play" size={14} />
+        Jugar
+      </a>
+    </div>
+  </div>
+</header>
