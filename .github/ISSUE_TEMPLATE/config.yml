@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Cómo añadir un juego
+    url: https://github.com/gacarbla/gacarbla.games/blob/main/docs/ADDING_A_GAME.md
+    about: El contrato completo de metadata, motor, tests y checklist.
+  - name: Cómo contribuir
+    url: https://github.com/gacarbla/gacarbla.games/blob/main/CONTRIBUTING.md
+    about: Ramas, commits, PRs y reglas de producto.
+  - name: Estado del despliegue
+    url: https://github.com/gacarbla/gacarbla.games/actions
+    about: CI, builds y publicación en GitHub Pages.
