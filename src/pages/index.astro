@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout>
+  <section class="section container">
+    <p class="eyebrow eyebrow--lime">En preparación</p>
+    <h1 class="display" style="margin-top: 1.5rem;">
+      Juegos pequeños.<br /><em>Muy bien hechos.</em>
+    </h1>
+    <p class="lede" style="margin-top: 1.5rem;">
+      Estamos montando el arcade. Cuatro juegos originales, sin anuncios y sin registro.
+    </p>
+    <a
+      class="btn btn--primary btn--lg"
+      href="https://github.com/gacarbla/gacarbla.games"
+      style="margin-top: 2rem;"
+    >
+      Ver el proyecto
+      <Icon name="arrow-up-right" size={16} />
+    </a>
+  </section>
+</BaseLayout>
