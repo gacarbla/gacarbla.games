@@ -100,14 +100,20 @@ pantalla completa. No lo reimplementes.
 ### Reglas de diseño
 
 1. **Mismo idioma visual.** Usa `PALETTE`, `FONT_SANS`, `FONT_MONO` y `alpha` del motor.
+   La paleta es cálida y clara: papel, bosque, salvia, albaricoque, cielo y lavanda.
 2. **Un acento por juego.** El color declarado en `meta.json` debe ser el protagonista.
-3. **Controles completos.** Teclado además de puntero. Espacio o flechas para la acción
+3. **Calma.** Fondos claros, formas redondeadas y sin neones. Sin flashes, sin cuentas
+   atrás y sin bucles de presión. El juego se puede dejar en cualquier momento.
+4. **Controles completos.** Teclado además de puntero. Espacio o flechas para la acción
    principal; `P` y `Esc` ya pausan.
-4. **60 fps.** Evita `shadowBlur` masivo, gradientes por partícula y arrays sin límite.
-   El motor limita el DPR a 2.
-5. **Legibilidad.** Texto de canvas con las fuentes del sistema compartido o `FONT_MONO`.
-6. **Reduced motion.** Menos partículas, sin shake y sin animaciones agresivas.
-7. **Sin dependencias externas.** Nada de CDNs, imágenes remotas ni fuentes de terceros.
+5. **Bienestar.** Nada de monedas, rachas, recompensas diarias, rankings ni notificaciones.
+   El copy no debe culpar por parar.
+6. **Movimiento contenido.** Partículas limitadas, shake máximo de 5 px y respeto a
+   `prefers-reduced-motion`.
+7. **Legibilidad.** Usa tinta de bosque sobre papel y comprueba el contraste.
+8. **Rendimiento.** 60 fps: evita `shadowBlur` masivo, gradientes por partícula y arrays
+   sin límite. El motor limita el DPR a 2.
+9. **Sin dependencias externas.** Nada de CDNs, imágenes remotas ni fuentes de terceros.
 
 ## 4. Lógica testeable
 

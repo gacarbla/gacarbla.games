@@ -60,10 +60,12 @@ overflow, errores de consola y flujos de juego.
 
 - Sin anuncios, cookies, analítica ni peticiones a terceros.
 - Sin registro ni cuentas. El progreso vive en `localStorage`.
+- Sin rachas, monedas, recompensas diarias, notificaciones ni comparaciones sociales.
+- Copy tranquilo: nada de «no pierdas», «no puedes dejarlo» ni urgencia artificial.
 - Todo juego debe funcionar con teclado y con toque.
-- Respetar `prefers-reduced-motion`.
-- Un mismo lenguaje visual: usa los tokens y el motor compartido.
-- Nada de contenido de terceros ni clones de franquicias.
+- Respetar `prefers-reduced-motion` y los límites de movimiento de `docs/DESIGN.md`.
+- Un mismo lenguaje visual: usa los tokens, la paleta cálida y el motor compartido.
+- Nada de contenido de terceros, clones de franquicias ni estética de casino.
 
 ## Código
 

@@ -29,6 +29,11 @@ En el proveedor del dominio (`gacarbla.es`, actualmente Cloudflare) hay que crea
 El proxy de Cloudflare debe estar desactivado para este registro: GitHub Pages
 necesita resolver el CNAME directamente para emitir el certificado TLS.
 
+Si el registro se deja con proxy (nube naranja), Cloudflare termina el TLS y el sitio
+funciona, pero GitHub no emite su propio certificado y el flujo estándar de Pages queda
+incompleto. Para una configuración limpia, usa **DNS only** y activa «Enforce HTTPS» en
+GitHub cuando el certificado esté listo.
+
 Comprobación:
 
 ```bash

@@ -46,7 +46,7 @@ const meta = {
     'Describe el juego en una o dos frases. Qué haces, por qué engancha y qué lo hace distinto.',
   category: 'accion',
   tags: ['Un botón', 'Reflejos'],
-  accent: '#c8ff4d',
+  accent: '#8fb397',
   cover: 'grid',
   controls: 'Espacio, clic o toque para jugar. P o Esc para pausar.',
   goal: 'Explica el objetivo en una frase clara y concreta.',
@@ -138,7 +138,7 @@ class ${pascalCase(slug)} extends BaseGame {
         slideTo: 760,
       });
     } else {
-      this.audio.tone(160, 0.08, { type: 'sawtooth', gain: 0.04 });
+      this.audio.tone(160, 0.08, { type: 'triangle', gain: 0.03 });
     }
   }
 
@@ -151,7 +151,7 @@ class ${pascalCase(slug)} extends BaseGame {
       view.height / 2,
       Math.max(view.width, view.height) * 0.7,
     );
-    background.addColorStop(0, '#0b1110');
+    background.addColorStop(0, '#eef4e9');
     background.addColorStop(1, PALETTE.bg);
     context.fillStyle = background;
     context.fillRect(0, 0, view.width, view.height);
@@ -167,7 +167,7 @@ class ${pascalCase(slug)} extends BaseGame {
     context.beginPath();
     context.arc(x, y, radius * 1.7 * pulse, 0, TAU);
     context.stroke();
-    context.fillStyle = this.hitFlash > 0.1 ? PALETTE.lime : PALETTE.ink;
+    context.fillStyle = this.hitFlash > 0.1 ? PALETTE.apricot : PALETTE.forest;
     context.beginPath();
     context.arc(x, y, radius * 0.72 * pulse, 0, TAU);
     context.fill();
