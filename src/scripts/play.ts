@@ -109,11 +109,7 @@ function init(element: HTMLElement): void {
       const isRecord = saveBest(slug, result.score);
       refreshBest();
 
-      finishEyebrow.textContent = isRecord
-        ? 'Nuevo récord'
-        : result.tone === 'win'
-          ? 'Completado'
-          : 'Fin de la partida';
+      finishEyebrow.textContent = result.tone === 'win' ? 'Completado' : 'Fin de la partida';
       finishTitle.textContent = result.title;
       finishMessage.textContent = result.message ?? '';
       finishDetail.textContent = result.detail ?? '';

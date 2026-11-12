@@ -186,8 +186,8 @@ class Pulso extends BaseGame {
   private finishGame(): void {
     this.finish({
       title: 'Fin de la ronda',
-      message: 'El pulso se rompió. La próxima ronda, un paso más lejos.',
-      detail: `${this.completed} ronda${this.completed === 1 ? '' : 's'} completada${this.completed === 1 ? '' : 's'} · fallo en la ronda ${this.round}`,
+      message: 'La secuencia ha terminado. Puedes volver a intentarlo o dejarlo aquí.',
+      detail: `${this.completed} ronda${this.completed === 1 ? '' : 's'} completada${this.completed === 1 ? '' : 's'} · ronda ${this.round}`,
       score: this.completed,
       scoreLabel: 'RONDAS',
       ctaLabel: 'Otra ronda',
