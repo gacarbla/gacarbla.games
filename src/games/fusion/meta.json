@@ -2,18 +2,18 @@
   "slug": "fusion",
   "title": "Fusión",
   "tagline": "Tres iguales. Una reacción en cadena.",
-  "description": "Suelta orbes, conecta tres del mismo valor y provoca fusiones en cadena. Un puzzle de caída con física sencilla, combos y un tablero que no perdona.",
+  "description": "Suelta orbes, conecta tres del mismo valor y disfruta de las fusiones en cadena. Un puzzle de caída con física sencilla y partidas sin reloj.",
   "category": "puzzle",
-  "tags": ["Combos", "Física", "Endless"],
-  "accent": "#ff6b57",
+  "tags": ["Cadenas", "Física", "Sin fin"],
+  "accent": "#df8b6c",
   "cover": "fusion",
   "controls": "Mueve el ratón o las flechas para elegir columna. Clic, toque o Espacio para soltar.",
-  "goal": "Conecta tres orbes del mismo valor para fusionarlos. Evita que el tablero se llene.",
+  "goal": "Conecta tres orbes del mismo valor para fusionarlos. El tablero se llena poco a poco.",
   "duration": "3–8 min",
   "scoreLabel": "PUNTOS",
   "bestSuffix": "pts",
   "order": 3,
   "featured": false,
   "released": "2026-11-11",
-  "version": "1.0.0"
+  "version": "2.0.0"
 }

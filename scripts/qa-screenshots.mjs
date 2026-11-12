@@ -266,7 +266,7 @@ if (!canvasBox) {
     const failVisible = await pulsoPage.locator('[data-overlay="finish"]').isVisible();
     const failTitle = await pulsoPage.locator('[data-finish-title]').textContent();
     if (!failVisible) problems.push('pulso desktop: no muestra el overlay tras fallar');
-    if (!failTitle?.includes('Secuencia rota')) {
+    if (!failTitle?.includes('Fin de la ronda')) {
       problems.push(`pulso desktop: título inesperado "${failTitle}"`);
     }
     if (errors.length) problems.push(`pulso desktop: ${errors.join(' | ')}`);

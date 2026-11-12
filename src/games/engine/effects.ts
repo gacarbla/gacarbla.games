@@ -94,7 +94,7 @@ export class Particles {
   draw(context: CanvasRenderingContext2D): void {
     if (this.items.length === 0) return;
     context.save();
-    context.globalCompositeOperation = 'lighter';
+    context.globalCompositeOperation = 'source-over';
     for (const particle of this.items) {
       const progress = clamp(particle.life / particle.maxLife, 0, 1);
       context.fillStyle = alpha(particle.color, progress);

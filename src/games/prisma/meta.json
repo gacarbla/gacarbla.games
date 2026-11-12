@@ -1,11 +1,11 @@
 {
   "slug": "prisma",
   "title": "Prisma",
-  "tagline": "Rota los espejos. Enciende la constelación.",
-  "description": "Un puzzle de luz en el que cada espejo importa. Gira las piezas, combina los haces y enciende todos los cristales antes de dar con la combinación perfecta.",
+  "tagline": "Enciende la constelación, pieza a pieza.",
+  "description": "Un puzzle de luz pausado en el que cada espejo importa. Gira las piezas, combina los haces y enciende todos los cristales a tu ritmo.",
   "category": "puzzle",
-  "tags": ["Lógica", "Espejos", "8 niveles"],
-  "accent": "#5ce1e6",
+  "tags": ["Lógica", "Luz", "8 niveles"],
+  "accent": "#7fa9c2",
   "cover": "prism",
   "controls": "Clic o toque para rotar un espejo. Flechas para mover el foco y Espacio para girar. R reinicia el nivel.",
   "goal": "Orienta los espejos para que todos los cristales reciban luz a la vez.",
@@ -15,5 +15,5 @@
   "order": 2,
   "featured": false,
   "released": "2026-11-11",
-  "version": "1.0.0"
+  "version": "2.0.0"
 }

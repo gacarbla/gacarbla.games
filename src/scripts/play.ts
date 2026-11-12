@@ -113,7 +113,7 @@ function init(element: HTMLElement): void {
         ? 'Nuevo récord'
         : result.tone === 'win'
           ? 'Completado'
-          : 'Partida terminada';
+          : 'Fin de la partida';
       finishTitle.textContent = result.title;
       finishMessage.textContent = result.message ?? '';
       finishDetail.textContent = result.detail ?? '';
