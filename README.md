@@ -1,24 +1,35 @@
 # gacarbla juegos
 
-Un portal tranquilo de juegos originales. Cuatro juegos para un rato, sin anuncios, sin
+Un portal tranquilo de juegos originales. Quince juegos para un rato, sin anuncios, sin
 cuentas y sin notificaciones. El progreso se queda en tu navegador.
 
 **Producción:** [games.gacarbla.es](https://games.gacarbla.es)
 
 ## Los juegos
 
-| Juego      | Categoría | Mecánica                                                   |
-| ---------- | --------- | ---------------------------------------------------------- |
-| **Órbita** | Acción    | Un paseo entre órbitas: cambia de carril y recoge núcleos. |
-| **Prisma** | Puzzle    | Rota espejos y enciende la constelación pieza a pieza.     |
-| **Fusión** | Puzzle    | Conecta tres orbes iguales y provoca cadenas de fusiones.  |
-| **Pulso**  | Reflejos  | Repite secuencias y encuentra tu ritmo, sin prisa.         |
+| Juego               | Categoría  | Mecánica                                                        |
+| ------------------- | ---------- | --------------------------------------------------------------- |
+| **Buscaminas**      | Lógica     | Deduce minas, marca y descubre todas las casillas seguras.      |
+| **Nonograma**       | Lógica     | Cruza pistas de filas y columnas para revelar el dibujo.        |
+| **Sudoku**          | Lógica     | Completa un 6×6 sin repetir números en filas, columnas o cajas. |
+| **Mastermind**      | Lógica     | Descifra un código de cuatro colores en seis intentos.          |
+| **Nim**             | Lógica     | Retira objetos y obliga a la máquina a coger el último.         |
+| **Veinticuatro**    | Lógica     | Combina cuatro números y operaciones para llegar a 24.          |
+| **Torres de Hanoi** | Lógica     | Mueve cinco discos con un mínimo de 31 movimientos.             |
+| **Luces**           | Visual     | Apaga un tablero 5×5 donde cada pulsación cambia varias luces.  |
+| **Tuberías**        | Visual     | Rota conexiones para llevar la fuente hasta la salida.          |
+| **Deslizante**      | Visual     | Ordena el 15-puzzle deslizando las piezas hacia el hueco.       |
+| **Memoria**         | Visual     | Memoriza 30 cartas y encuentra las 15 parejas.                  |
+| **Laberinto**       | Visual     | Explora con niebla, recoge tres llaves y encuentra la salida.   |
+| **Sopa de letras**  | Palabras   | Encuentra seis palabras en 12×12 en cualquier dirección.        |
+| **Sokoban**         | Estrategia | Empuja cada caja a su destino en cinco niveles.                 |
+| **Conecta cuatro**  | Estrategia | Gana a una IA con minimax y poda alfa-beta.                     |
 
 Comparten motor, lenguaje visual, HUD, sonido sintetizado y controles de teclado y toque.
 
 ## Diseño y bienestar
 
-La v2 es una revisión completa de identidad y experiencia:
+La v2.1 combina el rediseño de identidad de la v2 con quince juegos nuevos:
 
 - Paleta cálida de papel, bosque, salvia, albaricoque, cielo y lavanda.
 - Nuevo logotipo de flor y tipografía editorial: **Fraunces** + **Nunito Sans** + **DM Mono**.
