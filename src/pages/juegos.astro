@@ -33,24 +33,24 @@ const jsonLd = [
 
 <BaseLayout
   title="Juegos"
-  description="Todos los juegos de gacarbla games: arcades originales, puzzles y reflejos. Gratis, sin anuncios y sin registro."
+  description="Todos los juegos de gacarbla juegos: cuatro originales para jugar un rato sin prisa. Sin anuncios, sin cuentas y sin notificaciones."
   jsonLd={jsonLd}
 >
   <section class="page-hero">
     <div class="container page-hero__grid">
       <div>
         <p class="eyebrow eyebrow--lime">Catálogo completo</p>
-        <h1>Todo lo que puedes jugar.<br /><span class="accent">Nada más.</span></h1>
+        <h1>Todo lo que hay.<br /><span class="accent">Nada más.</span></h1>
         <p class="lede">
-          Una colección pequeña y cuidada. Cada juego está hecho para caber en una pausa y dejar
-          ganas de otra partida.
+          Una colección pequeña y cuidada. Cada juego está hecho para una pausa corta, sin pedirte
+          que te quedes más tiempo del que quieras.
         </p>
       </div>
       <div class="page-hero__aside" aria-label="Resumen del catálogo">
-        <span class="chip">{games.length} juego{games.length === 1 ? '' : 's'}</span>
+        <span class="chip">{games.length} juegos</span>
         <span class="chip">0 anuncios</span>
-        <span class="chip">0 registros</span>
-        <span class="chip">100 % gratis</span>
+        <span class="chip">0 cuentas</span>
+        <span class="chip">Sin prisa</span>
       </div>
     </div>
   </section>
@@ -113,7 +113,7 @@ const jsonLd = [
           secciones escondidas ni sorpresas.
         </p>
         <a class="link-arrow" href="/sobre/">
-          Cómo se hacen
+          Cómo cuidamos la experiencia
           <Icon name="arrow-right" size={15} />
         </a>
       </div>

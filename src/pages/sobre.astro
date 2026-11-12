@@ -6,27 +6,27 @@ import { SITE } from '../data/site';
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
-  name: 'Sobre gacarbla games',
+  name: 'Sobre gacarbla juegos',
   url: new URL('/sobre/', SITE.url).href,
   inLanguage: 'es',
   description:
-    'El proyecto, los principios y la tecnología detrás de gacarbla games, un arcade independiente de juegos originales.',
+    'El proyecto, los principios y la tecnología detrás de gacarbla juegos, un portal tranquilo de juegos originales.',
 };
 ---
 
 <BaseLayout
   title="Sobre el proyecto"
-  description="Un arcade independiente hecho en España: juegos originales, un mismo lenguaje visual y cero anuncios. Así se hace gacarbla games."
+  description="Un portal independiente de juegos originales para jugar sin prisa. Sin anuncios, sin cuentas, sin notificaciones y con el progreso en tu navegador."
   jsonLd={jsonLd}
 >
   <section class="page-hero">
     <div class="container page-hero__grid">
       <div>
         <p class="eyebrow eyebrow--lime">Sobre el proyecto</p>
-        <h1>Un arcade.<br /><span class="accent">Sin ruido.</span></h1>
+        <h1>Un lugar tranquilo<br /><span class="accent">para jugar.</span></h1>
         <p class="lede">
-          gacarbla games nace de una idea sencilla: jugar un rato debería ser fácil, bonito y no
-          costarte nada más que el rato.
+          gacarbla juegos es un pequeño portal independiente con cuatro juegos originales. Ni
+          anuncios, ni cuentas, ni mecánicas que te retengan más de lo que quieras.
         </p>
       </div>
       <div class="page-hero__aside" aria-label="Datos del proyecto">
@@ -42,48 +42,59 @@ const jsonLd = {
     <div class="prose">
       <h2 id="por-que">Por qué existe</h2>
       <p>
-        La mayoría de portales de minijuegos funcionan con la lógica contraria: cuanta más atención
-        roben, mejor. Anuncios que tapan el juego, ventanas que se multiplican, registros
-        innecesarios y un catálogo enorme donde cuesta encontrar algo que merezca la pena.
+        La mayoría de portales de juegos funcionan con la lógica contraria: cuanta más atención
+        roben, mejor. Anuncios que tapan el juego, cuentas innecesarias y mecánicas que te piden
+        volver cada día. Aquí queríamos probar otra cosa.
       </p>
       <p>
-        Este proyecto va en la dirección opuesta. Un catálogo pequeño, juegos originales y una
-        experiencia que se siente como una sola cosa. Se entra, se juega y se sale. Si vuelves, tu
-        marca y tu progreso te esperan en el navegador.
+        Un catálogo pequeño, juegos originales y una experiencia que se sienta como una sola cosa.
+        Se entra, se juega un rato y se sale. Si vuelves, tu mejor marca te espera en el navegador.
+        Si no vuelves, también está bien.
       </p>
 
-      <h2 id="principios">Tres principios</h2>
+      <h2 id="sin-prisa">Jugar sin prisa</h2>
       <p>
-        <strong>Juegos, no relleno.</strong> Cada juego se diseña con una mecánica clara, una curva corta
-        y una razón para volver. No hay clones ni catálogos inflados.
+        Los juegos están pensados para pausas cortas. No hay relojes que metan presión, misiones
+        diarias, monedas ni recompensas que te llamen a seguir. Tampoco hay comparaciones con otras
+        personas: cada partida es tuya.
       </p>
       <p>
-        <strong>Un mismo idioma visual.</strong> Comparten paleta, tipografía, HUD, sonido sintetizado
-        y reglas de interacción. Un juego nuevo se siente parte de la colección, no un injerto.
+        No es una terapia ni prometemos nada parecido. Es una forma más amable de pasar el rato:
+        <strong>partidas cortas, sin presión y con la opción de dejarlo cuando quieras</strong>.
       </p>
-      <p>
-        <strong>Respeto por defecto.</strong> Sin anuncios, sin cuentas, sin cookies y sin analítica.
-        Las puntuaciones viven en tu navegador y no se envían a ninguna parte.
-      </p>
+
+      <h3>Lo que sí vas a encontrar</h3>
+      <ul>
+        <li>Cuatro juegos originales y cuidados, con controles de teclado y de toque.</li>
+        <li>Récords y progreso guardados solo en tu navegador.</li>
+        <li>Una pausa real: puedes parar, salir y volver sin perder nada.</li>
+      </ul>
+
+      <h3>Lo que no vas a encontrar</h3>
+      <ul>
+        <li>Anuncios, ventanas emergentes ni compras dentro de los juegos.</li>
+        <li>Cuentas, registros ni notificaciones.</li>
+        <li>Rachas, recompensas diarias ni mensajes que te reclamen.</li>
+        <li>Cookies de analítica, píxeles de seguimiento ni peticiones a terceros.</li>
+      </ul>
 
       <h2 id="como-se-hace">Cómo está hecho</h2>
       <p>
         El portal es un sitio estático generado con <strong>Astro</strong> y TypeScript. Los juegos usan
-        <strong>Canvas 2D</strong> y <strong>Web Audio</strong>: nada de motores pesados ni assets
-        de varios megas. Las portadas son SVG generados, y las fuentes se autoalojan para que la
-        página no hable con terceros.
+        <strong>Canvas 2D</strong> y <strong>Web Audio</strong>: sin motores pesados ni archivos de
+        sonido externos. Las portadas son SVG y las ilustraciones se dibujan con código, así que
+        todo pesa poco y se puede cargar sin esperas.
       </p>
       <p>
-        Cada juego declara su metadata y su módulo. El catálogo los descubre en build y genera su
-        ficha automáticamente. Añadir uno nuevo no requiere tocar rutas ni menús: la infraestructura
-        está pensada para crecer sin rehacerse.
+        Cada juego declara su metadata y su módulo. El catálogo los descubre al construir el sitio y
+        genera su ficha automáticamente. Añadir uno nuevo no requiere tocar rutas ni menús.
       </p>
 
       <h2 id="privacidad">Privacidad</h2>
       <p>
-        No hay cookies, ni píxeles de seguimiento, ni herramientas de analítica. Solo se guardan dos
-        cosas en <code>localStorage</code>: si tienes el sonido silenciado y tus récords o progreso.
-        Puedes borrarlas desde el historial de tu navegador o con el botón «Limpiar historial» de la
+        No hay cookies, ni analítica, ni píxeles de seguimiento. Solo se guardan dos cosas en
+        <code>localStorage</code>: si tienes el sonido silenciado y tus récords o progreso. Puedes
+        borrarlas desde el historial de tu navegador o con el botón «Limpiar historial» de la
         portada.
       </p>
 
@@ -97,7 +108,22 @@ const jsonLd = {
           <summary>¿Necesito crear una cuenta?</summary>
           <p>
             No. El progreso se guarda de forma local en tu navegador. Si cambias de dispositivo
-            empiezas de cero, con la parte buena de empezar de cero.
+            empiezas de cero, sin perder nada importante.
+          </p>
+        </details>
+        <details>
+          <summary>¿Está pensado para jugar con niños?</summary>
+          <p>
+            Es un portal familiar: sin anuncios, sin chat, sin compras y sin contenido violento. Aun
+            así, cada familia decide cuánto tiempo de pantalla quiere; el portal no intenta
+            alargarlo.
+          </p>
+        </details>
+        <details>
+          <summary>¿Es adictivo?</summary>
+          <p>
+            Está diseñado para no serlo: partidas cortas, sin rachas, sin notificaciones, sin
+            recompensas diarias y sin comparaciones. Puedes pausar y salir en cualquier momento.
           </p>
         </details>
         <details>
@@ -129,10 +155,10 @@ const jsonLd = {
       <div class="info-card">
         <h3>Ficha rápida</h3>
         <ul>
-          <li><Icon name="code" size={14} /> Astro 7 + TypeScript</li>
-          <li><Icon name="gamepad" size={14} /> Canvas 2D + Web Audio</li>
-          <li><Icon name="zap" size={14} /> Sitio estático en GitHub Pages</li>
-          <li><Icon name="shield" size={14} /> Sin cookies ni analítica</li>
+          <li><Icon name="gamepad" size={14} /> 4 juegos originales</li>
+          <li><Icon name="clock" size={14} /> Partidas de 2 a 10 minutos</li>
+          <li><Icon name="shield" size={14} /> Sin anuncios ni cuentas</li>
+          <li><Icon name="lock" size={14} /> Progreso solo en tu navegador</li>
         </ul>
       </div>
 
@@ -151,7 +177,7 @@ const jsonLd = {
       <div class="info-card">
         <h3>Contacto</h3>
         <p>
-          Para cualquier cosa relacionada con el portal:
+          Para cualquier cosa relacionada con el portal:{' '}
           <a class="accent" href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </p>
       </div>
