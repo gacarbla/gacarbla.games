@@ -14,7 +14,7 @@ npm test
 npm run build
 ```
 
-Cubre formato, tipos de Astro/TypeScript, 46 tests de lógica y el build estático de
+Cubre formato, tipos de Astro/TypeScript, **48 tests** de lógica y el build estático de
 producción. El despliegue de `main` repite las mismas comprobaciones antes de publicar.
 
 ## Navegador (`npm run qa`)
@@ -29,21 +29,23 @@ Requiere Chrome o Edge instalado (o `CHROME_PATH`). Las capturas y artefactos va
 
 El script comprueba:
 
-| Flujo     | Comprobación                                                          |
-| --------- | --------------------------------------------------------------------- |
-| Portada   | Sin overflow, sin imágenes rotas, sin errores de consola.             |
-| Catálogo  | Filtro por categoría, búsqueda sin resultados, reset y contador.      |
-| Órbita    | Inicio, canvas no vacío, cambio de carril, pausa.                     |
-| Prisma    | Resolver nivel 1 con un clic, overlay de victoria, avance al nivel 2. |
-| Fusión    | Forzar tres orbes iguales, verificar fusión y puntuación.             |
-| Pulso     | Completar la ronda 1, avanzar de ronda, forzar fallo y overlay final. |
-| Historial | La portada muestra las partidas recientes.                            |
-| Móvil     | 390 × 844 en las cuatro fichas y la portada.                          |
+| Flujo         | Comprobación                                                 |
+| ------------- | ------------------------------------------------------------ |
+| Portada       | Sin overflow, sin imágenes rotas, sin errores de consola.    |
+| Catálogo      | 15 tarjetas, filtros por categoría, búsqueda y reset.        |
+| Los 15 juegos | Carga, inicio, canvas dibujado, pausa y ausencia de errores. |
+| Historial     | La portada muestra las partidas recientes.                   |
+| Móvil         | 390 × 844 en la portada, el catálogo y cada ficha.           |
+
+Cada juego tiene además tests de su lógica pura: minas, pistas, sudoku, feedback de
+código, Nim, solver de 24, luces, tuberías, deslizante, memoria, laberinto, sopa,
+sokoban y conecta cuatro.
 
 ## Checklist manual antes de publicar
 
 - [ ] Home y catálogo en 1440, 1024, 768 y 390 px.
-- [ ] Un juego completo con clic y otro completo con teclado.
+- [ ] Recorrer los 15 juegos, con ratón y con teclado.
+- [ ] Verificar que cada puzzle se puede completar y que no se resuelve por accidente.
 - [ ] Pausa, reanudar, reiniciar, mute y pantalla completa.
 - [ ] El récord persiste al recargar.
 - [ ] El historial se guarda y se puede limpiar.
@@ -53,14 +55,14 @@ El script comprueba:
 - [ ] Sin peticiones a dominios de terceros en la pestaña Network.
 - [ ] Lighthouse ≥ 95 en Accesibilidad, Buenas prácticas y SEO.
 
-## Resultados de la v2.0.0
+## Resultados de la v2.1.0
 
-- Lighthouse: **100 / 100 / 100** en portada, catálogo, las cuatro fichas, sobre y 404.
-- Contraste AA verificado en toda la interfaz clara.
-- 46 tests de lógica en verde.
-- QA completo en 1440 × 960 y 390 × 844 sin overflow horizontal.
-- Flujos verificados: victoria de Prisma, fusión de Fusión, ronda y fin de Pulso.
-- Rediseño validado en escritorio y móvil: nueva paleta, logo, tipografía y portadas.
+- **15 juegos nuevos**, 7 de lógica, 5 visuales, 1 de palabras y 2 de estrategia.
+- **48 tests** de lógica en verde.
+- QA en navegador: los 15 juegos inician, dibujan canvas, pausan y no lanzan errores.
+- Catálogo de 15 tarjetas con filtros (Lógica 7, Visual 5, Palabras 1, Estrategia 2).
+- 1440 × 960 y 390 × 844 sin overflow horizontal.
+- Revisión de los cuatro juegos anteriores: eliminados por completo, sin referencias.
 
 ## Limitaciones conocidas
 
@@ -69,17 +71,17 @@ El script comprueba:
   documentado en [DEPLOYMENT.md](DEPLOYMENT.md).
 - `npm run qa` no se ejecuta en CI porque necesita un navegador instalado; es una
   comprobación local de release.
+- La IA de Conecta cuatro usa profundidad 4; es un rival real, no invencible.
+- Sokoban y Nonograma tienen niveles finitos; se pueden repetir desde el inicio.
 
 ## Artefactos
 
 Las capturas se generan en `.qa/`:
 
 ```
-home-desktop.png       home-mobile.png
-catalog-desktop.png    catalog-mobile.png
-game-start-*.png       game-playing-*.png
-prisma-win-desktop.png fusion-playing-desktop.png
-pulso-playing-desktop.png pulso-fail-desktop.png
+home-desktop.png          home-mobile.png
+catalog-desktop.png       catalog-mobile.png
+<slug>-start.png          <slug>-playing.png
 ```
 
 No se versionan: son evidencia de la última pasada, no parte del producto.

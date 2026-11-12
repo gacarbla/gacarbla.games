@@ -4,6 +4,32 @@ Todas las versiones relevantes del portal. El formato sigue
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa
 versionado semántico.
 
+## [2.1.0] — 2026-11-12
+
+Sustitución completa del catálogo por 15 juegos nuevos, más profundos y desafiantes.
+
+### Añadido
+
+- **15 juegos**: Buscaminas, Nonograma, Sudoku, Mastermind, Nim, Veinticuatro, Torres de
+  Hanoi, Luces, Tuberías, Deslizante, Memoria, Laberinto, Sopa de letras, Sokoban y
+  Conecta cuatro.
+- Kit compartido de puzzles en canvas (`puzzle.ts`): tablero, celdas, botones, pies y
+  fondos consistentes.
+- Generadores y solvers: sudoku con backtracking, tuberías con DFS, 15-puzzle soluble,
+  laberinto perfecto, luces reversible, Nonograma con patrones, 24 con fracciones.
+- IA de Conecta cuatro con minimax y poda alfa-beta; Nim con minimax misère.
+- 48 tests de lógica y QA genérico de los 15 juegos.
+
+### Eliminado
+
+- Órbita, Prisma, Fusión y Pulso, junto con sus tests y referencias. No se reutilizan sus
+  mecánicas.
+
+### Cambiado
+
+- Categorías: Lógica, Visual, Palabras y Estrategia.
+- Portada, catálogo, copys y documentación adaptados a un catálogo de 15 juegos.
+
 ## [2.0.1] — 2026-11-12
 
 ### Corregido

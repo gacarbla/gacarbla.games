@@ -26,7 +26,7 @@ encajaba con un público familiar que quiere pasar un rato, no competir contra e
 
 Trabajamos el rediseño desde seis lentes complementarias:
 
-1. **Producto.** Un catálogo pequeño, claro y honesto. Cuatro juegos, sin secciones
+1. **Producto.** Un catálogo pequeño, claro y honesto. Quince juegos, sin secciones
    escondidas ni promesas de retención.
 2. **UI.** Una identidad cálida y reconocible: flor, papel, tipografía editorial y
    portadas ilustradas.
@@ -71,7 +71,7 @@ mantener contraste y jerarquía.
 
 ### Logo
 
-Una flor de cuatro pétalos de colores sobre papel. Cuatro juegos, cuatro pétalos, un mismo
+Una flor de cuatro pétalos de colores sobre papel. Cuatro pétalos, un mismo
 centro. Funciona a 16 px como favicon y admite animación mínima al pasar el ratón. Huye del
 símbolo orbital tecnológico y del rayo de «arcade».
 
@@ -112,7 +112,7 @@ contra la voluntad del jugador.
 
 - Contraste mínimo AA en texto y controles.
 - Foco visible en todos los elementos interactivos.
-- Teclado completo en los cuatro juegos: flechas, espacio, números y `Esc`/`P`.
+- Teclado completo en todos los juegos: flechas, espacio, números y `Esc`/`P`.
 - Texto alternativo y `aria-label` en iconos y portadas.
 - `aria-live` para cambios de estado relevantes.
 - Objetivos táctiles de al menos 44 px.
@@ -121,13 +121,16 @@ contra la voluntad del jugador.
 
 ## Los juegos, en el nuevo lenguaje
 
-- **Órbita:** papel salvia, sol de mantequilla, escombros de albaricoque y nave de bosque.
-  Tres intentos, sin cuenta atrás.
-- **Prisma:** tablero de crema, haces de cielo, espejos de bosque, emisores de albaricoque y
-  cristales de mantequilla.
-- **Fusión:** orbes de salvia, cielo, lavanda, albaricoque y mantequilla con números crema.
-- **Pulso:** cuatro pads pastel, centro de papel y audio suave. «Fin de la ronda», no
-  «fallo».
+- **Lógica:** Buscaminas, Nonograma, Sudoku, Mastermind, Nim, Veinticuatro y Torres de
+  Hanoi. Deducción, números y planificación; cada partida pide pensar antes de tocar.
+- **Visual:** Luces, Tuberías, Deslizante, Memoria y Laberinto. Formas, conexiones,
+  orientación y memoria espacial.
+- **Palabras:** Sopa de letras. Seis palabras en ocho direcciones.
+- **Estrategia:** Sokoban y Conecta cuatro. Empuje de cajas y una IA con minimax.
+
+Todos comparten el mismo kit visual, los colores de la paleta, el HUD y los sonidos
+sintetizados. Los acentos cambian por juego, pero la experiencia se siente como una
+colección.
 
 ## Lo que evitamos a partir de ahora
 

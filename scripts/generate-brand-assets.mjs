@@ -72,7 +72,7 @@ const og = `
   <!-- Titular -->
   <text x="72" y="268" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="500" fill="#24332d" letter-spacing="-2.4">Juegos para</text>
   <text x="72" y="360" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-style="italic" font-weight="500" fill="#2f5d50" letter-spacing="-2.4">jugar sin prisa.</text>
-  <text x="76" y="420" font-family="Verdana, Arial, sans-serif" font-size="21" fill="#5d6c63">Cuatro juegos originales. Sin anuncios, sin cuentas y sin prisa.</text>
+  <text x="76" y="420" font-family="Verdana, Arial, sans-serif" font-size="21" fill="#5d6c63">Quince juegos originales. Sin anuncios, sin cuentas y sin prisa.</text>
 
   <!-- Línea inferior -->
   <line x1="72" y1="518" x2="1128" y2="518" stroke="#24332d" stroke-opacity=".14"/>
@@ -84,43 +84,51 @@ const og = `
     764,
     134,
     '#dce9d8',
-    'Órbita',
-    `<circle cx="864" cy="196" r="44" fill="none" stroke="#24332d" stroke-opacity=".25" stroke-width="2"/>
-     <circle cx="864" cy="196" r="28" fill="#fffaf0" stroke="#24332d" stroke-width="2.5"/>
-     <circle cx="864" cy="196" r="7" fill="#df8b6c"/>
-     <circle cx="900" cy="196" r="6" fill="#2f5d50"/>
-     <path d="M820 196a44 44 0 0 0 88 0" fill="none" stroke="#2f5d50" stroke-width="2.5" stroke-linecap="round"/>`,
+    'Buscaminas',
+    `<g fill="#24332d" fill-opacity=".28">
+       ${[0, 1, 2, 3].map((row) => [0, 1, 2, 3].map((col) => `<circle cx="${834 + col * 24}" cy="${166 + row * 24}" r="4"/>`).join('')).join('')}
+     </g>
+     <circle cx="858" cy="190" r="6" fill="#df8b6c"/>
+     <circle cx="882" cy="214" r="6" fill="#df8b6c"/>
+     <circle cx="906" cy="166" r="7" fill="#2f5d50"/>`,
   )}
   ${card(
     988,
     134,
     '#dfedf2',
-    'Prisma',
-    `<path d="M1088 154 1122 220h-68l34-66Z" fill="#fffaf0" stroke="#24332d" stroke-width="2.5" stroke-linejoin="round"/>
-     <path d="M1038 196h34l18-30 16 30h26" fill="none" stroke="#5f93b0" stroke-width="2.5" stroke-linecap="round"/>
-     <rect x="1078" y="178" width="12" height="12" rx="3" fill="#df8b6c" stroke="#24332d" stroke-width="1.5" transform="rotate(45 1084 184)"/>`,
+    'Sudoku',
+    `<rect x="1032" y="150" width="96" height="96" rx="10" fill="#fffaf0" stroke="#24332d" stroke-width="2"/>
+     <g stroke="#24332d" stroke-opacity=".2"><path d="M1064 150v96M1096 150v96M1032 182h96M1032 214h96"/></g>
+     <g font-family="DM Mono, monospace" font-size="16" font-weight="600" fill="#24332d" text-anchor="middle">
+       <text x="1048" y="172">5</text><text x="1080" y="172">3</text><text x="1112" y="204">6</text>
+       <text x="1048" y="236">2</text><text x="1112" y="236">1</text>
+     </g>`,
   )}
   ${card(
     764,
     308,
     '#fbe3d5',
-    'Fusión',
-    `<rect x="820" y="358" width="36" height="36" rx="10" fill="#8fb397" stroke="#24332d" stroke-width="2"/>
-     <rect x="862" y="358" width="36" height="36" rx="10" fill="#7fa9c2" stroke="#24332d" stroke-width="2"/>
-     <rect x="904" y="358" width="36" height="36" rx="10" fill="#a78fbf" stroke="#24332d" stroke-width="2"/>
-     <rect x="841" y="320" width="36" height="36" rx="10" fill="#df8b6c" stroke="#24332d" stroke-width="2"/>
-     <rect x="883" y="320" width="36" height="36" rx="10" fill="#d9b95f" stroke="#24332d" stroke-width="2"/>`,
+    'Sokoban',
+    `<rect x="824" y="344" width="36" height="36" rx="8" fill="#c8684a" stroke="#24332d" stroke-width="2"/>
+     <rect x="872" y="344" width="36" height="36" rx="8" fill="#c8684a" stroke="#24332d" stroke-width="2"/>
+     <circle cx="842" cy="398" r="12" fill="none" stroke="#2f5d50" stroke-width="2.5"/>
+     <circle cx="890" cy="398" r="12" fill="none" stroke="#2f5d50" stroke-width="2.5"/>
+     <circle cx="866" cy="394" r="9" fill="#2f5d50"/>
+     <path d="M826 388h36M874 388h36" stroke="#24332d" stroke-width="1.5" stroke-opacity=".25"/>`,
   )}
   ${card(
     988,
     308,
     '#ede4f2',
-    'Pulso',
-    `<rect x="1032" y="330" width="42" height="42" rx="12" fill="#2f5d50" stroke="#24332d" stroke-width="2"/>
-     <rect x="1082" y="330" width="42" height="42" rx="12" fill="#7fa9c2" stroke="#24332d" stroke-width="2"/>
-     <rect x="1032" y="380" width="42" height="42" rx="12" fill="#a78fbf" stroke="#24332d" stroke-width="2"/>
-     <rect x="1082" y="380" width="42" height="42" rx="12" fill="#df8b6c" stroke="#24332d" stroke-width="2"/>
-     <circle cx="1053" cy="351" r="6" fill="#fffaf0"/>`,
+    'Conecta cuatro',
+    `<g>
+       <circle cx="1040" cy="352" r="15" fill="#c8684a" stroke="#24332d" stroke-width="2"/>
+       <circle cx="1080" cy="352" r="15" fill="#d9b95f" stroke="#24332d" stroke-width="2"/>
+       <circle cx="1120" cy="352" r="15" fill="#c8684a" stroke="#24332d" stroke-width="2"/>
+       <circle cx="1040" cy="390" r="15" fill="#d9b95f" stroke="#24332d" stroke-width="2"/>
+       <circle cx="1080" cy="390" r="15" fill="#c8684a" stroke="#24332d" stroke-width="2"/>
+       <circle cx="1120" cy="390" r="15" fill="#d9b95f" stroke="#24332d" stroke-width="2"/>
+     </g>`,
   )}
 </svg>`;
 

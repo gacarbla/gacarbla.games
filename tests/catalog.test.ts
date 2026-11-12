@@ -24,12 +24,12 @@ describe('catálogo', () => {
     const first = games[0]!;
     expect(getGame(first.slug)?.title).toBe(first.title);
     expect(getGame('no-existe')).toBeUndefined();
-    expect(getRelatedGames(first.slug)).toHaveLength(games.length - 1);
+    expect(getRelatedGames(first.slug, games.length)).toHaveLength(games.length - 1);
   });
 
   it('suma las categorías correctamente', () => {
     const counts = getCategoryCounts();
-    const total = counts.accion + counts.puzzle + counts.reflejos;
+    const total = Object.values(counts).reduce((sum, count) => sum + count, 0);
     expect(total).toBe(games.length);
   });
 });

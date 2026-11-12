@@ -1,0 +1,18 @@
+{
+  "slug": "nonograma",
+  "title": "Nonograma",
+  "tagline": "Cada pista cuenta. Cada cuadrado importa.",
+  "description": "Resuelve un nonograma de 8×8 leyendo las pistas de filas y columnas. Cada cuadrado cuenta y no hay margen para adivinar.",
+  "category": "logica",
+  "tags": ["Deducción", "Pistas", "8×8"],
+  "accent": "#8fb397",
+  "cover": "grid",
+  "controls": "Clic para rellenar, clic derecho o X para marcar vacío. Flechas y Espacio con teclado.",
+  "goal": "Completa el patrón oculto respetando las pistas de cada fila y columna.",
+  "duration": "5–12 min",
+  "scoreLabel": "NIVEL",
+  "bestSuffix": "niveles",
+  "order": 2,
+  "released": "2026-11-12",
+  "version": "2.1.0"
+}

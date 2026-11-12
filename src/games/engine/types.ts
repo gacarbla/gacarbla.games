@@ -1,6 +1,6 @@
 import type { AudioKit } from './audio';
 
-export type GameCategory = 'accion' | 'puzzle' | 'reflejos';
+export type GameCategory = 'logica' | 'visual' | 'palabras' | 'estrategia';
 
 export type GameState = 'idle' | 'running' | 'paused' | 'finished';
 

@@ -1,0 +1,18 @@
+{
+  "slug": "deslizante",
+  "title": "Deslizante",
+  "tagline": "Ordena el caos, una pieza a la vez.",
+  "description": "Ordena los números del 1 al 15 deslizando las piezas hacia el hueco. Un clásico de 4×4 que no se resuelve por casualidad.",
+  "category": "visual",
+  "tags": ["Puzle", "Orden", "4×4"],
+  "accent": "#a78fbf",
+  "cover": "grid",
+  "controls": "Desliza las piezas contiguas al hueco con clic o flechas.",
+  "goal": "Ordena los números del 1 al 15 con el hueco al final.",
+  "duration": "5–15 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 10,
+  "released": "2026-11-12",
+  "version": "2.1.0"
+}

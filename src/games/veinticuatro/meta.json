@@ -1,0 +1,18 @@
+{
+  "slug": "veinticuatro",
+  "title": "Veinticuatro",
+  "tagline": "Cuatro números. Una sola meta.",
+  "description": "Combina cuatro números con sumas, restas, multiplicaciones y divisiones hasta llegar a 24. Cada reto tiene solución.",
+  "category": "logica",
+  "tags": ["Números", "Cálculo", "Ingenio"],
+  "accent": "#cf8a8a",
+  "cover": "wave",
+  "controls": "Selecciona dos números y una operación hasta reducir a uno. R reinicia el reto.",
+  "goal": "Usa los cuatro números exactamente una vez para obtener 24.",
+  "duration": "3–10 min",
+  "scoreLabel": "ACERTIJOS",
+  "bestSuffix": "acertijos",
+  "order": 6,
+  "released": "2026-11-12",
+  "version": "2.1.0"
+}

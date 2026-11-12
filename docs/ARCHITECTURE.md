@@ -2,7 +2,7 @@
 
 ## 1. La idea
 
-Un portal de juegos para una pausa tranquila. Cuatro juegos originales, un mismo lenguaje
+Un portal de juegos para una pausa tranquila. Quince juegos originales, un mismo lenguaje
 visual y ninguna mecánica que intente retenerte más de lo que quieras. Nada de anuncios,
 cuentas, notificaciones ni monedas.
 
@@ -89,14 +89,25 @@ Cada juego implementa `update(dt)` y `draw(ctx)`, y declara su HUD. El shell (As
 encarga de inicio, pausa, fin, audio, pantalla completa, récord y navegación. Así un juego
 nuevo hereda gratis la experiencia completa.
 
-### Los cuatro juegos
+### Los quince juegos
 
-| Juego      | Categoría | Mecánica                                                | Lo que demuestra                                  |
-| ---------- | --------- | ------------------------------------------------------- | ------------------------------------------------- |
-| **Órbita** | Acción    | Cambia de órbita y recoge núcleos esquivando escombros. | Reflejos suaves, dificultad progresiva.           |
-| **Prisma** | Puzzle    | Rota espejos y divisores para encender cristales.       | Niveles, estado persistente, simulación de haces. |
-| **Fusión** | Puzzle    | Conecta tres orbes iguales y provoca cadenas.           | Física simple, cascadas, puntuación.              |
-| **Pulso**  | Reflejos  | Repite secuencias de pads que crecen y aceleran.        | Audio sintetizado, memoria, ritmo.                |
+| Juego               | Categoría  | Mecánica                                  | Lo que demuestra                         |
+| ------------------- | ---------- | ----------------------------------------- | ---------------------------------------- |
+| **Buscaminas**      | Lógica     | Deducción con minas y primer clic seguro. | Flood-fill, banderas, generación segura. |
+| **Nonograma**       | Lógica     | Pistas de fila y columna.                 | Patrones, validación exacta.             |
+| **Sudoku**          | Lógica     | 6×6 generado con solución única.          | Backtracking, conflictos.                |
+| **Mastermind**      | Lógica     | Código de cuatro colores.                 | Feedback exacto/desplazado.              |
+| **Nim**             | Lógica     | Misère contra IA.                         | Minimax, estrategia.                     |
+| **Veinticuatro**    | Lógica     | Cuatro números, una meta.                 | Solver con fracciones.                   |
+| **Torres de Hanoi** | Lógica     | Cinco discos.                             | Planificación, mínimo 31.                |
+| **Luces**           | Visual     | Lights Out 5×5.                           | Generación reversible.                   |
+| **Tuberías**        | Visual     | Conexión de red 7×7.                      | DFS, rotaciones, conectividad.           |
+| **Deslizante**      | Visual     | 15-puzzle.                                | Desorden soluble.                        |
+| **Memoria**         | Visual     | 15 parejas con preview.                   | Memoria, emparejamiento.                 |
+| **Laberinto**       | Visual     | 15×15 con niebla.                         | DFS, exploración.                        |
+| **Sopa de letras**  | Palabras   | 12×12, seis palabras.                     | Colocación en 8 direcciones.             |
+| **Sokoban**         | Estrategia | Cinco niveles de empuje.                  | Planificación, deshacer.                 |
+| **Conecta cuatro**  | Estrategia | 7×6 contra IA.                            | Minimax con poda alfa-beta.              |
 
 ## 6. Rendimiento
 

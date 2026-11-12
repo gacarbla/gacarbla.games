@@ -24,6 +24,23 @@ const number = typeof index === 'number' ? String(index + 1).padStart(2, '0') : 
 
   <svg class="cover__motif" viewBox="0 0 400 300" fill="none" aria-hidden="true">
     {
+      number && (
+        <text
+          x="200"
+          y="190"
+          text-anchor="middle"
+          font-family="Fraunces Variable, Georgia, serif"
+          font-size="150"
+          font-weight="500"
+          fill="#24332d"
+          fill-opacity=".075"
+          letter-spacing="-6"
+        >
+          {number}
+        </text>
+      )
+    }
+    {
       game.cover === 'orbit' && (
         <g>
           <g class="cover__spin">

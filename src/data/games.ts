@@ -10,7 +10,7 @@ export const gameMetaSchema = z.object({
   title: z.string().min(1).max(40),
   tagline: z.string().min(8).max(90),
   description: z.string().min(40).max(320),
-  category: z.enum(['accion', 'puzzle', 'reflejos']),
+  category: z.enum(['logica', 'visual', 'palabras', 'estrategia']),
   tags: z.array(z.string().min(1).max(20)).min(1).max(4),
   accent: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'El acento debe ser un color #rrggbb.'),
   cover: z.enum(['orbit', 'prism', 'fusion', 'pulse', 'grid', 'wave', 'stack']),
@@ -28,15 +28,17 @@ export const gameMetaSchema = z.object({
 export type GameMeta = z.infer<typeof gameMetaSchema>;
 
 export const CATEGORY_LABELS: Record<GameCategory, string> = {
-  accion: 'Acción',
-  puzzle: 'Puzzle',
-  reflejos: 'Reflejos',
+  logica: 'Lógica',
+  visual: 'Visual',
+  palabras: 'Palabras',
+  estrategia: 'Estrategia',
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<GameCategory, string> = {
-  accion: 'Reflejos suaves y un poco de movimiento para una pausa corta.',
-  puzzle: 'Piensa a tu ritmo, prueba y disfruta del clic que lo resuelve todo.',
-  reflejos: 'Memoria y tempo sin prisa. Fácil de entender y de dejar.',
+  logica: 'Deducción, números y paciencia. Piensa antes de tocar.',
+  visual: 'Formas, luces y espacio. Un reto para la mirada.',
+  palabras: 'Letras, rutas y vocabulario. Encuentra la palabra.',
+  estrategia: 'Planifica, anticipa y gana con la cabeza.',
 };
 
 const metaModules = import.meta.glob<{ default: unknown }>('../games/*/meta.json', {
@@ -93,7 +95,7 @@ export function getRelatedGames(slug: string, limit = 3): GameMeta[] {
 }
 
 export function getCategoryCounts(): Record<GameCategory, number> {
-  const counts: Record<GameCategory, number> = { accion: 0, puzzle: 0, reflejos: 0 };
+  const counts: Record<GameCategory, number> = { logica: 0, visual: 0, palabras: 0, estrategia: 0 };
   for (const game of games) counts[game.category] += 1;
   return counts;
 }
