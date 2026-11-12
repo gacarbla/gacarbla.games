@@ -4,6 +4,13 @@ Todas las versiones relevantes del portal. El formato sigue
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa
 versionado semántico.
 
+## [2.0.1] — 2026-11-12
+
+### Corregido
+
+- El contenido de las secciones con animación de entrada sigue visible cuando JavaScript
+  no está disponible o falla.
+
 ## [2.0.0] — 2026-11-12
 
 Rediseño completo de identidad, tono y experiencia: de arcade nocturno a un rincón cálido,

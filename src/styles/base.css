@@ -440,7 +440,7 @@ p {
 
 /* Reveal on scroll -------------------------------------------------------- */
 
-.reveal {
+.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition:
@@ -448,7 +448,7 @@ p {
     transform 0.65s var(--ease-out);
 }
 
-.reveal.is-visible {
+.js .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
