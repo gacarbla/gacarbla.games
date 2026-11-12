@@ -311,26 +311,26 @@ class Orbita extends BaseGame {
       life: 0.8,
       shape: 'spark',
     });
-    this.audio.noise(0.28, { gain: 0.18, filter: 'bandpass', frequency: 380 });
-    this.audio.tone(150, 0.3, { type: 'sawtooth', gain: 0.12, slideTo: 55 });
-    if (!this.reducedMotion) this.shake.add(12, 0.35);
+    this.audio.noise(0.18, { gain: 0.07, filter: 'lowpass', frequency: 260 });
+    this.audio.tone(180, 0.28, { type: 'triangle', gain: 0.06, slideTo: 95 });
+    if (!this.reducedMotion) this.shake.add(5, 0.28);
 
     // El obstáculo golpeado desaparece para dar aire al jugador.
     this.hazards = this.hazards.filter((item) => item !== hazard);
 
     if (this.lives <= 0) {
       this.finish({
-        title: 'Órbita interrumpida',
-        message: 'Los escombros te alcanzaron. La próxima vuelta, más lejos.',
+        title: 'La órbita se detuvo',
+        message: 'Un escombro te ha alcanzado. Puedes volver a intentarlo cuando quieras.',
         detail: `${this.cores} núcleos · ${Math.floor(this.elapsed)} s`,
         score: this.score,
-        ctaLabel: 'Otra órbita',
+        ctaLabel: 'Otra vuelta',
         tone: 'lose',
       });
       this.audio.chord([392, 311, 233], 0.8, { type: 'sine', gain: 0.1 });
     } else {
-      this.setStatus(`Impacto. Te quedan ${this.lives} vidas.`);
-      this.toast(`−1 vida · ${this.lives} restantes`);
+      this.setStatus(`Un escombro te ha alcanzado. Te quedan ${this.lives} intentos.`);
+      this.toast(`−1 intento · quedan ${this.lives}`);
     }
   }
 
@@ -352,8 +352,8 @@ class Orbita extends BaseGame {
       cy,
       Math.max(view.width, view.height) * 0.75,
     );
-    background.addColorStop(0, '#0b100e');
-    background.addColorStop(0.55, '#080a0b');
+    background.addColorStop(0, '#e8f0e2');
+    background.addColorStop(0.55, '#faf5ec');
     background.addColorStop(1, PALETTE.bg);
     context.fillStyle = background;
     context.fillRect(0, 0, view.width, view.height);
@@ -367,8 +367,8 @@ class Orbita extends BaseGame {
     for (let index = 0; index < radii.length; index += 1) {
       context.beginPath();
       context.strokeStyle = alpha(
-        index === this.lane ? PALETTE.lime : '#ffffff',
-        index === this.lane ? 0.16 : 0.07,
+        index === this.lane ? PALETTE.forest : PALETTE.ink,
+        index === this.lane ? 0.24 : 0.12,
       );
       context.lineWidth = 1;
       context.setLineDash(index === 2 ? [2, 9] : []);
@@ -407,7 +407,7 @@ class Orbita extends BaseGame {
       const twinkle = this.reducedMotion
         ? 0.5
         : 0.35 + Math.sin(star.phase + this.elapsed * star.speed) * 0.3;
-      context.fillStyle = alpha(PALETTE.ink, twinkle * 0.5);
+      context.fillStyle = alpha(PALETTE.ink, twinkle * 0.16);
       context.beginPath();
       context.arc(star.x * view.width, star.y * view.height, star.radius, 0, TAU);
       context.fill();
@@ -416,19 +416,19 @@ class Orbita extends BaseGame {
 
   private drawSun(context: CanvasRenderingContext2D, cx: number, cy: number, unit: number): void {
     const pulse = 1 + Math.sin(this.elapsed * 2.2) * 0.035;
-    glowCircle(context, cx, cy, unit * 0.4, PALETTE.lime, 0.1);
-    glowCircle(context, cx, cy, unit * 0.17, '#ffffff', 0.07);
+    glowCircle(context, cx, cy, unit * 0.42, PALETTE.amber, 0.12);
+    glowCircle(context, cx, cy, unit * 0.2, PALETTE.apricot, 0.08);
 
     const sun = context.createRadialGradient(cx, cy, 0, cx, cy, unit * 0.065 * pulse);
-    sun.addColorStop(0, '#ffffff');
-    sun.addColorStop(0.35, PALETTE.lime);
-    sun.addColorStop(1, alpha(PALETTE.lime, 0.12));
+    sun.addColorStop(0, PALETTE.surface);
+    sun.addColorStop(0.42, PALETTE.amber);
+    sun.addColorStop(1, alpha(PALETTE.apricot, 0.28));
     context.fillStyle = sun;
     context.beginPath();
     context.arc(cx, cy, unit * 0.065 * pulse, 0, TAU);
     context.fill();
 
-    context.strokeStyle = alpha(PALETTE.lime, 0.4);
+    context.strokeStyle = alpha(PALETTE.forest, 0.35);
     context.lineWidth = 1;
     context.beginPath();
     context.arc(cx, cy, unit * 0.088 * pulse, 0, TAU);
@@ -486,15 +486,19 @@ class Orbita extends BaseGame {
     const pulse = 0.82 + Math.sin(orb.phase) * 0.18;
     const size = unit * 0.014 * pulse;
 
-    glowCircle(context, x, y, size * 4.5, PALETTE.lime, 0.34);
-    context.fillStyle = PALETTE.ink;
+    glowCircle(context, x, y, size * 5, PALETTE.sage, 0.4);
+    context.fillStyle = PALETTE.forest;
     context.beginPath();
-    context.arc(x, y, size, 0, TAU);
+    context.arc(x, y, size * 1.25, 0, TAU);
     context.fill();
-    context.strokeStyle = PALETTE.lime;
+    context.fillStyle = PALETTE.surface;
+    context.beginPath();
+    context.arc(x, y, size * 0.5, 0, TAU);
+    context.fill();
+    context.strokeStyle = alpha(PALETTE.forest, 0.45);
     context.lineWidth = 2;
     context.beginPath();
-    context.arc(x, y, size * 1.9, 0, TAU);
+    context.arc(x, y, size * 1.95, 0, TAU);
     context.stroke();
   }
 
@@ -507,7 +511,7 @@ class Orbita extends BaseGame {
     for (let index = this.trail.length - 1; index >= 0; index -= 1) {
       const point = this.trail[index]!;
       const fade = (1 - index / this.trail.length) * 0.3;
-      context.fillStyle = alpha(PALETTE.lime, fade);
+      context.fillStyle = alpha(PALETTE.forest, fade * 0.7);
       context.beginPath();
       context.arc(point.x, point.y, unit * 0.006 * (1 - index / this.trail.length / 1.4), 0, TAU);
       context.fill();
@@ -520,11 +524,11 @@ class Orbita extends BaseGame {
 
     if (this.invulnerable > 0 && Math.floor(this.invulnerable * 12) % 2 === 0) return;
 
-    glowCircle(context, x, y, size * 3.6, PALETTE.lime, 0.4);
+    glowCircle(context, x, y, size * 3.6, PALETTE.sage, 0.3);
     context.save();
     context.translate(x, y);
     context.rotate(direction);
-    context.fillStyle = PALETTE.ink;
+    context.fillStyle = PALETTE.forest;
     context.beginPath();
     context.moveTo(size, 0);
     context.lineTo(-size * 0.72, -size * 0.68);
@@ -533,7 +537,7 @@ class Orbita extends BaseGame {
     context.closePath();
     context.fill();
 
-    context.strokeStyle = PALETTE.lime;
+    context.strokeStyle = PALETTE.surface;
     context.lineWidth = 1.5;
     context.stroke();
     context.restore();
@@ -552,11 +556,11 @@ class Orbita extends BaseGame {
     context.font = `500 10px ${FONT_MONO}`;
     context.fillStyle = PALETTE.muted;
     context.textBaseline = 'middle';
-    context.fillText('VIDAS', x, y);
+    context.fillText('INTENTOS', x, y);
     for (let index = 0; index < TOTAL_LIVES; index += 1) {
-      const heartX = x + 48 + index * 16;
+      const heartX = x + 62 + index * 17;
       const alive = index < this.lives;
-      context.fillStyle = alive ? PALETTE.lime : alpha(PALETTE.ink, 0.16);
+      context.fillStyle = alive ? PALETTE.forest : alpha(PALETTE.forest, 0.16);
       this.heartPath(context, heartX, y, 5);
       context.fill();
     }
@@ -593,7 +597,7 @@ class Orbita extends BaseGame {
     context.save();
     context.globalAlpha = 0.45 + this.comboPulse * 0.55;
     context.font = `600 ${12 + this.comboPulse * 4}px ${FONT_MONO}`;
-    context.fillStyle = this.combo > 6 ? PALETTE.coral : PALETTE.lime;
+    context.fillStyle = this.combo > 6 ? PALETTE.apricot : PALETTE.forest;
     context.textAlign = 'center';
     context.fillText(`×${this.combo}`, x, y - lift);
     context.restore();

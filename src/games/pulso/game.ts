@@ -32,13 +32,13 @@ interface Geometry {
   centreRadius: number;
 }
 
-const PAD_COLORS = [PALETTE.lime, PALETTE.cyan, PALETTE.violet, PALETTE.coral];
+const PAD_COLORS = [PALETTE.sage, PALETTE.sky, PALETTE.lilac, PALETTE.apricot];
 
 const PHASE_LABELS: Record<Phase, string> = {
   playback: 'MIRA',
   input: 'REPITE',
   success: 'BIEN',
-  fail: 'FALLO',
+  fail: 'FIN',
 };
 
 class Pulso extends BaseGame {
@@ -167,9 +167,9 @@ class Pulso extends BaseGame {
     this.failTimer = 1.15;
     this.wrongPad = pad;
     this.flash[pad] = 1;
-    this.audio.noise(0.28, { gain: 0.14, filter: 'bandpass', frequency: 450 });
-    this.audio.tone(130, 0.35, { type: 'sawtooth', gain: 0.1, slideTo: 55 });
-    if (!this.reducedMotion) this.shake.add(11, 0.35);
+    this.audio.tone(220, 0.24, { type: 'sine', gain: 0.06, slideTo: 165 });
+    this.audio.tone(196, 0.32, { type: 'sine', gain: 0.05, slideTo: 147 });
+    if (!this.reducedMotion) this.shake.add(4, 0.28);
 
     const geometry = this.geometry(this.runtime.view);
     const point = this.padPosition(pad, geometry);
@@ -180,14 +180,14 @@ class Pulso extends BaseGame {
       life: 0.7,
       shape: 'spark',
     });
-    this.setStatus('Secuencia incorrecta. Fin de la partida.');
+    this.setStatus('La secuencia no era esa. Fin de la ronda.');
   }
 
   private finishGame(): void {
     this.finish({
-      title: 'Secuencia rota',
-      message: 'El pulso se rompió. La próxima ronda, un paso más lejos.',
-      detail: `${this.completed} ronda${this.completed === 1 ? '' : 's'} completada${this.completed === 1 ? '' : 's'} · fallo en la ronda ${this.round}`,
+      title: 'Fin de la ronda',
+      message: 'La secuencia ha terminado. Puedes volver a intentarlo o dejarlo aquí.',
+      detail: `${this.completed} ronda${this.completed === 1 ? '' : 's'} completada${this.completed === 1 ? '' : 's'} · ronda ${this.round}`,
       score: this.completed,
       scoreLabel: 'RONDAS',
       ctaLabel: 'Otra ronda',
@@ -268,8 +268,8 @@ class Pulso extends BaseGame {
       geometry.cy,
       Math.max(view.width, view.height) * 0.76,
     );
-    background.addColorStop(0, '#0d0b13');
-    background.addColorStop(0.55, '#08090d');
+    background.addColorStop(0, '#ece3f1');
+    background.addColorStop(0.55, '#fbf6ec');
     background.addColorStop(1, PALETTE.bg);
     context.fillStyle = background;
     context.fillRect(0, 0, view.width, view.height);
@@ -287,7 +287,7 @@ class Pulso extends BaseGame {
 
   private drawAmbient(context: CanvasRenderingContext2D, geometry: Geometry): void {
     const { cx, cy, radius } = geometry;
-    glowCircle(context, cx, cy, radius * 1.3, PALETTE.violet, 0.06);
+    glowCircle(context, cx, cy, radius * 1.32, PALETTE.lilac, 0.12);
 
     context.save();
     context.setLineDash([2, 10]);
@@ -334,9 +334,9 @@ class Pulso extends BaseGame {
       context.save();
       context.beginPath();
       context.arc(point.x, point.y, padRadius, 0, TAU);
-      context.fillStyle = alpha(color, 0.12 + glow * 0.76);
+      context.fillStyle = alpha(color, 0.3 + glow * 0.62);
       context.fill();
-      context.strokeStyle = alpha(color, hover ? 0.95 : 0.48 + glow * 0.45);
+      context.strokeStyle = alpha(color, hover ? 1 : 0.72 + glow * 0.25);
       context.lineWidth = 2 + glow * 2.5 + (hover ? 1 : 0);
       context.stroke();
 
@@ -349,7 +349,7 @@ class Pulso extends BaseGame {
       context.font = `600 ${Math.max(14, padRadius * 0.58)}px ${FONT_MONO}`;
       context.textAlign = 'center';
       context.textBaseline = 'middle';
-      context.fillStyle = glow > 0.45 ? '#07080a' : alpha(PALETTE.ink, hover ? 1 : 0.78);
+      context.fillStyle = PALETTE.ink;
       context.fillText(String(pad + 1), point.x, point.y + 1);
       context.restore();
     }
@@ -371,7 +371,7 @@ class Pulso extends BaseGame {
     context.save();
     context.beginPath();
     context.arc(cx, cy, centreRadius, 0, TAU);
-    context.fillStyle = 'rgba(8, 9, 13, 0.88)';
+    context.fillStyle = 'rgba(255, 253, 248, 0.92)';
     context.fill();
     context.strokeStyle = alpha(PALETTE.ink, 0.1);
     context.lineWidth = 1;
@@ -379,7 +379,7 @@ class Pulso extends BaseGame {
 
     context.beginPath();
     context.arc(cx, cy, centreRadius + 9, 0, TAU);
-    context.strokeStyle = alpha(PALETTE.ink, 0.12);
+    context.strokeStyle = alpha(PALETTE.ink, 0.16);
     context.lineWidth = 4;
     context.stroke();
 

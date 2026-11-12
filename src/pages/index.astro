@@ -15,15 +15,6 @@ const categories = (Object.keys(counts) as GameCategory[]).filter(
 );
 const featuredIndex = games.findIndex((game) => game.slug === featured.slug);
 
-const tickerItems = [
-  'Sin anuncios',
-  'Sin registro',
-  'Sin descargas',
-  'Progreso local',
-  'Teclado y táctil',
-  'Hecho a mano',
-];
-
 const recentGames = games.map((game) => ({
   slug: game.slug,
   title: game.title,
@@ -36,10 +27,10 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'gacarbla games',
+    name: 'gacarbla juegos',
     url: 'https://games.gacarbla.es',
     description:
-      'Juegos originales, pequeños y muy bien hechos. Sin anuncios, sin registro y sin descargas.',
+      'Cuatro juegos originales para jugar un rato sin prisa. Sin anuncios, sin cuentas y sin notificaciones.',
     inLanguage: 'es',
     publisher: {
       '@type': 'Organization',
@@ -66,48 +57,30 @@ const jsonLd = [
     <div class="hero__ambient" aria-hidden="true"></div>
     <div class="container hero__inner">
       <div class="hero__copy reveal">
-        <p class="eyebrow eyebrow--lime">
-          Arcade independiente · {games.length} juego{games.length === 1 ? '' : 's'}
-        </p>
-        <h1 class="display">Juegos pequeños.<br /><em>Muy bien hechos.</em></h1>
+        <p class="eyebrow eyebrow--lime">Un rincón para jugar sin prisa</p>
+        <h1 class="display">Un rato de juego.<br /><em>Cero prisa.</em></h1>
         <p class="lede">
-          Originales, gratis y sin ruido. Entra, elige uno y juega la próxima pausa como si fuera la
-          última. Sin cuentas, sin anuncios y sin descargas.
+          Cuatro juegos originales para desconectar un momento. Sin anuncios, sin cuentas y sin nada
+          que te empuje a seguir. Cuando quieras parar, paras.
         </p>
         <div class="hero__actions">
           <a class="btn btn--primary btn--lg" href="#catalogo">
-            Explorar el catálogo
+            Ver los juegos
             <Icon name="arrow-down" size={16} />
           </a>
-          <a class="btn btn--ghost btn--lg" href={`/jugar/${featured.slug}/`}>
-            <Icon name="play" size={14} />
-            Jugar a {featured.title}
-          </a>
+          <a class="btn btn--ghost btn--lg" href="#sin-prisa">Cómo jugamos</a>
         </div>
-        <dl class="hero__stats">
-          <div>
-            <dt>Juegos</dt>
-            <dd>{String(games.length).padStart(2, '0')}</dd>
-          </div>
-          <div>
-            <dt>Anuncios</dt>
-            <dd>00</dd>
-          </div>
-          <div>
-            <dt>Registro</dt>
-            <dd>Nunca</dd>
-          </div>
-          <div>
-            <dt>Precio</dt>
-            <dd>0 €</dd>
-          </div>
-        </dl>
+        <ul class="hero__notes">
+          <li><Icon name="clock" size={15} /> Partidas de 2 a 10 minutos</li>
+          <li><Icon name="heart" size={15} /> Sin anuncios ni cuentas</li>
+          <li><Icon name="pause" size={15} /> Puedes parar cuando quieras</li>
+        </ul>
       </div>
 
-      <div class="hero__feature reveal" style="--reveal-delay: 140ms">
+      <div class="hero__feature reveal" style="--reveal-delay: 120ms">
         <div class="hero-feature" style={`--accent:${featured.accent}`}>
           <div class="hero-feature__top">
-            <span>Destacado</span>
+            <span>Para empezar</span>
             <span
               >{String(featuredIndex + 1).padStart(2, '0')} / {
                 String(games.length).padStart(2, '0')
@@ -137,7 +110,7 @@ const jsonLd = [
                 {featured.duration}
               </span>
               <a href={`/jugar/${featured.slug}/`}>
-                Jugar ahora
+                Jugar un rato
                 <Icon name="arrow-up-right" size={14} />
               </a>
             </div>
@@ -147,26 +120,26 @@ const jsonLd = [
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker__track">
-      {
-        [0, 1].map(() => (
-          <div class="ticker__group">
-            {tickerItems.map((item) => (
-              <span class="ticker__item">
-                <Icon name="spark" size={11} />
-                {item}
-              </span>
-            ))}
-          </div>
-        ))
-      }
+  <div class="promise-band">
+    <div class="container promise-band__inner">
+      <div class="promise-band__item">
+        <Icon name="shield" size={17} />
+        <span><strong>Sin anuncios ni cuentas.</strong> Solo el juego.</span>
+      </div>
+      <div class="promise-band__item">
+        <Icon name="clock" size={17} />
+        <span><strong>Partidas cortas.</strong> Sin relojes ni rachas.</span>
+      </div>
+      <div class="promise-band__item">
+        <Icon name="lock" size={17} />
+        <span><strong>Tu progreso se queda aquí.</strong> Sin tracking.</span>
+      </div>
     </div>
   </div>
 
   <section class="continue container" data-recent-section hidden>
     <div class="continue__head">
-      <h2 class="eyebrow">Sigue donde lo dejaste</h2>
+      <h2 class="eyebrow">Tus partidas recientes</h2>
       <button class="continue__clear" type="button" data-clear-recent>Limpiar historial</button>
     </div>
     <div class="continue__list" data-recent-list></div>
@@ -183,7 +156,7 @@ const jsonLd = [
       <div class="section-head">
         <div>
           <p class="eyebrow">El catálogo</p>
-          <h2>Elige tu próxima pausa.</h2>
+          <h2>Elige con calma.</h2>
         </div>
         <a class="link-arrow" href="/juegos/">
           Ver todos los juegos
@@ -214,7 +187,7 @@ const jsonLd = [
                 <Icon name="search" size={16} />
                 <input
                   type="search"
-                  placeholder="Buscar por nombre o etiqueta…"
+                  placeholder="Buscar un juego…"
                   aria-label="Buscar juego"
                   data-game-search
                 />
@@ -242,45 +215,46 @@ const jsonLd = [
     </div>
   </section>
 
-  <section class="section manifesto">
+  <section class="section manifesto" id="sin-prisa">
     <div class="container">
       <div class="manifesto__head">
         <div>
-          <p class="eyebrow">El manifiesto</p>
-          <h2>Nada de ruido.<br /><span class="accent">Solo el juego.</span></h2>
+          <p class="eyebrow">Jugar sin prisa</p>
+          <h2>Jugar no debería<br /><span class="accent">pedirte nada.</span></h2>
         </div>
         <p>
-          Un portal de juegos puede ser muchas cosas. Para nosotros es una pausa bien aprovechada:
-          entras, juegas, sales. Sin cuenta, sin anuncios y sin pedirte nada a cambio.
+          Nos gustan los juegos que caben en una pausa y se dejan cerrar sin remordimiento. Por eso
+          no hay anuncios, ni cuentas, ni notificaciones, ni recompensas que te llamen a volver.
+          Solo cuatro juegos bien hechos.
         </p>
       </div>
 
       <ol class="principles">
         <li>
-          <Icon name="zap" size={20} />
-          <span>01 · Inmediatez</span>
-          <h3>Un clic y estás dentro</h3>
+          <Icon name="clock" size={20} />
+          <span>01 · Partidas cortas</span>
+          <h3>Para un rato, no para un día</h3>
           <p>
-            Sin pantallas de carga, sin registro y sin descargas. El catálogo pesa poco y los juegos
-            arrancan en el mismo gesto.
-          </p>
-        </li>
-        <li>
-          <Icon name="layers" size={20} />
-          <span>02 · Coherencia</span>
-          <h3>Todos hablan el mismo idioma</h3>
-          <p>
-            Comparten color, tipografía, sonido y controles. Aprender a jugar a uno es aprender a
-            jugar a todos.
+            Cada juego está pensado para una pausa de dos a diez minutos. Sin relojes que metan
+            prisa y sin partidas que no terminan nunca.
           </p>
         </li>
         <li>
           <Icon name="shield" size={20} />
-          <span>03 · Respeto</span>
-          <h3>Tu tiempo es tuyo</h3>
+          <span>02 · Sin presión</span>
+          <h3>Ni anuncios, ni rachas, ni avisos</h3>
           <p>
-            Cero cookies, cero analítica y cero peticiones a terceros. Solo se guarda tu récord en
-            este navegador.
+            No hay monedas, misiones diarias ni mensajes que te reclamen. Si cierras la pestaña, no
+            pasa nada.
+          </p>
+        </li>
+        <li>
+          <Icon name="heart" size={20} />
+          <span>03 · Se puede dejar</span>
+          <h3>Vuelve cuando te apetezca</h3>
+          <p>
+            Puedes pausar, salir y retomar. Tu mejor marca y tu progreso se quedan en este
+            navegador, sin cuentas ni comparaciones.
           </p>
         </li>
       </ol>

@@ -34,9 +34,9 @@ export const CATEGORY_LABELS: Record<GameCategory, string> = {
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<GameCategory, string> = {
-  accion: 'Reflejos, ritmo y un poco de caos controlado.',
-  puzzle: 'Piensa, prueba y celebra el clic que lo resuelve todo.',
-  reflejos: 'Memoria y tempo. Fácil de entender, difícil de soltar.',
+  accion: 'Reflejos suaves y un poco de movimiento para una pausa corta.',
+  puzzle: 'Piensa a tu ritmo, prueba y disfruta del clic que lo resuelve todo.',
+  reflejos: 'Memoria y tempo sin prisa. Fácil de entender y de dejar.',
 };
 
 const metaModules = import.meta.glob<{ default: unknown }>('../games/*/meta.json', {

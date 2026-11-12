@@ -1,21 +1,28 @@
 export const PALETTE = {
-  bg: '#07080a',
-  surface: '#0f1217',
-  surfaceRaised: '#141821',
-  line: 'rgba(255, 255, 255, 0.09)',
-  ink: '#f2f5f7',
-  inkSoft: '#a7b2bf',
-  muted: '#7d8896',
-  lime: '#c8ff4d',
-  coral: '#ff6b57',
-  cyan: '#5ce1e6',
-  violet: '#a78bfa',
-  amber: '#ffc857',
+  bg: '#f6f1e7',
+  surface: '#fffdf8',
+  surfaceRaised: '#fbf6ec',
+  line: 'rgba(36, 51, 45, 0.12)',
+  ink: '#24332d',
+  inkSoft: '#4f5f56',
+  muted: '#5f6d64',
+  forest: '#2f5d50',
+  sage: '#7fa98a',
+  apricot: '#d97c5b',
+  sky: '#6f9db8',
+  lilac: '#9a80b5',
+  butter: '#c9a63e',
+  rose: '#cf8a8a',
+  lime: '#2f5d50',
+  coral: '#d97c5b',
+  cyan: '#4d7f9b',
+  violet: '#8a6ba8',
+  amber: '#b8952f',
 } as const;
 
 export const FONT_SANS =
-  "'Space Grotesk Variable', 'Space Grotesk', system-ui, -apple-system, sans-serif";
-export const FONT_MONO = "'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace";
+  "'Nunito Sans Variable', 'Nunito Sans', system-ui, -apple-system, sans-serif";
+export const FONT_MONO = "'DM Mono', ui-monospace, 'SFMono-Regular', monospace";
 
 /** #rrggbb → rgba() con alfa. Acepta también rgba() ya formados. */
 export function alpha(color: string, opacity: number): string {

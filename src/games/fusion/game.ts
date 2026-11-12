@@ -45,15 +45,7 @@ interface Geometry {
   wide: boolean;
 }
 
-const TILE_COLORS = [
-  PALETTE.lime,
-  PALETTE.cyan,
-  PALETTE.violet,
-  PALETTE.coral,
-  PALETTE.amber,
-  PALETTE.ink,
-  PALETTE.ink,
-];
+const TILE_COLORS = ['#5f8f6f', '#4f7f9c', '#7d629b', '#c8684a', '#a8872f', '#2f5d50', '#2f5d50'];
 
 function tileColor(value: number): string {
   return TILE_COLORS[Math.min(Math.max(value - 1, 0), TILE_COLORS.length - 1)]!;
@@ -176,7 +168,7 @@ class Fusion extends BaseGame {
 
     const target = landingIndex(this.board, this.aimColumn);
     if (target < 0) {
-      this.audio.tone(120, 0.12, { type: 'sawtooth', gain: 0.06 });
+      this.audio.tone(180, 0.1, { type: 'triangle', gain: 0.04 });
       this.addFloater(
         this.columnCenterX(this.aimColumn),
         this.geometry(this.runtime.view).originY + 24,
@@ -197,8 +189,8 @@ class Fusion extends BaseGame {
     this.phase = 'dropping';
     this.dropTimer = 0.24;
 
-    this.audio.tone(190, 0.12, { type: 'sawtooth', gain: 0.045, slideTo: 92 });
-    this.audio.noise(0.08, { gain: 0.035, filter: 'lowpass', frequency: 420 });
+    this.audio.tone(240, 0.12, { type: 'triangle', gain: 0.04, slideTo: 150 });
+    this.audio.noise(0.06, { gain: 0.025, filter: 'lowpass', frequency: 380 });
 
     this.currentValue = this.nextValue;
     this.nextValue = spawnValue();
@@ -328,8 +320,8 @@ class Fusion extends BaseGame {
       view.height / 2,
       Math.max(view.width, view.height) * 0.75,
     );
-    background.addColorStop(0, '#0d0b0b');
-    background.addColorStop(0.55, '#08090b');
+    background.addColorStop(0, '#fbf0e8');
+    background.addColorStop(0.55, '#fbf5eb');
     background.addColorStop(1, PALETTE.bg);
     context.fillStyle = background;
     context.fillRect(0, 0, view.width, view.height);
@@ -360,9 +352,9 @@ class Fusion extends BaseGame {
     const { cell, originX, originY, boardWidth, boardHeight } = geometry;
 
     roundedRect(context, originX - 8, originY - 8, boardWidth + 16, boardHeight + 16, 20);
-    context.fillStyle = 'rgba(255, 255, 255, 0.018)';
+    context.fillStyle = 'rgba(255, 253, 248, 0.78)';
     context.fill();
-    context.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+    context.strokeStyle = 'rgba(36, 51, 45, 0.16)';
     context.lineWidth = 1;
     context.stroke();
 
@@ -378,14 +370,14 @@ class Fusion extends BaseGame {
         cell - inset * 2,
         cell * 0.18,
       );
-      context.fillStyle = 'rgba(255, 255, 255, 0.028)';
+      context.fillStyle = '#fffdf8';
       context.fill();
-      context.strokeStyle = 'rgba(255, 255, 255, 0.055)';
+      context.strokeStyle = 'rgba(36, 51, 45, 0.13)';
       context.stroke();
     }
 
     if (this.board.some((value, index) => index < FUSION_COLS && value !== 0)) {
-      context.strokeStyle = alpha(PALETTE.coral, 0.45);
+      context.strokeStyle = alpha(PALETTE.apricot, 0.6);
       context.lineWidth = 2;
       context.beginPath();
       context.moveTo(originX, originY + 1);
@@ -409,9 +401,9 @@ class Fusion extends BaseGame {
     const target = landingIndex(this.board, this.aimColumn);
 
     context.save();
-    context.fillStyle = alpha(PALETTE.lime, 0.045);
+    context.fillStyle = alpha(PALETTE.forest, 0.06);
     context.fillRect(x + 2, originY + 2, cell - 4, boardHeight - 4);
-    context.strokeStyle = alpha(PALETTE.lime, 0.16);
+    context.strokeStyle = alpha(PALETTE.forest, 0.28);
     context.lineWidth = 1;
     context.strokeRect(x + 2, originY + 2, cell - 4, boardHeight - 4);
 
@@ -490,7 +482,7 @@ class Fusion extends BaseGame {
     context.stroke();
 
     context.font = `600 ${Math.max(12, size * 0.38)}px ${FONT_MONO}`;
-    context.fillStyle = '#07080a';
+    context.fillStyle = PALETTE.surface;
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillText(String(value), 0, size * 0.02);

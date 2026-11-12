@@ -1,11 +1,11 @@
 {
   "slug": "pulso",
   "title": "Pulso",
-  "tagline": "Mira. Repite. No pierdas el ritmo.",
-  "description": "Cuatro pads, una secuencia que crece y ningún sitio donde esconderse. Repite cada ronda de memoria y aguanta el tempo hasta que el pulso se rompa.",
+  "tagline": "Mira. Repite. Encuentra tu ritmo.",
+  "description": "Cuatro pads y una secuencia que crece sin prisa. Repite cada ronda de memoria, escucha el ritmo y para cuando te apetezca.",
   "category": "reflejos",
   "tags": ["Memoria", "Ritmo", "Audio"],
-  "accent": "#a78bfa",
+  "accent": "#a78fbf",
   "cover": "pulse",
   "controls": "1–4 o flechas para repetir la secuencia. También clic o toque en cada pad.",
   "goal": "Repite la secuencia de pads sin fallar. Cada ronda añade un paso más.",
@@ -15,5 +15,5 @@
   "order": 4,
   "featured": false,
   "released": "2026-11-11",
-  "version": "1.0.0"
+  "version": "2.0.0"
 }

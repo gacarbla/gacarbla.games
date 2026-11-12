@@ -4,6 +4,34 @@ Todas las versiones relevantes del portal. El formato sigue
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa
 versionado semántico.
 
+## [2.0.0] — 2026-11-12
+
+Rediseño completo de identidad, tono y experiencia: de arcade nocturno a un rincón cálido,
+familiar y sin prisa.
+
+### Cambiado
+
+- Nueva paleta de papel, bosque, salvia, albaricoque, cielo, lavanda y mantequilla.
+- Nuevo logotipo de flor y favicon; iconos PWA y Open Graph actualizados.
+- Tipografía editorial: Fraunces + Nunito Sans + DM Mono.
+- Portadas SVG rediseñadas con estética de papel recortado y animaciones lentas.
+- Home, catálogo, fichas, sobre y 404 reescritos con un tono tranquilo y familiar.
+- Shell de juego y canvas de los cuatro juegos adaptados al tema claro.
+- Copy de los juegos sin lenguaje de presión: «intentos», «fin de la ronda», «sin prisa».
+- Movimiento más lento, partículas reducidas y shake máximo de 5 px.
+- Nueva sección «Jugar sin prisa» y FAQ sobre bienestar y uso familiar.
+
+### Añadido
+
+- `docs/DESIGN.md` con la auditoría, las lentes de diseño y las reglas de bienestar.
+- Manifiesto de producto: sin rachas, monedas, notificaciones, compras ni comparaciones.
+- Verificación de contraste AA en todas las páginas.
+
+### Corregido
+
+- Enlaces de marca y contraste de etiquetas del catálogo.
+- Espaciado del correo de contacto y enlaces dentro de bloques de texto.
+
 ## [1.0.0] — 2026-11-11
 
 Primer lanzamiento público en [games.gacarbla.es](https://games.gacarbla.es).

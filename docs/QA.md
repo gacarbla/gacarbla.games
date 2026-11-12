@@ -53,19 +53,20 @@ El script comprueba:
 - [ ] Sin peticiones a dominios de terceros en la pestaña Network.
 - [ ] Lighthouse ≥ 95 en Accesibilidad, Buenas prácticas y SEO.
 
-## Resultados de la v1.0.0
+## Resultados de la v2.0.0
 
-- Lighthouse: **100 / 100 / 100** en portada, fichas y sobre; catálogo corregido a
-  **100** en accesibilidad.
+- Lighthouse: **100 / 100 / 100** en portada, catálogo, las cuatro fichas, sobre y 404.
+- Contraste AA verificado en toda la interfaz clara.
 - 46 tests de lógica en verde.
 - QA completo en 1440 × 960 y 390 × 844 sin overflow horizontal.
-- Flujos verificados: victoria de Prisma, fusión de Fusión, ronda y fallo de Pulso.
+- Flujos verificados: victoria de Prisma, fusión de Fusión, ronda y fin de Pulso.
+- Rediseño validado en escritorio y móvil: nueva paleta, logo, tipografía y portadas.
 
 ## Limitaciones conocidas
 
-- El dominio personalizado requiere el CNAME de DNS descrito en
-  [DEPLOYMENT.md](DEPLOYMENT.md). Hasta que exista, `gacarbla.github.io` redirige al
-  dominio y este no resuelve.
+- El dominio se sirve a través del proxy de Cloudflare. Funciona, pero GitHub Pages no
+  gestiona el certificado hasta que el registro pase a DNS only (nube gris). Está
+  documentado en [DEPLOYMENT.md](DEPLOYMENT.md).
 - `npm run qa` no se ejecuta en CI porque necesita un navegador instalado; es una
   comprobación local de release.
 

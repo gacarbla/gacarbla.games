@@ -102,7 +102,7 @@ const number = String(index + 1).padStart(2, '0');
 
           <button class="btn btn--primary btn--lg overlay-play" type="button" data-play>
             <Icon name="play" size={16} />
-            Jugar ahora
+            Jugar un rato
           </button>
 
           <p class="overlay-controls">
@@ -116,19 +116,21 @@ const number = String(index + 1).padStart(2, '0');
     <div class="game-overlay" data-overlay="pause" hidden>
       <div class="overlay-card overlay-card--compact">
         <p class="eyebrow">En pausa</p>
-        <h2>Respira.</h2>
-        <p class="overlay-tagline">La partida te espera justo donde la dejaste.</p>
+        <h2>Una pausa.</h2>
+        <p class="overlay-tagline">
+          Seguimos cuando quieras. La partida te espera donde la dejaste.
+        </p>
         <div class="overlay-actions">
-          <button class="btn btn--primary" type="button" data-resume>Continuar</button>
+          <button class="btn btn--primary" type="button" data-resume>Seguir jugando</button>
           <button class="btn btn--ghost" type="button" data-restart>Reiniciar</button>
         </div>
-        <a class="overlay-link" href="/juegos/">Salir al catálogo</a>
+        <a class="overlay-link" href="/juegos/">Volver al catálogo</a>
       </div>
     </div>
 
     <div class="game-overlay" data-overlay="finish" hidden>
       <div class="overlay-card overlay-card--compact">
-        <p class="eyebrow eyebrow--lime" data-finish-eyebrow>Partida terminada</p>
+        <p class="eyebrow" data-finish-eyebrow>Fin de la partida</p>
         <h2 data-finish-title>Fin de la partida</h2>
         <p class="overlay-tagline" data-finish-message></p>
         <div class="finish-score">
@@ -198,13 +200,13 @@ const number = String(index + 1).padStart(2, '0');
           <p class="record-panel__note">Se guarda solo en este navegador.</p>
           <button class="btn btn--primary" type="button" data-side-play>
             <Icon name="play" size={14} />
-            Jugar ahora
+            Jugar un rato
           </button>
         </div>
 
         <div class="game-side__note">
           <Icon name="shield" size={16} />
-          <p>Sin anuncios, sin cuenta y sin enviar tu progreso a ningún sitio.</p>
+          <p>Sin anuncios, sin cuenta y sin prisa. Tu progreso se queda en este navegador.</p>
         </div>
       </aside>
     </div>

@@ -19,7 +19,7 @@ if (section && list && dataElement) {
   const recent = getRecent()
     .map((entry) => bySlug.get(entry.slug))
     .filter((game): game is GameLink => Boolean(game))
-    .slice(0, 4);
+    .slice(0, 3);
 
   if (recent.length > 0) {
     section.hidden = false;

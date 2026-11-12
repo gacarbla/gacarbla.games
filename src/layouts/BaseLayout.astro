@@ -1,6 +1,8 @@
 ---
-import '@fontsource-variable/space-grotesk';
-import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/nunito-sans';
+import '@fontsource/dm-mono/400.css';
+import '@fontsource/dm-mono/500.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/chrome.css';
@@ -45,8 +47,8 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <meta name="theme-color" content="#07080a" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#f6f1e7" />
+    <meta name="color-scheme" content="light" />
     <meta name="author" content={SITE.author} />
     <meta name="generator" content={Astro.generator} />
 

@@ -1,14 +1,14 @@
 {
-  "name": "gacarbla games",
+  "name": "gacarbla juegos",
   "short_name": "gacarbla",
-  "description": "Juegos originales, pequeños y muy bien hechos. Sin anuncios ni registro.",
+  "description": "Cuatro juegos originales para jugar un rato sin prisa. Sin anuncios, sin cuentas y sin notificaciones.",
   "lang": "es",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#07080a",
-  "theme_color": "#07080a",
+  "background_color": "#f6f1e7",
+  "theme_color": "#f6f1e7",
   "categories": ["games", "entertainment"],
   "icons": [
     {

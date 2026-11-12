@@ -273,21 +273,21 @@ class Prisma extends BaseGame {
       view.height / 2,
       Math.max(view.width, view.height) * 0.72,
     );
-    background.addColorStop(0, '#0b1113');
-    background.addColorStop(0.6, '#080a0c');
+    background.addColorStop(0, '#e7f0f3');
+    background.addColorStop(0.6, '#f8f3e9');
     background.addColorStop(1, PALETTE.bg);
     context.fillStyle = background;
     context.fillRect(0, 0, view.width, view.height);
 
-    glowCircle(context, view.width / 2, view.height / 2, boardWidth * 0.78, PALETTE.cyan, 0.07);
+    glowCircle(context, view.width / 2, view.height / 2, boardWidth * 0.82, PALETTE.sky, 0.12);
 
     context.save();
     if (!this.reducedMotion) this.shake.apply(context);
 
     roundedRect(context, originX - 8, originY - 8, boardWidth + 16, boardHeight + 16, 18);
-    context.fillStyle = 'rgba(255, 255, 255, 0.018)';
+    context.fillStyle = 'rgba(255, 253, 248, 0.62)';
     context.fill();
-    context.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+    context.strokeStyle = 'rgba(36, 51, 45, 0.1)';
     context.lineWidth = 1;
     context.stroke();
 
@@ -317,33 +317,33 @@ class Prisma extends BaseGame {
       roundedRect(context, x, y, size, size, radius);
 
       if (cellData.type === 'wall') {
-        context.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        context.fillStyle = 'rgba(36, 51, 45, 0.07)';
         context.fill();
-        context.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+        context.strokeStyle = 'rgba(36, 51, 45, 0.14)';
         context.stroke();
         continue;
       }
 
       if (cellData.type === 'crystal') {
         const isLit = this.lit.has(index);
-        context.fillStyle = isLit ? alpha(PALETTE.lime, 0.12) : 'rgba(255, 255, 255, 0.025)';
+        context.fillStyle = isLit ? alpha(PALETTE.amber, 0.3) : '#fffdf8';
         context.fill();
-        context.strokeStyle = isLit ? alpha(PALETTE.lime, 0.4) : alpha(PALETTE.ink, 0.3);
+        context.strokeStyle = isLit ? PALETTE.amber : alpha(PALETTE.ink, 0.35);
         context.stroke();
         continue;
       }
 
       if (cellData.type === 'emitter') {
-        context.fillStyle = alpha(PALETTE.coral, 0.08);
+        context.fillStyle = alpha(PALETTE.apricot, 0.24);
         context.fill();
-        context.strokeStyle = alpha(PALETTE.coral, 0.28);
+        context.strokeStyle = PALETTE.apricot;
         context.stroke();
         continue;
       }
 
-      context.fillStyle = 'rgba(255, 255, 255, 0.03)';
+      context.fillStyle = '#fffdf8';
       context.fill();
-      context.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+      context.strokeStyle = 'rgba(36, 51, 45, 0.14)';
       context.stroke();
     }
   }
@@ -353,13 +353,12 @@ class Prisma extends BaseGame {
     const { cell, originX, originY } = geometry;
 
     context.save();
-    context.globalCompositeOperation = 'lighter';
+    context.globalCompositeOperation = 'source-over';
     context.lineCap = 'round';
 
     for (const pass of [
-      { width: Math.max(8, cell * 0.16), color: alpha(PALETTE.cyan, 0.1) },
-      { width: Math.max(2.4, cell * 0.045), color: alpha(PALETTE.cyan, 0.82) },
-      { width: Math.max(1, cell * 0.018), color: alpha('#ffffff', 0.55) },
+      { width: Math.max(8, cell * 0.16), color: alpha(PALETTE.cyan, 0.18) },
+      { width: Math.max(2.4, cell * 0.05), color: PALETTE.cyan },
     ]) {
       context.strokeStyle = pass.color;
       context.lineWidth = pass.width;
@@ -394,14 +393,14 @@ class Prisma extends BaseGame {
         context.rotate(angle);
         context.lineCap = 'round';
 
-        context.strokeStyle = alpha(PALETTE.cyan, 0.22);
+        context.strokeStyle = alpha(PALETTE.forest, 0.16);
         context.lineWidth = Math.max(8, cell * 0.14);
         context.beginPath();
         context.moveTo(-half, 0);
         context.lineTo(half, 0);
         context.stroke();
 
-        context.strokeStyle = PALETTE.cyan;
+        context.strokeStyle = PALETTE.forest;
         context.lineWidth = Math.max(2.5, cell * 0.055);
         context.beginPath();
         context.moveTo(-half, 0);
@@ -461,12 +460,12 @@ class Prisma extends BaseGame {
         const isLit = this.lit.has(index);
         const pulse = isLit ? 1 + Math.sin(this.time * 3 + index) * 0.08 : 1;
         const size = cell * 0.18 * pulse;
-        if (isLit) glowCircle(context, cx, cy, cell * 0.5, PALETTE.lime, 0.32);
+        if (isLit) glowCircle(context, cx, cy, cell * 0.5, PALETTE.amber, 0.32);
         context.save();
         context.translate(cx, cy);
         context.rotate(Math.PI / 4);
-        context.fillStyle = isLit ? PALETTE.lime : 'rgba(255, 255, 255, 0.04)';
-        context.strokeStyle = isLit ? alpha('#ffffff', 0.75) : alpha(PALETTE.ink, 0.25);
+        context.fillStyle = isLit ? PALETTE.amber : 'rgba(255, 253, 248, 0.8)';
+        context.strokeStyle = isLit ? alpha(PALETTE.forest, 0.75) : alpha(PALETTE.ink, 0.22);
         context.lineWidth = Math.max(1.2, cell * 0.025);
         context.beginPath();
         context.rect(-size / 2, -size / 2, size, size);
