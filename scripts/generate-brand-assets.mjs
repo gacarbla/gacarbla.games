@@ -5,83 +5,123 @@ import sharp from 'sharp';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const iconsDir = `${root}/public/icons`;
 
+const flower = `
+  <g transform="translate(6 6)">
+    <circle cx="22" cy="12.6" r="8.6" fill="#2f5d50"/>
+    <circle cx="31.4" cy="22" r="8.6" fill="#df8b6c"/>
+    <circle cx="22" cy="31.4" r="8.6" fill="#8fb397"/>
+    <circle cx="12.6" cy="22" r="8.6" fill="#7fa9c2"/>
+    <circle cx="22" cy="22" r="5" fill="#fffaf0" stroke="#24332d" stroke-width="1.6"/>
+  </g>`;
+
 const favicon = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="15" fill="#07080a"/>
-  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="14.25" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
-  <circle cx="32" cy="32" r="19" fill="none" stroke="#ffffff" stroke-opacity=".18" stroke-width="1.5"/>
-  <path d="M49.5 43.1A19 19 0 0 0 32 13" fill="none" stroke="#c8ff4d" stroke-width="2.2" stroke-linecap="round"/>
-  <circle cx="32" cy="32" r="5" fill="#f2f5f7"/>
-  <circle cx="32" cy="32" r="10.5" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-width="1" stroke-dasharray="1.4 3.4"/>
-  <circle cx="45.5" cy="18.5" r="3.4" fill="#ff6b57"/>
+  <rect width="64" height="64" rx="16" fill="#f6f1e7"/>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="#24332d" stroke-opacity=".12" stroke-width="1.5"/>
+  <g transform="translate(9 9) scale(1.045)">${flower.replace('translate(6 6)', '')}</g>
 </svg>`;
 
 const maskable = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" fill="#07080a"/>
-  <g transform="translate(128 128) scale(4)">
-    <circle cx="32" cy="32" r="19" fill="none" stroke="#ffffff" stroke-opacity=".18" stroke-width="1.5"/>
-    <path d="M49.5 43.1A19 19 0 0 0 32 13" fill="none" stroke="#c8ff4d" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="32" cy="32" r="5" fill="#f2f5f7"/>
-    <circle cx="32" cy="32" r="10.5" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-width="1" stroke-dasharray="1.4 3.4"/>
-    <circle cx="45.5" cy="18.5" r="3.4" fill="#ff6b57"/>
-  </g>
+  <rect width="512" height="512" fill="#f6f1e7"/>
+  <g transform="translate(168 168) scale(4)">${flower.replace('translate(6 6)', '')}</g>
 </svg>`;
+
+const card = (x, y, fill, label, motif) => `
+  <g>
+    <rect x="${x + 4}" y="${y + 6}" width="200" height="152" rx="24" fill="#24332d" fill-opacity=".07"/>
+    <rect x="${x}" y="${y}" width="200" height="152" rx="24" fill="${fill}" stroke="#24332d" stroke-opacity=".22" stroke-width="2"/>
+    ${motif}
+    <text x="${x + 22}" y="${y + 130}" font-family="Verdana, Arial, sans-serif" font-size="15" font-weight="bold" fill="#24332d">${label}</text>
+  </g>`;
 
 const og = `
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#c8ff4d" stop-opacity=".22"/>
-      <stop offset="100%" stop-color="#c8ff4d" stop-opacity="0"/>
+    <radialGradient id="sage" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8fb397" stop-opacity=".38"/>
+      <stop offset="100%" stop-color="#8fb397" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity=".045"/>
-    </pattern>
-    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".06"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
+    <radialGradient id="apricot" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#df8b6c" stop-opacity=".28"/>
+      <stop offset="100%" stop-color="#df8b6c" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
-  <rect width="1200" height="630" fill="#07080a"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-  <circle cx="1010" cy="315" r="300" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="#f6f1e7"/>
+  <circle cx="1080" cy="80" r="360" fill="url(#sage)"/>
+  <circle cx="1140" cy="560" r="300" fill="url(#apricot)"/>
+  <g fill="#24332d" fill-opacity=".1">
+    ${Array.from({ length: 12 })
+      .map((_, row) =>
+        Array.from({ length: 18 })
+          .map((__, column) => `<circle cx="${40 + column * 68}" cy="${40 + row * 52}" r="1.4"/>`)
+          .join(''),
+      )
+      .join('')}
+  </g>
 
   <!-- Marca -->
-  <g transform="translate(72 64)">
-    <circle cx="22" cy="22" r="20" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-width="1.5"/>
-    <path d="M40.4 34.2A20 20 0 0 0 22 2" fill="none" stroke="#c8ff4d" stroke-width="2.4" stroke-linecap="round"/>
-    <circle cx="22" cy="22" r="5" fill="#f2f5f7"/>
-    <circle cx="36" cy="8" r="3.2" fill="#ff6b57"/>
-    <text x="60" y="30" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="27" font-weight="600" fill="#f2f5f7" letter-spacing="-1">gacarbla</text>
-    <rect x="182" y="10" width="74" height="26" rx="5" fill="none" stroke="#ffffff" stroke-opacity=".18"/>
-    <text x="219" y="28" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#7d8896" letter-spacing="3">GAMES</text>
+  <g transform="translate(72 58)">
+    <g transform="translate(0 0)">${flower.replace('translate(6 6)', '')}</g>
+    <text x="58" y="32" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="600" fill="#24332d" letter-spacing="-.8">gacarbla</text>
+    <rect x="204" y="10" width="72" height="28" rx="14" fill="#dce9d8"/>
+    <text x="240" y="29" text-anchor="middle" font-family="Verdana, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2f5d50" letter-spacing="1.4">JUEGOS</text>
   </g>
 
   <!-- Titular -->
-  <text x="72" y="298" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="82" font-weight="600" fill="#f2f5f7" letter-spacing="-4">Juegos pequeños.</text>
-  <text x="72" y="392" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="82" font-weight="600" fill="#c8ff4d" letter-spacing="-4">Muy bien hechos.</text>
-  <text x="76" y="452" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="25" fill="#a7b2bf" letter-spacing="-.4">Cuatro juegos originales. Gratis y sin anuncios.</text>
+  <text x="72" y="268" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="500" fill="#24332d" letter-spacing="-2.4">Juegos para</text>
+  <text x="72" y="360" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-style="italic" font-weight="500" fill="#2f5d50" letter-spacing="-2.4">jugar sin prisa.</text>
+  <text x="76" y="420" font-family="Verdana, Arial, sans-serif" font-size="21" fill="#5d6c63">Cuatro juegos originales. Sin anuncios, sin cuentas y sin prisa.</text>
 
   <!-- Línea inferior -->
-  <line x1="72" y1="518" x2="1128" y2="518" stroke="#ffffff" stroke-opacity=".1"/>
-  <text x="72" y="562" font-family="Consolas, monospace" font-size="18" fill="#7d8896" letter-spacing="1">GAMES.GACARBLA.ES</text>
-  <text x="1128" y="562" text-anchor="end" font-family="Consolas, monospace" font-size="18" fill="#7d8896" letter-spacing="1">ASTRO · CANVAS · 60 FPS</text>
+  <line x1="72" y1="518" x2="1128" y2="518" stroke="#24332d" stroke-opacity=".14"/>
+  <text x="72" y="558" font-family="'DM Mono', Consolas, monospace" font-size="16" fill="#78857d" letter-spacing="1">GAMES.GACARBLA.ES</text>
+  <text x="1128" y="558" text-anchor="end" font-family="'DM Mono', Consolas, monospace" font-size="16" fill="#78857d" letter-spacing="1">HECHO CON CALMA</text>
 
-  <!-- Motivo orbital -->
-  <g transform="translate(975 315)">
-    <circle r="150" fill="none" stroke="#ffffff" stroke-opacity=".1"/>
-    <circle r="105" fill="none" stroke="#ffffff" stroke-opacity=".16"/>
-    <circle r="55" fill="none" stroke="#ffffff" stroke-opacity=".22" stroke-dasharray="3 9"/>
-    <path d="M-150 0A150 150 0 0 0 150 0" fill="none" stroke="#c8ff4d" stroke-width="3" stroke-linecap="round"/>
-    <path d="M0-105A105 105 0 0 1 0 105" fill="none" stroke="#5ce1e6" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
-    <circle r="34" fill="#f2f5f7"/>
-    <circle r="8" fill="#07080a"/>
-    <circle cx="106" cy="0" r="10" fill="#c8ff4d"/>
-    <circle cx="-72" cy="-76" r="6" fill="#ff6b57"/>
-    <circle cx="0" cy="105" r="5" fill="#5ce1e6"/>
-  </g>
+  <!-- Juegos -->
+  ${card(
+    764,
+    134,
+    '#dce9d8',
+    'Órbita',
+    `<circle cx="864" cy="196" r="44" fill="none" stroke="#24332d" stroke-opacity=".25" stroke-width="2"/>
+     <circle cx="864" cy="196" r="28" fill="#fffaf0" stroke="#24332d" stroke-width="2.5"/>
+     <circle cx="864" cy="196" r="7" fill="#df8b6c"/>
+     <circle cx="900" cy="196" r="6" fill="#2f5d50"/>
+     <path d="M820 196a44 44 0 0 0 88 0" fill="none" stroke="#2f5d50" stroke-width="2.5" stroke-linecap="round"/>`,
+  )}
+  ${card(
+    988,
+    134,
+    '#dfedf2',
+    'Prisma',
+    `<path d="M1088 154 1122 220h-68l34-66Z" fill="#fffaf0" stroke="#24332d" stroke-width="2.5" stroke-linejoin="round"/>
+     <path d="M1038 196h34l18-30 16 30h26" fill="none" stroke="#5f93b0" stroke-width="2.5" stroke-linecap="round"/>
+     <rect x="1078" y="178" width="12" height="12" rx="3" fill="#df8b6c" stroke="#24332d" stroke-width="1.5" transform="rotate(45 1084 184)"/>`,
+  )}
+  ${card(
+    764,
+    308,
+    '#fbe3d5',
+    'Fusión',
+    `<rect x="820" y="358" width="36" height="36" rx="10" fill="#8fb397" stroke="#24332d" stroke-width="2"/>
+     <rect x="862" y="358" width="36" height="36" rx="10" fill="#7fa9c2" stroke="#24332d" stroke-width="2"/>
+     <rect x="904" y="358" width="36" height="36" rx="10" fill="#a78fbf" stroke="#24332d" stroke-width="2"/>
+     <rect x="841" y="320" width="36" height="36" rx="10" fill="#df8b6c" stroke="#24332d" stroke-width="2"/>
+     <rect x="883" y="320" width="36" height="36" rx="10" fill="#d9b95f" stroke="#24332d" stroke-width="2"/>`,
+  )}
+  ${card(
+    988,
+    308,
+    '#ede4f2',
+    'Pulso',
+    `<rect x="1032" y="330" width="42" height="42" rx="12" fill="#2f5d50" stroke="#24332d" stroke-width="2"/>
+     <rect x="1082" y="330" width="42" height="42" rx="12" fill="#7fa9c2" stroke="#24332d" stroke-width="2"/>
+     <rect x="1032" y="380" width="42" height="42" rx="12" fill="#a78fbf" stroke="#24332d" stroke-width="2"/>
+     <rect x="1082" y="380" width="42" height="42" rx="12" fill="#df8b6c" stroke="#24332d" stroke-width="2"/>
+     <circle cx="1053" cy="351" r="6" fill="#fffaf0"/>`,
+  )}
 </svg>`;
 
 await mkdir(iconsDir, { recursive: true });

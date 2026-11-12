@@ -1,9 +1,9 @@
 {
   "name": "gacarbla-games",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Portal de juegos originales de gacarbla. Pequeños, rápidos y muy bien hechos.",
+  "description": "Portal tranquilo de juegos originales de gacarbla. Sin anuncios, cuentas ni notificaciones.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -20,8 +20,9 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
-    "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/nunito-sans": "^5.3.0",
+    "@fontsource/dm-mono": "^5.3.0",
     "astro": "^7.4.11",
     "zod": "^4.6.7"
   },

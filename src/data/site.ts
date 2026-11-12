@@ -1,8 +1,8 @@
 export const SITE = {
-  name: 'gacarbla games',
-  title: 'gacarbla games',
+  name: 'gacarbla juegos',
+  title: 'gacarbla juegos',
   description:
-    'Juegos originales, pequeños y muy bien hechos. Sin anuncios, sin registro y sin descargas. Entra, juega y sigue con tu día.',
+    'Cuatro juegos originales para jugar un rato sin prisa. Sin anuncios, sin cuentas y sin notificaciones.',
   url: 'https://games.gacarbla.es',
   domain: 'games.gacarbla.es',
   locale: 'es_ES',
@@ -10,5 +10,5 @@ export const SITE = {
   github: 'https://github.com/gacarbla/gacarbla.games',
   email: 'hola@gacarbla.es',
   year: 2026,
-  tagline: 'Juegos pequeños. Muy bien hechos.',
+  tagline: 'Juegos para jugar sin prisa.',
 } as const;
