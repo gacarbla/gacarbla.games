@@ -1,0 +1,18 @@
+{
+  "slug": "laberinto",
+  "title": "Laberinto",
+  "tagline": "Tres llaves. Niebla. Una salida.",
+  "description": "Explora un laberinto con niebla, recoge tres llaves y encuentra la salida. Orientación y memoria espacial en estado puro.",
+  "category": "visual",
+  "tags": ["Exploración", "Orientación", "Niebla"],
+  "accent": "#8fb397",
+  "cover": "wave",
+  "controls": "Mueve con flechas, WASD o la cruceta. Recoge las tres llaves y llega a la salida.",
+  "goal": "Encuentra las tres llaves y la salida sin perderte en la niebla.",
+  "duration": "3–8 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 12,
+  "released": "2026-11-12",
+  "version": "2.1.0"
+}
