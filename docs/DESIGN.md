@@ -126,7 +126,9 @@ contra la voluntad del jugador.
   Hanoi. Deducción, números y planificación; cada partida pide pensar antes de tocar.
 - **Visual:** Luces, Tuberías, Deslizante, Memoria y Laberinto. Formas, conexiones,
   orientación y memoria espacial.
-- **Palabras:** Sopa de letras. Seis palabras en ocho direcciones.
+- **Palabras:** Sopa de letras. Tres tamaños y palabras en ocho direcciones.
+- **Dificultad:** Buscaminas, Sudoku y Sopa de letras permiten elegir tamaño; Sokoban
+  sube de nivel con diez almacenes.
 - **Estrategia:** Sokoban y Conecta cuatro. Empuje de cajas y una IA con minimax.
 
 Todos comparten el mismo kit visual, los colores de la paleta, el HUD y los sonidos
