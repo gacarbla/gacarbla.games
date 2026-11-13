@@ -4,11 +4,7 @@
   "tagline": "Tres llaves. Niebla. Una salida.",
   "description": "Explora un laberinto con niebla, recoge tres llaves y encuentra la salida. Orientación y memoria espacial en estado puro.",
   "category": "visual",
-  "tags": [
-    "Exploración",
-    "Orientación",
-    "Niebla"
-  ],
+  "tags": ["Exploración", "Orientación", "Niebla"],
   "accent": "#8fb397",
   "controls": "Mueve con flechas, WASD o la cruceta. Recoge las tres llaves y llega a la salida.",
   "goal": "Encuentra las tres llaves y la salida sin perderte en la niebla.",
@@ -17,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 12,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

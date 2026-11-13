@@ -4,11 +4,7 @@
   "tagline": "Cinco discos. Treinta y un movimientos.",
   "description": "Mueve cinco discos entre tres torres sin poner uno grande sobre uno pequeño. El mínimo son 31 movimientos.",
   "category": "logica",
-  "tags": [
-    "Planificación",
-    "Clásico",
-    "5 discos"
-  ],
+  "tags": ["Planificación", "Clásico", "5 discos"],
   "accent": "#7fa9c2",
   "controls": "Toca una torre para coger el disco superior y otra para soltarlo. R reinicia.",
   "goal": "Lleva los cinco discos a la torre de la derecha sin romper la regla del tamaño.",
@@ -17,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 7,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

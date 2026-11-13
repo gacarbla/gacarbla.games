@@ -4,11 +4,7 @@
   "tagline": "Treinta cartas. Cuatro segundos.",
   "description": "Memoriza 30 cartas durante cuatro segundos y encuentra las 15 parejas con el menor número de intentos posible.",
   "category": "visual",
-  "tags": [
-    "Memoria",
-    "Parejas",
-    "Concentración"
-  ],
+  "tags": ["Memoria", "Parejas", "Concentración"],
   "accent": "#df8b6c",
   "controls": "Memoriza la posición inicial y toca dos cartas para buscar una pareja.",
   "goal": "Encuentra las 15 parejas antes de que se agoten tus intentos.",
@@ -17,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 11,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

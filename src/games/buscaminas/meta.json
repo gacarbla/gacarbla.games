@@ -4,11 +4,7 @@
   "tagline": "Deduce. Marca. No pises.",
   "description": "Encuentra todas las casillas seguras sin pisar una mina. Un buscaminas de 9×9 con primer clic seguro, banderas y deducción pura.",
   "category": "logica",
-  "tags": [
-    "Deducción",
-    "Riesgo",
-    "9×9"
-  ],
+  "tags": ["Deducción", "Riesgo", "9×9"],
   "accent": "#7fa9c2",
   "controls": "Clic para descubrir. Clic derecho, F o pulsación larga para marcar una mina.",
   "goal": "Descubre todas las casillas seguras. Los números indican cuántas minas hay alrededor.",
@@ -18,5 +14,5 @@
   "order": 1,
   "featured": true,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

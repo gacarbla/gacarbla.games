@@ -4,11 +4,7 @@
   "tagline": "Conecta la fuente con la salida.",
   "description": "Rota las tuberías para conectar la fuente con la salida. Un puzzle de 7×7 con una única red válida y muchas trampas.",
   "category": "visual",
-  "tags": [
-    "Conexiones",
-    "Visión espacial",
-    "7×7"
-  ],
+  "tags": ["Conexiones", "Visión espacial", "7×7"],
   "accent": "#8fb397",
   "controls": "Toca una tubería para rotarla. Conecta la fuente con la salida.",
   "goal": "Forma un camino continuo desde la fuente hasta la salida.",
@@ -17,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 9,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

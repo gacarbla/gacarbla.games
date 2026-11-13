@@ -4,11 +4,7 @@
   "tagline": "Cuatro colores. Seis intentos.",
   "description": "Descifra un código de cuatro colores en seis intentos. Usa las pistas exactas y aproximadas para deducir la combinación.",
   "category": "logica",
-  "tags": [
-    "Deducción",
-    "Código",
-    "6 intentos"
-  ],
+  "tags": ["Deducción", "Código", "6 intentos"],
   "accent": "#df8b6c",
   "controls": "Toca una ranura para cambiar el color. Pulsa Comprobar para validar el intento.",
   "goal": "Adivina los cuatro colores. Los puntos blancos son aciertos exactos; los oscuros, color correcto en otro sitio.",
@@ -17,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 4,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

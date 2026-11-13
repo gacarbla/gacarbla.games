@@ -4,11 +4,7 @@
   "tagline": "La última pieza pierde.",
   "description": "Juega al Nim contra una máquina que no regala nada. Retira 1, 2 o 3 objetos de una pila; quien coge el último pierde.",
   "category": "logica",
-  "tags": [
-    "Estrategia",
-    "Pensamiento",
-    "IA"
-  ],
+  "tags": ["Estrategia", "Pensamiento", "IA"],
   "accent": "#d9b95f",
   "controls": "Elige cuántos objetos retiras y toca una pila. La máquina responderá.",
   "goal": "Obliga a la máquina a coger el último objeto. No siempre se puede ganar: encuentra la estrategia.",
@@ -17,5 +13,5 @@
   "bestSuffix": "partidas",
   "order": 5,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }
