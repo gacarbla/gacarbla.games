@@ -1,13 +1,17 @@
 {
   "slug": "sopa-de-letras",
   "title": "Sopa de letras",
-  "tagline": "Seis palabras. Todas las direcciones.",
-  "description": "Encuentra seis palabras escondidas en una sopa de letras de 12×12. Pueden estar en horizontal, vertical o diagonal.",
+  "tagline": "Tres sopas. Todas las direcciones.",
+  "description": "Encuentra las palabras escondidas en tres dificultades: 10×10, 12×12 o 15×15 con diagonales. Cambia de nivel cuando quieras.",
   "category": "palabras",
-  "tags": ["Palabras", "Búsqueda", "12×12"],
+  "tags": [
+    "Palabras",
+    "Búsqueda",
+    "3 niveles"
+  ],
   "accent": "#cf8a8a",
-  "controls": "Toca la primera y la última letra de cada palabra. Pueden estar en cualquier dirección.",
-  "goal": "Encuentra las seis palabras de la lista en la sopa de letras.",
+  "controls": "Toca la primera y la última letra de cada palabra. 1–3 cambia la dificultad.",
+  "goal": "Encuentra todas las palabras de la lista en la sopa de letras.",
   "duration": "3–8 min",
   "scoreLabel": "PUNTOS",
   "bestSuffix": "pts",

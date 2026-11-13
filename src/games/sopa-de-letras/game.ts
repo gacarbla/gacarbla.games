@@ -10,12 +10,22 @@ import {
   drawPuzzleBoard,
   drawPuzzleCell,
   drawPuzzleFooter,
+  drawSegmented,
+  pointInButton,
   roundedRect,
+  segmentedButtons,
   type GameContext,
   type GameModule,
   type View,
 } from '../engine';
-import { SOUP_SIZE, WORDS, generateSoup, traceSelection, type Soup } from './logic';
+import {
+  DEFAULT_SOUP_LEVEL,
+  SOUP_LEVELS,
+  generateSoup,
+  traceSelection,
+  type Soup,
+  type SoupLevel,
+} from './logic';
 
 const START_SCORE = 1000;
 const PENALTY = 20;
@@ -31,7 +41,9 @@ interface SoupLayout {
 }
 
 class SopaDeLetras extends BaseGame {
-  private soup: Soup = generateSoup();
+  private difficulty = DEFAULT_SOUP_LEVEL;
+  private level: SoupLevel = SOUP_LEVELS[this.difficulty]!;
+  private soup: Soup = generateSoup(this.level);
   private selected = -1;
   private found = new Set<string>();
   private foundCells = new Set<number>();
@@ -46,6 +58,13 @@ class SopaDeLetras extends BaseGame {
     super(context);
 
     this.input.onPointerDown((point) => {
+      const difficulty = this.difficultyButtons(this.runtime.view).findIndex((button) =>
+        pointInButton(point.x, point.y, button),
+      );
+      if (difficulty >= 0) {
+        this.setDifficulty(difficulty);
+        return;
+      }
       const layout = this.layout(this.runtime.view);
       const cell = cellAt(layout, point.x, point.y);
       if (cell === null) return;
@@ -57,6 +76,10 @@ class SopaDeLetras extends BaseGame {
       if (code === 'KeyR') {
         this.reset();
         this.setStatus('Nueva sopa de letras.');
+        return;
+      }
+      if (code === 'Digit1' || code === 'Digit2' || code === 'Digit3') {
+        this.setDifficulty(Number(code.slice(5)) - 1);
         return;
       }
       if (
@@ -77,7 +100,7 @@ class SopaDeLetras extends BaseGame {
   }
 
   protected reset(): void {
-    this.soup = generateSoup();
+    this.soup = generateSoup(this.level);
     this.selected = -1;
     this.found = new Set<string>();
     this.foundCells = new Set<number>();
@@ -90,6 +113,21 @@ class SopaDeLetras extends BaseGame {
     this.setScore('PUNTOS', START_SCORE);
   }
 
+  private difficultyButtons(view: View): ReturnType<typeof segmentedButtons> {
+    return segmentedButtons(view, SOUP_LEVELS.length, 56);
+  }
+
+  private setDifficulty(index: number): void {
+    if (index < 0 || index >= SOUP_LEVELS.length || index === this.difficulty) return;
+    this.difficulty = index;
+    this.level = SOUP_LEVELS[index]!;
+    this.reset();
+    this.audio.click();
+    this.setStatus(
+      `${this.level.label}: ${this.level.size}×${this.level.size} con ${this.level.words.length} palabras.`,
+    );
+  }
+
   protected update(dt: number): void {
     if (this.missTimer <= 0) return;
     this.missTimer = Math.max(0, this.missTimer - dt);
@@ -99,6 +137,13 @@ class SopaDeLetras extends BaseGame {
   protected draw(context: CanvasRenderingContext2D, view: View): void {
     const accent = '#cf8a8a';
     drawPuzzleBackground(context, view, accent);
+    drawSegmented(
+      context,
+      this.difficultyButtons(view),
+      SOUP_LEVELS.map((level) => level.label),
+      this.difficulty,
+      accent,
+    );
     const layout = this.layout(view);
     drawPuzzleBoard(context, layout);
 
@@ -106,10 +151,10 @@ class SopaDeLetras extends BaseGame {
       if (line.length === 0) continue;
       const first = line[0]!;
       const last = line[line.length - 1]!;
-      const x1 = layout.x + (first % SOUP_SIZE) * layout.cell + layout.cell / 2;
-      const y1 = layout.y + Math.floor(first / SOUP_SIZE) * layout.cell + layout.cell / 2;
-      const x2 = layout.x + (last % SOUP_SIZE) * layout.cell + layout.cell / 2;
-      const y2 = layout.y + Math.floor(last / SOUP_SIZE) * layout.cell + layout.cell / 2;
+      const x1 = layout.x + (first % this.soup.size) * layout.cell + layout.cell / 2;
+      const y1 = layout.y + Math.floor(first / this.soup.size) * layout.cell + layout.cell / 2;
+      const x2 = layout.x + (last % this.soup.size) * layout.cell + layout.cell / 2;
+      const y2 = layout.y + Math.floor(last / this.soup.size) * layout.cell + layout.cell / 2;
       context.save();
       context.strokeStyle = alpha(PALETTE.forest, 0.2);
       context.lineWidth = layout.cell * 0.64;
@@ -121,7 +166,7 @@ class SopaDeLetras extends BaseGame {
       context.restore();
     }
 
-    for (let index = 0; index < SOUP_SIZE * SOUP_SIZE; index += 1) {
+    for (let index = 0; index < this.soup.size * this.soup.size; index += 1) {
       const isSelected = index === this.selected;
       const isFound = this.foundCells.has(index);
       const isMiss = this.missTimer > 0 && this.missCells.includes(index);
@@ -146,8 +191,8 @@ class SopaDeLetras extends BaseGame {
     }
 
     if (this.cursor >= 0) {
-      const column = this.cursor % SOUP_SIZE;
-      const row = Math.floor(this.cursor / SOUP_SIZE);
+      const column = this.cursor % this.soup.size;
+      const row = Math.floor(this.cursor / this.soup.size);
       context.save();
       roundedRect(
         context,
@@ -168,33 +213,36 @@ class SopaDeLetras extends BaseGame {
       context,
       view,
       `Intentos ${this.attempts}`,
-      `${this.found.size}/${WORDS.length} palabras`,
+      `${this.found.size}/${this.soup.words.length} palabras`,
     );
   }
 
   private layout(view: View): SoupLayout {
-    const top = 64;
+    const top = 104;
     const listSpace = 96;
     const cell = clamp(
-      Math.min((view.width - 32) / SOUP_SIZE, (view.height - top - listSpace - 26) / SOUP_SIZE),
+      Math.min(
+        (view.width - 32) / this.soup.size,
+        (view.height - top - listSpace - 26) / this.soup.size,
+      ),
       14,
       38,
     );
-    const width = cell * SOUP_SIZE;
+    const width = cell * this.soup.size;
     return {
-      cols: SOUP_SIZE,
-      rows: SOUP_SIZE,
+      cols: this.soup.size,
+      rows: this.soup.size,
       cell,
       x: (view.width - width) / 2,
       y: top,
       width,
-      height: cell * SOUP_SIZE,
+      height: cell * this.soup.size,
     };
   }
 
   private drawWordList(context: CanvasRenderingContext2D, view: View, layout: SoupLayout): void {
     const rows = 2;
-    const columns = Math.ceil(WORDS.length / rows);
+    const columns = Math.ceil(this.soup.words.length / rows);
     const slot = layout.width / columns;
     const startY = layout.y + layout.height + 26;
 
@@ -202,8 +250,8 @@ class SopaDeLetras extends BaseGame {
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.font = `700 13px ${FONT_SANS}`;
-    for (let index = 0; index < WORDS.length; index += 1) {
-      const word = WORDS[index]!;
+    for (let index = 0; index < this.soup.words.length; index += 1) {
+      const word = this.soup.words[index]!;
       const column = index % columns;
       const row = Math.floor(index / columns);
       const x = layout.x + column * slot + slot / 2;
@@ -230,7 +278,7 @@ class SopaDeLetras extends BaseGame {
     context.font = `500 10px ${FONT_MONO}`;
     context.fillStyle = alpha(PALETTE.ink, 0.5);
     context.fillText(
-      `${this.found.size} de ${WORDS.length} · toca las dos puntas`,
+      `${this.found.size} de ${this.soup.words.length} · toca las dos puntas`,
       view.width / 2,
       meterY,
     );
@@ -274,13 +322,13 @@ class SopaDeLetras extends BaseGame {
     this.audio.chord([523.25, 659.25, 783.99], 0.32, { gain: 0.08 });
     this.setStatus(`"${trace.word}" encontrada.`);
 
-    if (this.found.size === WORDS.length) {
+    if (this.found.size === this.soup.words.length) {
       this.done = true;
       this.audio.chord([392, 523.25, 659.25, 783.99], 0.5, { gain: 0.1 });
       this.finish({
         title: 'Sopa resuelta',
-        message: 'Las seis palabras estaban escondidas en la sopa.',
-        detail: `${this.attempts} intentos fallidos`,
+        message: 'Todas las palabras estaban escondidas en la sopa.',
+        detail: `${this.level.size}×${this.level.size} · ${this.attempts} intentos fallidos`,
         score: this.points(),
         scoreLabel: 'PUNTOS',
         tone: 'win',
@@ -306,15 +354,15 @@ class SopaDeLetras extends BaseGame {
       this.cursor = 0;
       return;
     }
-    const column = this.cursor % SOUP_SIZE;
-    const row = Math.floor(this.cursor / SOUP_SIZE);
-    if (code === 'ArrowLeft') this.cursor = row * SOUP_SIZE + Math.max(0, column - 1);
+    const column = this.cursor % this.soup.size;
+    const row = Math.floor(this.cursor / this.soup.size);
+    if (code === 'ArrowLeft') this.cursor = row * this.soup.size + Math.max(0, column - 1);
     if (code === 'ArrowRight') {
-      this.cursor = row * SOUP_SIZE + Math.min(SOUP_SIZE - 1, column + 1);
+      this.cursor = row * this.soup.size + Math.min(this.soup.size - 1, column + 1);
     }
-    if (code === 'ArrowUp') this.cursor = Math.max(0, row - 1) * SOUP_SIZE + column;
+    if (code === 'ArrowUp') this.cursor = Math.max(0, row - 1) * this.soup.size + column;
     if (code === 'ArrowDown') {
-      this.cursor = Math.min(SOUP_SIZE - 1, row + 1) * SOUP_SIZE + column;
+      this.cursor = Math.min(this.soup.size - 1, row + 1) * this.soup.size + column;
     }
     this.audio.click();
   }

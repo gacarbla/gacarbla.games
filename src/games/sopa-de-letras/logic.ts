@@ -1,5 +1,36 @@
-export const SOUP_SIZE = 12;
-export const WORDS = ['SOL', 'LUNA', 'MAR', 'RIO', 'NUBE', 'FLOR'] as const;
+export interface SoupLevel {
+  id: 'facil' | 'normal' | 'dificil';
+  label: string;
+  size: number;
+  words: readonly string[];
+  diagonals: boolean;
+}
+
+export const SOUP_LEVELS: readonly SoupLevel[] = [
+  {
+    id: 'facil',
+    label: 'Fácil',
+    size: 10,
+    words: ['SOL', 'MAR', 'RIO', 'LUNA', 'FLOR'],
+    diagonals: false,
+  },
+  {
+    id: 'normal',
+    label: 'Normal',
+    size: 12,
+    words: ['SOL', 'LUNA', 'MAR', 'RIO', 'NUBE', 'FLOR'],
+    diagonals: true,
+  },
+  {
+    id: 'dificil',
+    label: 'Difícil',
+    size: 15,
+    words: ['ESTRELLA', 'MONTANA', 'BOSQUE', 'CAMINO', 'JARDIN', 'VIENTO', 'PUENTE', 'LINTERNA'],
+    diagonals: true,
+  },
+] as const;
+
+export const DEFAULT_SOUP_LEVEL = 1;
 
 export interface Placement {
   word: string;
@@ -7,7 +38,9 @@ export interface Placement {
 }
 
 export interface Soup {
+  level: SoupLevel;
   size: number;
+  words: readonly string[];
   letters: string[];
   placements: Placement[];
 }
@@ -17,7 +50,7 @@ export interface Trace {
   cells: number[];
 }
 
-const DIRECTIONS: readonly [number, number][] = [
+const ALL_DIRECTIONS: readonly [number, number][] = [
   [1, 0],
   [-1, 0],
   [0, 1],
@@ -28,9 +61,21 @@ const DIRECTIONS: readonly [number, number][] = [
   [-1, -1],
 ];
 
-const FILL_LETTERS = 'AAAAAEEEEIIIIOOOOOUUBCDFGHJLMNPRSTVZ';
+const ORTHOGONAL_DIRECTIONS: readonly [number, number][] = [
+  [1, 0],
+  [-1, 0],
+  [0, 1],
+  [0, -1],
+];
+
+const FILL_LETTERS = 'AAAAAEEEEIIIIOOOOOUUBCDFGHJLMNPQRSTVYZ';
+
+function directionsFor(level: SoupLevel): readonly [number, number][] {
+  return level.diagonals ? ALL_DIRECTIONS : ORTHOGONAL_DIRECTIONS;
+}
 
 function placementAt(
+  level: SoupLevel,
   letters: string[],
   word: string,
   column: number,
@@ -42,10 +87,10 @@ function placementAt(
   for (let index = 0; index < word.length; index += 1) {
     const nextColumn = column + stepX * index;
     const nextRow = row + stepY * index;
-    if (nextColumn < 0 || nextColumn >= SOUP_SIZE || nextRow < 0 || nextRow >= SOUP_SIZE) {
+    if (nextColumn < 0 || nextColumn >= level.size || nextRow < 0 || nextRow >= level.size) {
       return null;
     }
-    const cell = nextRow * SOUP_SIZE + nextColumn;
+    const cell = nextRow * level.size + nextColumn;
     const existing = letters[cell]!;
     if (existing !== '' && existing !== word[index]) return null;
     cells.push(cell);
@@ -53,29 +98,37 @@ function placementAt(
   return { word, cells };
 }
 
-function placeWord(letters: string[], word: string, random: () => number): Placement | null {
-  for (let attempt = 0; attempt < 600; attempt += 1) {
-    const [stepX, stepY] = DIRECTIONS[Math.floor(random() * DIRECTIONS.length)]!;
-    const column = Math.floor(random() * SOUP_SIZE);
-    const row = Math.floor(random() * SOUP_SIZE);
-    const placement = placementAt(letters, word, column, row, stepX, stepY);
+function writeWord(letters: string[], placement: Placement): void {
+  for (let index = 0; index < placement.word.length; index += 1) {
+    letters[placement.cells[index]!] = placement.word[index]!;
+  }
+}
+
+function placeWord(
+  level: SoupLevel,
+  letters: string[],
+  word: string,
+  random: () => number,
+): Placement | null {
+  const directions = directionsFor(level);
+  for (let attempt = 0; attempt < 900; attempt += 1) {
+    const [stepX, stepY] = directions[Math.floor(random() * directions.length)]!;
+    const column = Math.floor(random() * level.size);
+    const row = Math.floor(random() * level.size);
+    const placement = placementAt(level, letters, word, column, row, stepX, stepY);
     if (placement) {
-      for (let index = 0; index < word.length; index += 1) {
-        letters[placement.cells[index]!] = word[index]!;
-      }
+      writeWord(letters, placement);
       return placement;
     }
   }
 
   // Reserva determinista: recorre todas las posiciones y direcciones posibles.
-  for (const [stepX, stepY] of DIRECTIONS) {
-    for (let row = 0; row < SOUP_SIZE; row += 1) {
-      for (let column = 0; column < SOUP_SIZE; column += 1) {
-        const placement = placementAt(letters, word, column, row, stepX, stepY);
+  for (const [stepX, stepY] of directions) {
+    for (let row = 0; row < level.size; row += 1) {
+      for (let column = 0; column < level.size; column += 1) {
+        const placement = placementAt(level, letters, word, column, row, stepX, stepY);
         if (!placement) continue;
-        for (let index = 0; index < word.length; index += 1) {
-          letters[placement.cells[index]!] = word[index]!;
-        }
+        writeWord(letters, placement);
         return placement;
       }
     }
@@ -83,15 +136,20 @@ function placeWord(letters: string[], word: string, random: () => number): Place
   return null;
 }
 
-/** Genera una sopa de letras con las seis palabras en direcciones variadas. */
-export function generateSoup(random: () => number = Math.random): Soup {
-  for (let round = 0; round < 30; round += 1) {
-    const letters = new Array<string>(SOUP_SIZE * SOUP_SIZE).fill('');
+/** Genera una sopa de letras con las palabras y direcciones de la dificultad. */
+export function generateSoup(
+  level: SoupLevel = SOUP_LEVELS[DEFAULT_SOUP_LEVEL]!,
+  random: () => number = Math.random,
+): Soup {
+  const total = level.size * level.size;
+
+  for (let round = 0; round < 40; round += 1) {
+    const letters = new Array<string>(total).fill('');
     const placements: Placement[] = [];
     let complete = true;
 
-    for (const word of WORDS) {
-      const placement = placeWord(letters, word, random);
+    for (const word of level.words) {
+      const placement = placeWord(level, letters, word, random);
       if (!placement) {
         complete = false;
         break;
@@ -106,7 +164,7 @@ export function generateSoup(random: () => number = Math.random): Soup {
       letters[index] = FILL_LETTERS[Math.floor(random() * FILL_LETTERS.length)]!;
     }
 
-    return { size: SOUP_SIZE, letters, placements };
+    return { level, size: level.size, words: level.words, letters, placements };
   }
 
   throw new Error('No se pudo generar la sopa de letras.');

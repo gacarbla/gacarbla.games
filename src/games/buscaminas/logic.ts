@@ -1,10 +1,24 @@
-export const MINE_COLS = 9;
-export const MINE_ROWS = 9;
-export const MINE_COUNT = 12;
-export const MINE_SIZE = MINE_COLS * MINE_ROWS;
-export const SAFE_COUNT = MINE_SIZE - MINE_COUNT;
+export interface MineLevel {
+  id: 'facil' | 'normal' | 'dificil';
+  label: string;
+  cols: number;
+  rows: number;
+  mines: number;
+}
+
+export const MINE_LEVELS: readonly MineLevel[] = [
+  { id: 'facil', label: 'Fácil', cols: 8, rows: 8, mines: 8 },
+  { id: 'normal', label: 'Normal', cols: 9, rows: 9, mines: 12 },
+  { id: 'dificil', label: 'Difícil', cols: 12, rows: 12, mines: 28 },
+] as const;
+
+export const DEFAULT_MINE_LEVEL = 1;
 
 export interface MineBoard {
+  cols: number;
+  rows: number;
+  mineCount: number;
+  safeCount: number;
   mines: boolean[];
   counts: number[];
   revealed: boolean[];
@@ -17,28 +31,33 @@ export interface RevealResult {
   opened: number;
 }
 
-export function createMineBoard(): MineBoard {
+export function createMineBoard(level: MineLevel = MINE_LEVELS[DEFAULT_MINE_LEVEL]!): MineBoard {
+  const size = level.cols * level.rows;
   return {
-    mines: Array<boolean>(MINE_SIZE).fill(false),
-    counts: Array<number>(MINE_SIZE).fill(0),
-    revealed: Array<boolean>(MINE_SIZE).fill(false),
-    flags: Array<boolean>(MINE_SIZE).fill(false),
+    cols: level.cols,
+    rows: level.rows,
+    mineCount: level.mines,
+    safeCount: size - level.mines,
+    mines: Array<boolean>(size).fill(false),
+    counts: Array<number>(size).fill(0),
+    revealed: Array<boolean>(size).fill(false),
+    flags: Array<boolean>(size).fill(false),
     placed: false,
   };
 }
 
-export function neighbors(index: number): number[] {
-  const column = index % MINE_COLS;
-  const row = Math.floor(index / MINE_COLS);
+export function neighbors(index: number, cols: number, rows: number): number[] {
+  const column = index % cols;
+  const row = Math.floor(index / cols);
   const result: number[] = [];
   for (let dy = -1; dy <= 1; dy += 1) {
     for (let dx = -1; dx <= 1; dx += 1) {
       if (dx === 0 && dy === 0) continue;
       const nextColumn = column + dx;
       const nextRow = row + dy;
-      if (nextColumn < 0 || nextColumn >= MINE_COLS) continue;
-      if (nextRow < 0 || nextRow >= MINE_ROWS) continue;
-      result.push(nextRow * MINE_COLS + nextColumn);
+      if (nextColumn < 0 || nextColumn >= cols) continue;
+      if (nextRow < 0 || nextRow >= rows) continue;
+      result.push(nextRow * cols + nextColumn);
     }
   }
   return result;
@@ -52,9 +71,10 @@ export function placeMines(
 ): void {
   if (board.placed) return;
 
-  const forbidden = new Set<number>([safeIndex, ...neighbors(safeIndex)]);
+  const size = board.mines.length;
+  const forbidden = new Set<number>([safeIndex, ...neighbors(safeIndex, board.cols, board.rows)]);
   const candidates: number[] = [];
-  for (let index = 0; index < MINE_SIZE; index += 1) {
+  for (let index = 0; index < size; index += 1) {
     if (!forbidden.has(index)) candidates.push(index);
   }
   for (let index = candidates.length - 1; index > 0; index -= 1) {
@@ -64,12 +84,14 @@ export function placeMines(
     candidates[swap] = value;
   }
 
-  for (let index = 0; index < MINE_COUNT; index += 1) {
+  for (let index = 0; index < board.mineCount; index += 1) {
     board.mines[candidates[index]!] = true;
   }
 
-  for (let index = 0; index < MINE_SIZE; index += 1) {
-    board.counts[index] = neighbors(index).filter((neighbor) => board.mines[neighbor]).length;
+  for (let index = 0; index < size; index += 1) {
+    board.counts[index] = neighbors(index, board.cols, board.rows).filter(
+      (neighbor) => board.mines[neighbor],
+    ).length;
   }
   board.placed = true;
 }
@@ -80,7 +102,7 @@ export function revealCell(
   index: number,
   random: () => number = Math.random,
 ): RevealResult {
-  if (index < 0 || index >= MINE_SIZE) return { hitMine: false, opened: 0 };
+  if (index < 0 || index >= board.mines.length) return { hitMine: false, opened: 0 };
   if (board.revealed[index] || board.flags[index]) return { hitMine: false, opened: 0 };
 
   if (!board.placed) placeMines(board, index, random);
@@ -97,7 +119,7 @@ export function revealCell(
     board.revealed[current] = true;
     opened += 1;
     if (board.counts[current] === 0) {
-      for (const neighbor of neighbors(current)) {
+      for (const neighbor of neighbors(current, board.cols, board.rows)) {
         if (!board.revealed[neighbor] && !board.flags[neighbor]) pending.push(neighbor);
       }
     }
@@ -117,14 +139,14 @@ export function flagCount(board: MineBoard): number {
 
 export function revealedSafeCount(board: MineBoard): number {
   let total = 0;
-  for (let index = 0; index < MINE_SIZE; index += 1) {
+  for (let index = 0; index < board.mines.length; index += 1) {
     if (board.revealed[index] && !board.mines[index]) total += 1;
   }
   return total;
 }
 
 export function revealAllMines(board: MineBoard): void {
-  for (let index = 0; index < MINE_SIZE; index += 1) {
+  for (let index = 0; index < board.mines.length; index += 1) {
     if (board.mines[index]) board.revealed[index] = true;
   }
 }

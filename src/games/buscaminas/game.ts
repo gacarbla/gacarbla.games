@@ -10,9 +10,11 @@ import {
   drawPuzzleCell,
   drawPuzzleFooter,
   drawPuzzleHeader,
+  drawSegmented,
   drawUiButton,
   pointInButton,
   puzzleLayout,
+  segmentedButtons,
   type GameContext,
   type GameModule,
   type PuzzleLayout,
@@ -20,11 +22,8 @@ import {
   type View,
 } from '../engine';
 import {
-  MINE_COLS,
-  MINE_COUNT,
-  MINE_ROWS,
-  MINE_SIZE,
-  SAFE_COUNT,
+  DEFAULT_MINE_LEVEL,
+  MINE_LEVELS,
   createMineBoard,
   flagCount,
   revealAllMines,
@@ -32,6 +31,7 @@ import {
   revealedSafeCount,
   toggleFlag,
   type MineBoard,
+  type MineLevel,
 } from './logic';
 
 interface MineGeometry {
@@ -57,8 +57,10 @@ const NUMBER_COLORS = [
 ];
 
 class Buscaminas extends BaseGame {
-  private board: MineBoard = createMineBoard();
-  private cursor = Math.floor(MINE_SIZE / 2);
+  private difficulty = DEFAULT_MINE_LEVEL;
+  private level: MineLevel = MINE_LEVELS[this.difficulty]!;
+  private board: MineBoard = createMineBoard(this.level);
+  private cursor = Math.floor((this.level.cols * this.level.rows) / 2);
   private flagMode = false;
   private score = 0;
   private over = false;
@@ -78,20 +80,35 @@ class Buscaminas extends BaseGame {
   }
 
   protected reset(): void {
-    this.board = createMineBoard();
-    this.cursor = Math.floor(MINE_SIZE / 2);
+    this.board = createMineBoard(this.level);
+    this.cursor = Math.floor(this.board.mines.length / 2);
     this.flagMode = false;
     this.score = 0;
     this.over = false;
     this.setScore('PUNTOS', 0);
   }
 
+  private difficultyButtons(view: View): UiButton[] {
+    return segmentedButtons(view, MINE_LEVELS.length, 112);
+  }
+
+  private setDifficulty(index: number): void {
+    if (index < 0 || index >= MINE_LEVELS.length || index === this.difficulty) return;
+    this.difficulty = index;
+    this.level = MINE_LEVELS[index]!;
+    this.reset();
+    this.audio.click();
+    this.setStatus(
+      `${this.level.label}: ${this.level.cols}×${this.level.rows} con ${this.level.mines} minas.`,
+    );
+  }
+
   private geometry(view: View): MineGeometry {
-    const layout = puzzleLayout(view, MINE_COLS, MINE_ROWS, {
-      top: 124,
+    const layout = puzzleLayout(view, this.level.cols, this.level.rows, {
+      top: 152,
       bottom: 168,
-      widthRatio: 0.78,
-      heightRatio: 0.5,
+      widthRatio: 0.8,
+      heightRatio: 0.46,
       maxCell: 54,
     });
     const width = clamp(view.width * 0.42, 124, 156);
@@ -105,6 +122,13 @@ class Buscaminas extends BaseGame {
 
   private handlePointer(point: LocalPoint): void {
     if (this.state !== 'running' || this.over) return;
+    const difficultyIndex = this.difficultyButtons(this.runtime.view).findIndex((button) =>
+      pointInButton(point.x, point.y, button),
+    );
+    if (difficultyIndex >= 0) {
+      this.setDifficulty(difficultyIndex);
+      return;
+    }
     const geometry = this.geometry(this.runtime.view);
     if (pointInButton(point.x, point.y, geometry.flagButton)) {
       this.flagMode = !this.flagMode;
@@ -136,26 +160,30 @@ class Buscaminas extends BaseGame {
 
   private handleKey(code: string): void {
     if (this.state !== 'running' || this.over) return;
-    const column = this.cursor % MINE_COLS;
-    const row = Math.floor(this.cursor / MINE_COLS);
+    if (code === 'Digit1' || code === 'Digit2' || code === 'Digit3') {
+      this.setDifficulty(Number(code.slice(5)) - 1);
+      return;
+    }
+    const column = this.cursor % this.level.cols;
+    const row = Math.floor(this.cursor / this.level.cols);
 
     if (code === 'ArrowLeft') {
-      this.cursor = row * MINE_COLS + Math.max(0, column - 1);
+      this.cursor = row * this.level.cols + Math.max(0, column - 1);
       this.audio.tone(300, 0.03, { type: 'triangle', gain: 0.018 });
       return;
     }
     if (code === 'ArrowRight') {
-      this.cursor = row * MINE_COLS + Math.min(MINE_COLS - 1, column + 1);
+      this.cursor = row * this.level.cols + Math.min(this.level.cols - 1, column + 1);
       this.audio.tone(320, 0.03, { type: 'triangle', gain: 0.018 });
       return;
     }
     if (code === 'ArrowUp') {
-      this.cursor = Math.max(0, row - 1) * MINE_COLS + column;
+      this.cursor = Math.max(0, row - 1) * this.level.cols + column;
       this.audio.tone(300, 0.03, { type: 'triangle', gain: 0.018 });
       return;
     }
     if (code === 'ArrowDown') {
-      this.cursor = Math.min(MINE_ROWS - 1, row + 1) * MINE_COLS + column;
+      this.cursor = Math.min(this.level.rows - 1, row + 1) * this.level.cols + column;
       this.audio.tone(320, 0.03, { type: 'triangle', gain: 0.018 });
       return;
     }
@@ -195,19 +223,19 @@ class Buscaminas extends BaseGame {
       this.audio.noise(0.09, { gain: 0.018, filter: 'lowpass', frequency: 720 });
     }
 
-    if (revealedSafeCount(this.board) === SAFE_COUNT) this.win();
+    if (revealedSafeCount(this.board) === this.board.safeCount) this.win();
   }
 
   private win(): void {
     this.over = true;
-    this.score = SAFE_COUNT * 10 + 500;
+    this.score = this.board.safeCount * 10 + 500;
     this.setScore('PUNTOS', this.score);
     this.setStatus(`Campo despejado. ${this.score} puntos.`);
     this.audio.chord([392, 494, 587], 0.55, { type: 'sine', gain: 0.1 });
     this.finish({
       title: 'Campo despejado',
       message: 'Has deducido todas las casillas seguras sin pisar una mina.',
-      detail: `${SAFE_COUNT} casillas · 12 minas · bonus +500`,
+      detail: `${this.board.safeCount} casillas · ${this.level.mines} minas · bonus +500`,
       score: this.score,
       scoreLabel: 'PUNTOS',
       ctaLabel: 'Otra partida',
@@ -226,7 +254,7 @@ class Buscaminas extends BaseGame {
     this.finish({
       title: 'Una mina',
       message: 'El tablero queda al descubierto. La próxima vez, cuenta las banderas.',
-      detail: `${revealedSafeCount(this.board)} casillas seguras de ${SAFE_COUNT}`,
+      detail: `${revealedSafeCount(this.board)} casillas seguras de ${this.board.safeCount}`,
       score: this.score,
       scoreLabel: 'PUNTOS',
       ctaLabel: 'Reintentar',
@@ -240,7 +268,19 @@ class Buscaminas extends BaseGame {
 
   protected draw(context: CanvasRenderingContext2D, view: View): void {
     drawPuzzleBackground(context, view, '#7fa9c2');
-    drawPuzzleHeader(context, view, 'BUSCAMINAS', '12 minas · primer clic seguro');
+    drawPuzzleHeader(
+      context,
+      view,
+      'BUSCAMINAS',
+      `${this.level.cols}×${this.level.rows} · ${this.level.mines} minas · primer clic seguro`,
+    );
+    drawSegmented(
+      context,
+      this.difficultyButtons(view),
+      MINE_LEVELS.map((level) => level.label),
+      this.difficulty,
+      PALETTE.sky,
+    );
     const geometry = this.geometry(view);
     const { layout } = geometry;
 
@@ -251,12 +291,12 @@ class Buscaminas extends BaseGame {
     context.fillStyle = alpha(PALETTE.ink, 0.62);
     context.textBaseline = 'middle';
     context.textAlign = 'left';
-    context.fillText(`MINAS ${MINE_COUNT}`, layout.x, layout.y - 17);
+    context.fillText(`MINAS ${this.level.mines}`, layout.x, layout.y - 17);
     context.textAlign = 'right';
     context.fillText(`BANDERAS ${flagCount(this.board)}`, layout.x + layout.width, layout.y - 17);
     context.restore();
 
-    for (let index = 0; index < MINE_SIZE; index += 1) {
+    for (let index = 0; index < this.board.mines.length; index += 1) {
       this.drawCell(context, layout, index);
     }
 
@@ -268,9 +308,9 @@ class Buscaminas extends BaseGame {
     drawPuzzleFooter(
       context,
       view,
-      `SEGURAS ${revealedSafeCount(this.board)}/${SAFE_COUNT}`,
+      `SEGURAS ${revealedSafeCount(this.board)}/${this.board.safeCount}`,
       `PUNTOS ${this.score}`,
-      'CLIC DESCUBRE · DERECHO / F BANDERA',
+      'CLIC DESCUBRE · DERECHO / F BANDERA · 1–3 DIFICULTAD',
     );
   }
 
@@ -278,8 +318,8 @@ class Buscaminas extends BaseGame {
     const revealed = this.board.revealed[index]!;
     const flagged = this.board.flags[index]!;
     const cursor = index === this.cursor && this.state === 'running' && !this.over;
-    const column = index % MINE_COLS;
-    const row = Math.floor(index / MINE_COLS);
+    const column = index % this.level.cols;
+    const row = Math.floor(index / this.level.cols);
     const x = layout.x + column * layout.cell;
     const y = layout.y + row * layout.cell;
 
