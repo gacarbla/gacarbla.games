@@ -47,7 +47,6 @@ const meta = {
   category: 'accion',
   tags: ['Un botón', 'Reflejos'],
   accent: '#8fb397',
-  cover: 'grid',
   controls: 'Espacio, clic o toque para jugar. P o Esc para pausar.',
   goal: 'Explica el objetivo en una frase clara y concreta.',
   duration: '2–4 min',

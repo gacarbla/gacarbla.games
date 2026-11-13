@@ -8,12 +8,10 @@ import '../styles/game.css';
 
 interface Props {
   game: GameMeta;
-  index: number;
 }
 
-const { game, index } = Astro.props;
+const { game } = Astro.props;
 const related = getRelatedGames(game.slug, 3);
-const number = String(index + 1).padStart(2, '0');
 ---
 
 <section
@@ -81,11 +79,11 @@ const number = String(index + 1).padStart(2, '0');
     <div class="game-overlay" data-overlay="start">
       <div class="overlay-card overlay-card--start">
         <div class="overlay-art">
-          <GameCover game={game} index={index} />
+          <GameCover game={game} />
           <span class="overlay-art__badge">{CATEGORY_LABELS[game.category]}</span>
         </div>
         <div class="overlay-body">
-          <p class="eyebrow eyebrow--lime">Juego {number} · {game.duration}</p>
+          <p class="eyebrow eyebrow--lime">Sin prisa · {game.duration}</p>
           <p class="overlay-title">{game.title}</p>
           <p class="overlay-tagline">{game.tagline}</p>
 

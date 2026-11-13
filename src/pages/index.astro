@@ -13,7 +13,6 @@ const counts = getCategoryCounts();
 const categories = (Object.keys(counts) as GameCategory[]).filter(
   (category) => counts[category] > 0,
 );
-const featuredIndex = games.findIndex((game) => game.slug === featured.slug);
 
 const recentGames = games.map((game) => ({
   slug: game.slug,
@@ -81,18 +80,14 @@ const jsonLd = [
         <div class="hero-feature" style={`--accent:${featured.accent}`}>
           <div class="hero-feature__top">
             <span>Para empezar</span>
-            <span
-              >{String(featuredIndex + 1).padStart(2, '0')} / {
-                String(games.length).padStart(2, '0')
-              }</span
-            >
+            <span>{CATEGORY_LABELS[featured.category]}</span>
           </div>
           <a
             class="hero-feature__cover"
             href={`/jugar/${featured.slug}/`}
             aria-label={`Jugar a ${featured.title}`}
           >
-            <GameCover game={featured} index={featuredIndex} />
+            <GameCover game={featured} />
             <span class="hero-feature__play">
               <Icon name="play" size={13} />
               Jugar

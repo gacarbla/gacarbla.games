@@ -4,9 +4,12 @@
   "tagline": "Seis palabras. Todas las direcciones.",
   "description": "Encuentra seis palabras escondidas en una sopa de letras de 12×12. Pueden estar en horizontal, vertical o diagonal.",
   "category": "palabras",
-  "tags": ["Palabras", "Búsqueda", "12×12"],
+  "tags": [
+    "Palabras",
+    "Búsqueda",
+    "12×12"
+  ],
   "accent": "#cf8a8a",
-  "cover": "grid",
   "controls": "Toca la primera y la última letra de cada palabra. Pueden estar en cualquier dirección.",
   "goal": "Encuentra las seis palabras de la lista en la sopa de letras.",
   "duration": "3–8 min",

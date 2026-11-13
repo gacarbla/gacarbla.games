@@ -89,7 +89,8 @@ símbolo orbital tecnológico y del rayo de «arcade».
 - Entradas de 600–700 ms con `cubic-bezier(.22,.8,.35,1)`.
 - Desplazamientos de 10–14 px, no de 40 px.
 - Sin marquesinas automáticas, sin pulsos rápidos, sin flashes.
-- Portadas animadas a 60–70 s o con respiración suave.
+- Portadas: una imagen opcional por juego o, si no hay `thumbnail`, el nombre sobre papel
+  tintado. Sin numeración ni ilustraciones generadas de reserva.
 - En juegos: partículas reducidas, shake máximo de 5 px y solo en impactos.
 - `prefers-reduced-motion` elimina animaciones decorativas y suaviza el juego.
 

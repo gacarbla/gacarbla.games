@@ -4,9 +4,12 @@
   "tagline": "Apágalas todas. Pero cada pulsación cambia más de una.",
   "description": "Apaga todas las luces de un tablero 5×5. Cada pulsación cambia la casilla y sus vecinas; encuentra la secuencia.",
   "category": "visual",
-  "tags": ["Lógica", "Patrones", "5×5"],
+  "tags": [
+    "Lógica",
+    "Patrones",
+    "5×5"
+  ],
   "accent": "#d9b95f",
-  "cover": "grid",
   "controls": "Toca una casilla para cambiar su estado y el de sus vecinas. R reinicia.",
   "goal": "Deja todas las luces apagadas con el menor número de pulsaciones posible.",
   "duration": "3–8 min",

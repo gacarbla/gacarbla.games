@@ -23,7 +23,7 @@ const cardStyle = `--reveal-delay:${Math.min(index, 5) * 70}ms;--accent:${game.a
 >
   <a class="game-card__link" href={`/jugar/${game.slug}/`} aria-label={`Jugar a ${game.title}`}>
     <div class="game-card__cover">
-      <GameCover game={game} index={index} />
+      <GameCover game={game} />
       <span class="game-card__category">{CATEGORY_LABELS[game.category]}</span>
       <span class="game-card__play">
         <Icon name="play" size={13} />

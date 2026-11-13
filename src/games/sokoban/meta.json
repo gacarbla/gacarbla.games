@@ -4,9 +4,12 @@
   "tagline": "Cada caja, en su sitio.",
   "description": "Empuja cada caja hasta su destino sin dejarla en una esquina. Cinco niveles de Sokoban que piden planificar antes de mover.",
   "category": "estrategia",
-  "tags": ["Empuje", "Planificación", "5 niveles"],
+  "tags": [
+    "Empuje",
+    "Planificación",
+    "5 niveles"
+  ],
   "accent": "#7fa9c2",
-  "cover": "stack",
   "controls": "Mueve con flechas o WASD. Empuja cada caja a su destino. Z deshace, R reinicia.",
   "goal": "Coloca todas las cajas sobre los destinos. Solo puedes empujar, no tirar.",
   "duration": "5–15 min",

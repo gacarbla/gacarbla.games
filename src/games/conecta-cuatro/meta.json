@@ -4,9 +4,12 @@
   "tagline": "Cuatro en línea. La máquina no perdona.",
   "description": "Juega al conecta cuatro contra una IA que calcula sus respuestas. Gana con cuatro en línea antes de que ella lo haga.",
   "category": "estrategia",
-  "tags": ["Estrategia", "IA", "7×6"],
+  "tags": [
+    "Estrategia",
+    "IA",
+    "7×6"
+  ],
   "accent": "#df8b6c",
-  "cover": "fusion",
   "controls": "Toca una columna para soltar tu ficha. La máquina responderá.",
   "goal": "Consigue cuatro fichas en línea en horizontal, vertical o diagonal.",
   "duration": "3–8 min",

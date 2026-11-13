@@ -6,17 +6,16 @@ import { SITE } from '../../data/site';
 
 interface Props {
   game: GameMeta;
-  index: number;
 }
 
 export function getStaticPaths() {
-  return games.map((game, index) => ({
+  return games.map((game) => ({
     params: { slug: game.slug },
-    props: { game, index },
+    props: { game },
   }));
 }
 
-const { game, index } = Astro.props;
+const { game } = Astro.props;
 const gameUrl = new URL(`/jugar/${game.slug}/`, SITE.url).href;
 
 const jsonLd = [
@@ -79,5 +78,5 @@ const jsonLd = [
   type="article"
   jsonLd={jsonLd}
 >
-  <GameShell game={game} index={index} />
+  <GameShell game={game} />
 </BaseLayout>

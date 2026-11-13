@@ -33,7 +33,7 @@ La v2.1 combina el rediseño de identidad de la v2 con quince juegos nuevos:
 
 - Paleta cálida de papel, bosque, salvia, albaricoque, cielo y lavanda.
 - Nuevo logotipo de flor y tipografía editorial: **Fraunces** + **Nunito Sans** + **DM Mono**.
-- Portadas e ilustraciones SVG con estética de papel recortado.
+- Miniaturas opcionales: si el juego no declara `thumbnail`, la portada muestra solo su nombre sobre papel tintado.
 - Movimiento lento, sin destellos agresivos ni rebotes.
 - Partidas cortas, sin rachas, sin monedas, sin recompensas diarias ni comparaciones.
 - Pausa y salida siempre disponibles. El juego nunca te reclama.
@@ -67,7 +67,7 @@ npm run qa       # capturas y flujos reales en Chrome (requiere Chrome/Edge)
 ## Añadir un juego
 
 1. `npm run new:game -- mi-juego` genera `src/games/mi-juego/` con su metadata y su módulo.
-2. Ajusta `meta.json` (título, descripción, categoría, acento, portada).
+2. Ajusta `meta.json` (título, descripción, categoría, acento y, si quieres, `thumbnail`).
 3. Implementa el juego en `game.ts` usando el motor compartido.
 4. Añade tests de la lógica pura en `tests/`.
 5. `npm run check && npm test && npm run build`.
