@@ -2,16 +2,16 @@
   "slug": "sudoku",
   "title": "Sudoku",
   "tagline": "Seis números. Ninguna repetición.",
-  "description": "Un sudoku 6×6 con cajas de 2×3. Coloca el 1 al 6 sin repetir en filas, columnas o cajas. Lógica, no suerte.",
+  "description": "Un sudoku con tres dificultades: 4×4, 6×6 y 9×9. Cada puzzle tiene solución única y se genera al instante. Lógica, no suerte.",
   "category": "logica",
-  "tags": ["Números", "Lógica", "6×6"],
+  "tags": ["Números", "Lógica", "3 niveles"],
   "accent": "#a78fbf",
-  "controls": "Selecciona una celda y elige un número. Flechas para moverte, 1–6 para escribir.",
+  "controls": "Selecciona una celda y elige un número. Flechas para moverte y teclas numéricas para escribir.",
   "goal": "Rellena el tablero sin repetir ningún número en cada fila, columna o caja.",
   "duration": "5–15 min",
   "scoreLabel": "PUNTOS",
   "bestSuffix": "pts",
   "order": 3,
   "released": "2026-11-12",
-  "version": "2.2.0"
+  "version": "2.3.0"
 }

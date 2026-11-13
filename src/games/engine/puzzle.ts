@@ -257,3 +257,33 @@ export function pointInButton(x: number, y: number, button: UiButton): boolean {
     x >= button.x && x <= button.x + button.width && y >= button.y && y <= button.y + button.height
   );
 }
+
+/** Fila de botones de dificultad, del mismo ancho y centrada. */
+export function segmentedButtons(view: View, count: number, y: number): UiButton[] {
+  const gap = 6;
+  const available = Math.min(360, view.width - 32);
+  const width = Math.min(104, Math.floor((available - gap * (count - 1)) / count));
+  const total = width * count + gap * (count - 1);
+  const startX = (view.width - total) / 2;
+  return Array.from({ length: count }, (_, index) => ({
+    x: startX + index * (width + gap),
+    y,
+    width,
+    height: 28,
+  }));
+}
+
+export function drawSegmented(
+  context: CanvasRenderingContext2D,
+  buttons: readonly UiButton[],
+  labels: readonly string[],
+  active: number,
+  accent: string,
+): void {
+  buttons.forEach((button, index) => {
+    drawUiButton(context, button, labels[index] ?? '', {
+      active: index === active,
+      accent,
+    });
+  });
+}

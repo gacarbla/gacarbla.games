@@ -9,9 +9,11 @@ import {
   drawPuzzleBoard,
   drawPuzzleCell,
   drawPuzzleFooter,
+  drawSegmented,
   drawUiButton,
   pointInButton,
   puzzleLayout,
+  segmentedButtons,
   type GameContext,
   type GameModule,
   type PuzzleLayout,
@@ -19,17 +21,18 @@ import {
   type View,
 } from '../engine';
 import {
-  SUDOKU_BOX_COLS,
-  SUDOKU_BOX_ROWS,
-  SUDOKU_SIZE,
+  DEFAULT_SUDOKU_LEVEL,
+  SUDOKU_LEVELS,
   conflictMask,
   createPuzzle,
+  type SudokuLevel,
   type SudokuPuzzle,
 } from './logic';
 
 interface SudokuGeometry {
   layout: PuzzleLayout;
   buttons: UiButton[];
+  difficulty: UiButton[];
 }
 
 interface LocalPoint {
@@ -38,7 +41,9 @@ interface LocalPoint {
 }
 
 class Sudoku extends BaseGame {
-  private puzzle: SudokuPuzzle = createPuzzle();
+  private difficulty = DEFAULT_SUDOKU_LEVEL;
+  private level: SudokuLevel = SUDOKU_LEVELS[this.difficulty]!;
+  private puzzle: SudokuPuzzle = createPuzzle(this.level);
   private values: number[] = [...this.puzzle.puzzle];
   private given: boolean[] = this.puzzle.puzzle.map((value) => value !== 0);
   private selected = 0;
@@ -52,30 +57,43 @@ class Sudoku extends BaseGame {
   }
 
   protected reset(): void {
-    this.puzzle = createPuzzle();
+    this.puzzle = createPuzzle(this.level);
     this.values = [...this.puzzle.puzzle];
     this.given = this.puzzle.puzzle.map((value) => value !== 0);
     this.selected = this.values.findIndex((value) => value === 0);
     if (this.selected < 0) this.selected = 0;
     this.errors = 0;
     this.finished = false;
-    this.setScore('PUNTOS', 800);
+    this.setScore('PUNTOS', this.points());
+  }
+
+  private setDifficulty(index: number): void {
+    if (index < 0 || index >= SUDOKU_LEVELS.length || index === this.difficulty) return;
+    this.difficulty = index;
+    this.level = SUDOKU_LEVELS[index]!;
+    this.reset();
+    this.audio.click();
+    this.setStatus(
+      `${this.level.label}: sudoku ${this.level.size}×${this.level.size} con ${this.level.minGivens} pistas o menos.`,
+    );
   }
 
   private geometry(view: View): SudokuGeometry {
-    const layout = puzzleLayout(view, SUDOKU_SIZE, SUDOKU_SIZE, {
-      top: 112,
+    const size = this.level.size;
+    const layout = puzzleLayout(view, size, size, {
+      top: 156,
       bottom: 150,
-      widthRatio: 0.68,
-      heightRatio: Math.max(0.3, (view.height - 264) / view.height),
-      maxCell: 70,
+      widthRatio: size === 9 ? 0.84 : 0.68,
+      heightRatio: Math.max(0.3, (view.height - 306) / view.height),
+      maxCell: size === 9 ? 54 : 70,
     });
     const gap = 6;
-    const width = Math.min(46, (layout.width - gap * (SUDOKU_SIZE - 1)) / SUDOKU_SIZE);
-    const total = width * SUDOKU_SIZE + gap * (SUDOKU_SIZE - 1);
+    const maxWidth = size === 9 ? 34 : 46;
+    const width = Math.min(maxWidth, (layout.width - gap * (size - 1)) / size);
+    const total = width * size + gap * (size - 1);
     const y = Math.min(view.height - 82, layout.y + layout.height + 16);
     const buttons: UiButton[] = [];
-    for (let index = 0; index < SUDOKU_SIZE; index += 1) {
+    for (let index = 0; index < size; index += 1) {
       buttons.push({
         x: (view.width - total) / 2 + index * (width + gap),
         y,
@@ -83,12 +101,24 @@ class Sudoku extends BaseGame {
         height: 36,
       });
     }
-    return { layout, buttons };
+    return {
+      layout,
+      buttons,
+      difficulty: segmentedButtons(view, SUDOKU_LEVELS.length, 104),
+    };
   }
 
   private handlePointer(point: LocalPoint): void {
     if (this.state !== 'running' || this.finished) return;
     const geometry = this.geometry(this.runtime.view);
+
+    const difficultyIndex = geometry.difficulty.findIndex((button) =>
+      pointInButton(point.x, point.y, button),
+    );
+    if (difficultyIndex >= 0) {
+      this.setDifficulty(difficultyIndex);
+      return;
+    }
 
     for (let index = 0; index < geometry.buttons.length; index += 1) {
       if (pointInButton(point.x, point.y, geometry.buttons[index]!)) {
@@ -107,23 +137,24 @@ class Sudoku extends BaseGame {
 
   private handleKey(code: string): void {
     if (this.state !== 'running' || this.finished) return;
-    const column = this.selected % SUDOKU_SIZE;
-    const row = Math.floor(this.selected / SUDOKU_SIZE);
+    const size = this.level.size;
+    const column = this.selected % size;
+    const row = Math.floor(this.selected / size);
 
     if (code === 'ArrowLeft') {
-      this.selected = row * SUDOKU_SIZE + Math.max(0, column - 1);
+      this.selected = row * size + Math.max(0, column - 1);
       return;
     }
     if (code === 'ArrowRight') {
-      this.selected = row * SUDOKU_SIZE + Math.min(SUDOKU_SIZE - 1, column + 1);
+      this.selected = row * size + Math.min(size - 1, column + 1);
       return;
     }
     if (code === 'ArrowUp') {
-      this.selected = Math.max(0, row - 1) * SUDOKU_SIZE + column;
+      this.selected = Math.max(0, row - 1) * size + column;
       return;
     }
     if (code === 'ArrowDown') {
-      this.selected = Math.min(SUDOKU_SIZE - 1, row + 1) * SUDOKU_SIZE + column;
+      this.selected = Math.min(size - 1, row + 1) * size + column;
       return;
     }
     if (code === 'Backspace' || code === 'Delete' || code === 'Digit0' || code === 'Numpad0') {
@@ -136,7 +167,7 @@ class Sudoku extends BaseGame {
       : code.startsWith('Numpad')
         ? Number(code.slice(6))
         : 0;
-    if (digit >= 1 && digit <= SUDOKU_SIZE) this.place(digit, false);
+    if (digit >= 1 && digit <= size) this.place(digit, false);
   }
 
   private place(value: number, toggle: boolean): void {
@@ -148,7 +179,6 @@ class Sudoku extends BaseGame {
       this.place(0, false);
       return;
     }
-
     const previous = this.values[this.selected]!;
     if (previous === value) return;
     this.values[this.selected] = value;
@@ -182,8 +212,8 @@ class Sudoku extends BaseGame {
     this.audio.chord([392, 494, 587, 784], 0.75, { type: 'sine', gain: 0.09 });
     this.finish({
       title: 'Sudoku resuelto',
-      message: 'Todas las filas, columnas y cajas respetan la regla del 1 al 6.',
-      detail: `${this.errors} fallos · ${this.given.filter(Boolean).length} pistas iniciales`,
+      message: 'Todas las filas, columnas y cajas respetan la regla.',
+      detail: `${this.level.size}×${this.level.size} · ${this.errors} fallos · ${this.given.filter(Boolean).length} pistas`,
       score,
       scoreLabel: 'PUNTOS',
       ctaLabel: 'Otro sudoku',
@@ -199,30 +229,43 @@ class Sudoku extends BaseGame {
     drawPuzzleBackground(context, view, '#a78fbf');
     const geometry = this.geometry(view);
     const { layout } = geometry;
-    const conflicts = conflictMask(this.values);
-    const selectedRow = Math.floor(this.selected / SUDOKU_SIZE);
-    const selectedColumn = this.selected % SUDOKU_SIZE;
+    const size = this.level.size;
+    const conflicts = conflictMask(this.level, this.values);
+    const selectedRow = Math.floor(this.selected / size);
+    const selectedColumn = this.selected % size;
 
     context.save();
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.font = `600 13px ${FONT_SANS}`;
     context.fillStyle = PALETTE.ink;
-    context.fillText('SUDOKU', view.width / 2, 72);
+    context.fillText('SUDOKU', view.width / 2, 70);
     context.font = `500 9px ${FONT_MONO}`;
     context.fillStyle = alpha(PALETTE.ink, 0.55);
-    context.fillText('6 × 6 · CAJAS 2 × 3', view.width / 2, 90);
+    context.fillText(
+      `${size} × ${size} · CAJAS ${this.level.boxRows} × ${this.level.boxCols}`,
+      view.width / 2,
+      88,
+    );
     context.restore();
+
+    drawSegmented(
+      context,
+      geometry.difficulty,
+      SUDOKU_LEVELS.map((level) => level.label),
+      this.difficulty,
+      PALETTE.sky,
+    );
 
     drawPuzzleBoard(context, layout);
 
     for (let index = 0; index < this.values.length; index += 1) {
-      const row = Math.floor(index / SUDOKU_SIZE);
-      const column = index % SUDOKU_SIZE;
+      const row = Math.floor(index / size);
+      const column = index % size;
       const value = this.values[index]!;
       const sameBox =
-        Math.floor(row / SUDOKU_BOX_ROWS) === Math.floor(selectedRow / SUDOKU_BOX_ROWS) &&
-        Math.floor(column / SUDOKU_BOX_COLS) === Math.floor(selectedColumn / SUDOKU_BOX_COLS);
+        Math.floor(row / this.level.boxRows) === Math.floor(selectedRow / this.level.boxRows) &&
+        Math.floor(column / this.level.boxCols) === Math.floor(selectedColumn / this.level.boxCols);
       const sameUnit = row === selectedRow || column === selectedColumn || sameBox;
       const selected = index === this.selected;
 
@@ -248,14 +291,14 @@ class Sudoku extends BaseGame {
     context.save();
     context.strokeStyle = alpha(PALETTE.forest, 0.6);
     context.lineWidth = 2;
-    for (let row = SUDOKU_BOX_ROWS; row < SUDOKU_SIZE; row += SUDOKU_BOX_ROWS) {
+    for (let row = this.level.boxRows; row < size; row += this.level.boxRows) {
       const y = layout.y + row * layout.cell;
       context.beginPath();
       context.moveTo(layout.x, y);
       context.lineTo(layout.x + layout.width, y);
       context.stroke();
     }
-    for (let column = SUDOKU_BOX_COLS; column < SUDOKU_SIZE; column += SUDOKU_BOX_COLS) {
+    for (let column = this.level.boxCols; column < size; column += this.level.boxCols) {
       const x = layout.x + column * layout.cell;
       context.beginPath();
       context.moveTo(x, layout.y);
@@ -281,7 +324,7 @@ class Sudoku extends BaseGame {
       view,
       `FALLOS ${this.errors}`,
       `PUNTOS ${this.points()}`,
-      'FLECHAS MUEVEN · 1–6 ESCRIBE · BORRAR',
+      `FLECHAS MUEVEN · 1–${size} ESCRIBE · BORRAR`,
     );
   }
 }

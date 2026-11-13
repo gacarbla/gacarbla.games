@@ -4,6 +4,28 @@ Todas las versiones relevantes del portal. El formato sigue
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa
 versionado semántico.
 
+## [2.3.0] — 2026-11-13
+
+Más Sokoban y selectores de dificultad.
+
+### Añadido
+
+- **Sokoban**: cinco niveles nuevos, hasta un total de **10**, con pasillos estrechos,
+  más recorrido y menos margen de error.
+- Selector de dificultad en **Buscaminas**: 8×8 con 8 minas, 9×9 con 12 y 12×12 con 28.
+- Selector de dificultad en **Sudoku**: 4×4, 6×6 y 9×9, cada uno con solución única.
+- Selector de dificultad en **Sopa de letras**: 10×10 sin diagonales, 12×12 y 15×15 con
+  ocho palabras y diagonales.
+- Control de dificultad reutilizable en el kit de puzzles (`segmentedButtons` y
+  `drawSegmented`).
+- El parser de Sokoban recorta el relleno exterior de los tableros irregulares.
+
+### Cambiado
+
+- Buscaminas, Sudoku y Sopa de letras adaptan su tablero, botones y textos a la
+  dificultad elegida, también en móvil.
+- Las dificultades se cambian tocando los botones o con las teclas `1`–`3`.
+
 ## [2.2.0] — 2026-11-13
 
 Portadas personalizables y corrección de Sokoban.

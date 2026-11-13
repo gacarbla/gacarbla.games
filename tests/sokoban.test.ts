@@ -100,19 +100,19 @@ function solve(level: Level): number {
 }
 
 describe('sokoban', () => {
-  it('los cinco niveles están bien formados', () => {
-    expect(LEVELS).toHaveLength(5);
+  it('los diez niveles están bien formados', () => {
+    expect(LEVELS).toHaveLength(10);
     for (const [index, rows] of LEVELS.entries()) {
-      const width = rows[0]!.length;
-      expect(rows.every((row) => row.length === width)).toBe(true);
-      expect(rows.length).toBeLessThanOrEqual(10);
-      expect(width).toBeLessThanOrEqual(10);
+      expect(rows.length).toBeGreaterThan(0);
+      expect(rows.every((row) => row.length > 0)).toBe(true);
 
       const level = parseLevel(rows);
+      expect(level.width).toBeLessThanOrEqual(12);
+      expect(level.height).toBeLessThanOrEqual(12);
       expect(level.boxes.length).toBeGreaterThan(0);
       expect(level.boxes.length).toBe(level.goals.filter(Boolean).length);
       expect(level.boxes.length).toBeLessThanOrEqual(4);
-      expect(index).toBeLessThan(5);
+      expect(index).toBeLessThan(10);
     }
   });
 
@@ -140,5 +140,13 @@ describe('sokoban', () => {
       const level = parseLevel(rows);
       expect(solve(level), `nivel ${index + 1}`).toBeGreaterThan(0);
     }
-  }, 20_000);
+  }, 60_000);
+
+  it('recorta el relleno exterior de los tableros irregulares', () => {
+    const padded = parseLevel(['  ####', '  #@.#', '  ####']);
+    expect(padded.width).toBe(4);
+    expect(padded.height).toBe(3);
+    expect(padded.walls[0]).toBe(true);
+    expect(padded.start).toBe(5);
+  });
 });

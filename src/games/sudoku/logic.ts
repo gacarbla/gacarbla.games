@@ -1,7 +1,19 @@
-export const SUDOKU_SIZE = 6;
-export const SUDOKU_BOX_ROWS = 2;
-export const SUDOKU_BOX_COLS = 3;
-export const SUDOKU_CELLS = SUDOKU_SIZE * SUDOKU_SIZE;
+export interface SudokuLevel {
+  id: 'facil' | 'normal' | 'dificil';
+  label: string;
+  size: number;
+  boxRows: number;
+  boxCols: number;
+  minGivens: number;
+}
+
+export const SUDOKU_LEVELS: readonly SudokuLevel[] = [
+  { id: 'facil', label: 'Fácil', size: 4, boxRows: 2, boxCols: 2, minGivens: 8 },
+  { id: 'normal', label: 'Normal', size: 6, boxRows: 2, boxCols: 3, minGivens: 16 },
+  { id: 'dificil', label: 'Difícil', size: 9, boxRows: 3, boxCols: 3, minGivens: 34 },
+] as const;
+
+export const DEFAULT_SUDOKU_LEVEL = 1;
 
 export interface SudokuPuzzle {
   puzzle: number[];
@@ -19,53 +31,63 @@ export function shuffled<T>(items: readonly T[], random: () => number = Math.ran
   return copy;
 }
 
-export function canPlace(grid: readonly number[], index: number, value: number): boolean {
-  const column = index % SUDOKU_SIZE;
-  const row = Math.floor(index / SUDOKU_SIZE);
+export function canPlace(
+  level: SudokuLevel,
+  grid: readonly number[],
+  index: number,
+  value: number,
+): boolean {
+  const { size, boxRows, boxCols } = level;
+  const column = index % size;
+  const row = Math.floor(index / size);
 
-  for (let offset = 0; offset < SUDOKU_SIZE; offset += 1) {
-    if (grid[row * SUDOKU_SIZE + offset] === value) return false;
-    if (grid[offset * SUDOKU_SIZE + column] === value) return false;
+  for (let offset = 0; offset < size; offset += 1) {
+    if (grid[row * size + offset] === value) return false;
+    if (grid[offset * size + column] === value) return false;
   }
 
-  const boxRow = Math.floor(row / SUDOKU_BOX_ROWS) * SUDOKU_BOX_ROWS;
-  const boxColumn = Math.floor(column / SUDOKU_BOX_COLS) * SUDOKU_BOX_COLS;
-  for (let dy = 0; dy < SUDOKU_BOX_ROWS; dy += 1) {
-    for (let dx = 0; dx < SUDOKU_BOX_COLS; dx += 1) {
-      if (grid[(boxRow + dy) * SUDOKU_SIZE + boxColumn + dx] === value) return false;
+  const boxRow = Math.floor(row / boxRows) * boxRows;
+  const boxColumn = Math.floor(column / boxCols) * boxCols;
+  for (let dy = 0; dy < boxRows; dy += 1) {
+    for (let dx = 0; dx < boxCols; dx += 1) {
+      if (grid[(boxRow + dy) * size + boxColumn + dx] === value) return false;
     }
   }
   return true;
 }
 
-function fillGrid(grid: number[], random: () => number): boolean {
+function fillGrid(level: SudokuLevel, grid: number[], random: () => number): boolean {
   const index = grid.indexOf(0);
   if (index < 0) return true;
 
-  for (const value of shuffled([1, 2, 3, 4, 5, 6], random)) {
-    if (!canPlace(grid, index, value)) continue;
+  const values = Array.from({ length: level.size }, (_, value) => value + 1);
+  for (const value of shuffled(values, random)) {
+    if (!canPlace(level, grid, index, value)) continue;
     grid[index] = value;
-    if (fillGrid(grid, random)) return true;
+    if (fillGrid(level, grid, random)) return true;
     grid[index] = 0;
   }
   return false;
 }
 
-export function generateSolution(random: () => number = Math.random): number[] {
-  const grid = Array<number>(SUDOKU_CELLS).fill(0);
-  fillGrid(grid, random);
+export function generateSolution(
+  level: SudokuLevel = SUDOKU_LEVELS[DEFAULT_SUDOKU_LEVEL]!,
+  random: () => number = Math.random,
+): number[] {
+  const grid = Array<number>(level.size * level.size).fill(0);
+  fillGrid(level, grid, random);
   return grid;
 }
 
-function countSolutions(grid: number[], limit: number): number {
+function countSolutions(level: SudokuLevel, grid: number[], limit: number): number {
   const index = grid.indexOf(0);
   if (index < 0) return 1;
 
   let total = 0;
-  for (let value = 1; value <= SUDOKU_SIZE; value += 1) {
-    if (!canPlace(grid, index, value)) continue;
+  for (let value = 1; value <= level.size; value += 1) {
+    if (!canPlace(level, grid, index, value)) continue;
     grid[index] = value;
-    total += countSolutions(grid, limit - total);
+    total += countSolutions(level, grid, limit - total);
     grid[index] = 0;
     if (total >= limit) break;
   }
@@ -73,37 +95,40 @@ function countSolutions(grid: number[], limit: number): number {
 }
 
 /**
- * Retira 18–20 celdas y comprueba que la solución siga siendo única.
- * Si una extracción deja varias soluciones se genera otro tablero.
+ * Retira celdas una a una comprobando que la solución siga siendo única.
+ * Así cada dificultad garantiza un puzzle resoluble y con una sola respuesta.
  */
-export function createPuzzle(random: () => number = Math.random): SudokuPuzzle {
-  let last: SudokuPuzzle | null = null;
+export function createPuzzle(
+  level: SudokuLevel = SUDOKU_LEVELS[DEFAULT_SUDOKU_LEVEL]!,
+  random: () => number = Math.random,
+): SudokuPuzzle {
+  const solution = generateSolution(level, random);
+  const puzzle = [...solution];
+  const cells = level.size * level.size;
+  const order = shuffled(
+    Array.from({ length: cells }, (_, index) => index),
+    random,
+  );
 
-  for (let attempt = 0; attempt < 40; attempt += 1) {
-    const solution = generateSolution(random);
-    const puzzle = [...solution];
-    const order = shuffled(
-      Array.from({ length: SUDOKU_CELLS }, (_, index) => index),
-      random,
-    );
-    const removals = 18 + Math.floor(random() * 3);
-    for (let index = 0; index < removals; index += 1) {
-      puzzle[order[index]!] = 0;
+  let givens = cells;
+  for (const index of order) {
+    if (givens <= level.minGivens) break;
+    const backup = puzzle[index]!;
+    puzzle[index] = 0;
+    if (countSolutions(level, [...puzzle], 2) === 1) {
+      givens -= 1;
+    } else {
+      puzzle[index] = backup;
     }
-
-    last = { puzzle: [...puzzle], solution: [...solution] };
-    const copy = [...puzzle];
-    if (countSolutions(copy, 2) === 1) return { puzzle, solution };
   }
 
-  if (last) return last;
-  const solution = generateSolution(random);
-  return { puzzle: [...solution], solution };
+  return { puzzle, solution };
 }
 
 /** Marca las celdas que repiten número en fila, columna o caja. */
-export function conflictMask(grid: readonly number[]): boolean[] {
-  const mask = Array<boolean>(SUDOKU_CELLS).fill(false);
+export function conflictMask(level: SudokuLevel, grid: readonly number[]): boolean[] {
+  const { size, boxRows, boxCols } = level;
+  const mask = Array<boolean>(size * size).fill(false);
 
   const markUnit = (unit: readonly number[]): void => {
     const seen = new Map<number, number[]>();
@@ -121,18 +146,18 @@ export function conflictMask(grid: readonly number[]): boolean[] {
     }
   };
 
-  for (let row = 0; row < SUDOKU_SIZE; row += 1) {
-    markUnit(Array.from({ length: SUDOKU_SIZE }, (_, column) => row * SUDOKU_SIZE + column));
+  for (let row = 0; row < size; row += 1) {
+    markUnit(Array.from({ length: size }, (_, column) => row * size + column));
   }
-  for (let column = 0; column < SUDOKU_SIZE; column += 1) {
-    markUnit(Array.from({ length: SUDOKU_SIZE }, (_, row) => row * SUDOKU_SIZE + column));
+  for (let column = 0; column < size; column += 1) {
+    markUnit(Array.from({ length: size }, (_, row) => row * size + column));
   }
-  for (let boxRow = 0; boxRow < SUDOKU_SIZE; boxRow += SUDOKU_BOX_ROWS) {
-    for (let boxColumn = 0; boxColumn < SUDOKU_SIZE; boxColumn += SUDOKU_BOX_COLS) {
+  for (let boxRow = 0; boxRow < size; boxRow += boxRows) {
+    for (let boxColumn = 0; boxColumn < size; boxColumn += boxCols) {
       const unit: number[] = [];
-      for (let dy = 0; dy < SUDOKU_BOX_ROWS; dy += 1) {
-        for (let dx = 0; dx < SUDOKU_BOX_COLS; dx += 1) {
-          unit.push((boxRow + dy) * SUDOKU_SIZE + boxColumn + dx);
+      for (let dy = 0; dy < boxRows; dy += 1) {
+        for (let dx = 0; dx < boxCols; dx += 1) {
+          unit.push((boxRow + dy) * size + boxColumn + dx);
         }
       }
       markUnit(unit);

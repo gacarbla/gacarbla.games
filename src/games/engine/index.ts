@@ -12,6 +12,8 @@ export {
   drawPuzzleHeader,
   drawUiButton,
   pointInButton,
+  segmentedButtons,
+  drawSegmented,
 } from './puzzle';
 export type { PuzzleLayout, CellStyle, UiButton } from './puzzle';
 export { Runtime } from './runtime';
