@@ -4,6 +4,27 @@ Todas las versiones relevantes del portal. El formato sigue
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa
 versionado semántico.
 
+## [2.2.0] — 2026-11-13
+
+Portadas personalizables y corrección de Sokoban.
+
+### Añadido
+
+- Campo opcional `thumbnail` en la metadata de cada juego.
+- Carpeta `public/images/games/` preparada para imágenes propias en proporción 4:3.
+- Fallback de portada con **solo el nombre del juego** sobre papel tintado.
+- Documentación de miniaturas en `public/images/games/README.md`.
+
+### Cambiado
+
+- Eliminada la numeración y las ilustraciones generadas de las portadas.
+- Sokoban: nivel 2 rediseñado para que la primera caja se pueda empujar desde el inicio.
+- Sokoban: controles táctiles (flechas, deshacer y reiniciar) para móvil.
+
+### Corregido
+
+- El segundo nivel de Sokoban ya no da la impresión de tener las cajas bloqueadas.
+
 ## [2.1.0] — 2026-11-12
 
 Sustitución completa del catálogo por 15 juegos nuevos, más profundos y desafiantes.

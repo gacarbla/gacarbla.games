@@ -6,7 +6,6 @@
   "category": "visual",
   "tags": ["Conexiones", "Visión espacial", "7×7"],
   "accent": "#8fb397",
-  "cover": "wave",
   "controls": "Toca una tubería para rotarla. Conecta la fuente con la salida.",
   "goal": "Forma un camino continuo desde la fuente hasta la salida.",
   "duration": "4–10 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 9,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

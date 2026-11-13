@@ -46,9 +46,10 @@ marca) sin competir con el área de juego.
 - **Movimiento:** entradas de 600–700 ms, recorridos de 10–14 px, sin rebotes ni flashes.
   Todo respeta `prefers-reduced-motion`.
 
-Las portadas no son imágenes: son SVG generados por motivo (`orbit`, `prism`, `fusion`,
-`pulse`). Comparten composición, numeración y paleta, por lo que el catálogo siempre se ve
-como una colección. La identidad completa está en [DESIGN.md](DESIGN.md).
+Las portadas son un hueco para una imagen propia: cada juego puede declarar `thumbnail`
+con una ruta dentro de `/images/games/`. Si no lo hace, la portada muestra únicamente el
+nombre del juego sobre su color de acento. No hay numeración ni ilustraciones de relleno.
+La identidad completa está en [DESIGN.md](DESIGN.md).
 
 ## 4. El catálogo como sistema
 

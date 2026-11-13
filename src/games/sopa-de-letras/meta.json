@@ -6,7 +6,6 @@
   "category": "palabras",
   "tags": ["Palabras", "Búsqueda", "12×12"],
   "accent": "#cf8a8a",
-  "cover": "grid",
   "controls": "Toca la primera y la última letra de cada palabra. Pueden estar en cualquier dirección.",
   "goal": "Encuentra las seis palabras de la lista en la sopa de letras.",
   "duration": "3–8 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 13,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

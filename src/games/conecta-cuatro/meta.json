@@ -6,7 +6,6 @@
   "category": "estrategia",
   "tags": ["Estrategia", "IA", "7×6"],
   "accent": "#df8b6c",
-  "cover": "fusion",
   "controls": "Toca una columna para soltar tu ficha. La máquina responderá.",
   "goal": "Consigue cuatro fichas en línea en horizontal, vertical o diagonal.",
   "duration": "3–8 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "partidas",
   "order": 15,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

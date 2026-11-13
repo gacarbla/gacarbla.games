@@ -13,7 +13,10 @@ export const gameMetaSchema = z.object({
   category: z.enum(['logica', 'visual', 'palabras', 'estrategia']),
   tags: z.array(z.string().min(1).max(20)).min(1).max(4),
   accent: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'El acento debe ser un color #rrggbb.'),
-  cover: z.enum(['orbit', 'prism', 'fusion', 'pulse', 'grid', 'wave', 'stack']),
+  thumbnail: z
+    .string()
+    .regex(/^\/images\/games\/[a-zA-Z0-9._/-]+$/, 'La miniatura debe vivir en /images/games/.')
+    .optional(),
   controls: z.string().min(8).max(160),
   goal: z.string().min(8).max(180),
   duration: z.string().min(2).max(20),

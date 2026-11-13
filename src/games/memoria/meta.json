@@ -6,7 +6,6 @@
   "category": "visual",
   "tags": ["Memoria", "Parejas", "Concentración"],
   "accent": "#df8b6c",
-  "cover": "pulse",
   "controls": "Memoriza la posición inicial y toca dos cartas para buscar una pareja.",
   "goal": "Encuentra las 15 parejas antes de que se agoten tus intentos.",
   "duration": "3–8 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 11,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

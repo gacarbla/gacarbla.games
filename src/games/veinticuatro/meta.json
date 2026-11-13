@@ -6,7 +6,6 @@
   "category": "logica",
   "tags": ["Números", "Cálculo", "Ingenio"],
   "accent": "#cf8a8a",
-  "cover": "wave",
   "controls": "Selecciona dos números y una operación hasta reducir a uno. R reinicia el reto.",
   "goal": "Usa los cuatro números exactamente una vez para obtener 24.",
   "duration": "3–10 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "acertijos",
   "order": 6,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

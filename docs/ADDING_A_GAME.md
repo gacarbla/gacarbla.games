@@ -21,24 +21,24 @@ El esqueleto ya es jugable: pulsa para acertar en el objetivo. Úsalo como punto
 
 ## 2. Rellena `meta.json`
 
-| Campo         | Tipo                                                                     | Notas                                           |
-| ------------- | ------------------------------------------------------------------------ | ----------------------------------------------- |
-| `slug`        | string                                                                   | Kebab-case y **debe coincidir con la carpeta**. |
-| `title`       | string                                                                   | Máximo 40 caracteres.                           |
-| `tagline`     | string                                                                   | Una frase; se usa en tarjetas y ficha.          |
-| `description` | string                                                                   | 40–320 caracteres; alimenta el SEO.             |
-| `category`    | `accion` \| `puzzle` \| `reflejos`                                       | Controla filtros y etiqueta.                    |
-| `tags`        | string[1–4]                                                              | Etiquetas cortas para la tarjeta.               |
-| `accent`      | `#rrggbb`                                                                | Color del juego en portada, foco y HUD.         |
-| `cover`       | `orbit` \| `prism` \| `fusion` \| `pulse` \| `grid` \| `wave` \| `stack` | Motivo SVG de la portada.                       |
-| `controls`    | string                                                                   | Texto de controles. Incluye teclado.            |
-| `goal`        | string                                                                   | Objetivo en una o dos frases.                   |
-| `duration`    | string                                                                   | Por ejemplo `2–5 min`.                          |
-| `order`       | number                                                                   | Posición en el catálogo.                        |
-| `featured`    | boolean                                                                  | Solo uno debería estar destacado.               |
-| `released`    | `YYYY-MM-DD`                                                             | Fecha de publicación.                           |
-| `scoreLabel`  | string                                                                   | Etiqueta del marcador (`PUNTOS`, `NIVEL`...).   |
-| `bestSuffix`  | string                                                                   | Sufijo de la mejor marca (`pts`, `nivel`...).   |
+| Campo         | Tipo                                               | Notas                                                       |
+| ------------- | -------------------------------------------------- | ----------------------------------------------------------- |
+| `slug`        | string                                             | Kebab-case y **debe coincidir con la carpeta**.             |
+| `title`       | string                                             | Máximo 40 caracteres.                                       |
+| `tagline`     | string                                             | Una frase; se usa en tarjetas y ficha.                      |
+| `description` | string                                             | 40–320 caracteres; alimenta el SEO.                         |
+| `category`    | `logica` \| `visual` \| `palabras` \| `estrategia` | Controla filtros y etiqueta.                                |
+| `tags`        | string[1–4]                                        | Etiquetas cortas para la tarjeta.                           |
+| `accent`      | `#rrggbb`                                          | Color del juego en portada, foco y HUD.                     |
+| `thumbnail`   | string opcional                                    | Imagen en `/images/games/`; si falta, se muestra el nombre. |
+| `controls`    | string                                             | Texto de controles. Incluye teclado.                        |
+| `goal`        | string                                             | Objetivo en una o dos frases.                               |
+| `duration`    | string                                             | Por ejemplo `2–5 min`.                                      |
+| `order`       | number                                             | Posición en el catálogo.                                    |
+| `featured`    | boolean                                            | Solo uno debería estar destacado.                           |
+| `released`    | `YYYY-MM-DD`                                       | Fecha de publicación.                                       |
+| `scoreLabel`  | string                                             | Etiqueta del marcador (`PUNTOS`, `NIVEL`...).               |
+| `bestSuffix`  | string                                             | Sufijo de la mejor marca (`pts`, `nivel`...).               |
 
 Si algo no cuadra, el build falla con el archivo y el campo exactos. Es intencionado: un
 catálogo grande sin validación se rompe en silencio.

@@ -6,7 +6,6 @@
   "category": "visual",
   "tags": ["Puzle", "Orden", "4×4"],
   "accent": "#a78fbf",
-  "cover": "grid",
   "controls": "Desliza las piezas contiguas al hueco con clic o flechas.",
   "goal": "Ordena los números del 1 al 15 con el hueco al final.",
   "duration": "5–15 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 10,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

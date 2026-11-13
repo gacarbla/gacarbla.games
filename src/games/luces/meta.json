@@ -6,7 +6,6 @@
   "category": "visual",
   "tags": ["Lógica", "Patrones", "5×5"],
   "accent": "#d9b95f",
-  "cover": "grid",
   "controls": "Toca una casilla para cambiar su estado y el de sus vecinas. R reinicia.",
   "goal": "Deja todas las luces apagadas con el menor número de pulsaciones posible.",
   "duration": "3–8 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 8,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

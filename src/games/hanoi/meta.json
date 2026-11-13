@@ -6,7 +6,6 @@
   "category": "logica",
   "tags": ["Planificación", "Clásico", "5 discos"],
   "accent": "#7fa9c2",
-  "cover": "stack",
   "controls": "Toca una torre para coger el disco superior y otra para soltarlo. R reinicia.",
   "goal": "Lleva los cinco discos a la torre de la derecha sin romper la regla del tamaño.",
   "duration": "4–10 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 7,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

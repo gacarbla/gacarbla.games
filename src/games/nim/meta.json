@@ -6,7 +6,6 @@
   "category": "logica",
   "tags": ["Estrategia", "Pensamiento", "IA"],
   "accent": "#d9b95f",
-  "cover": "stack",
   "controls": "Elige cuántos objetos retiras y toca una pila. La máquina responderá.",
   "goal": "Obliga a la máquina a coger el último objeto. No siempre se puede ganar: encuentra la estrategia.",
   "duration": "2–6 min",
@@ -14,5 +13,5 @@
   "bestSuffix": "partidas",
   "order": 5,
   "released": "2026-11-12",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }
