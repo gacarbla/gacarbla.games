@@ -1,0 +1,17 @@
+{
+  "slug": "bridges",
+  "title": "Puentes",
+  "tagline": "Conecta cada isla sin cruzarte en el camino.",
+  "description": "Resuelve cinco tableros de 7×7 uniendo islas con uno o dos puentes. El número de cada isla marca cuántas conexiones necesita y todas deben quedar enlazadas.",
+  "category": "logica",
+  "tags": ["Deducción", "Conexiones", "7×7"],
+  "accent": "#7fa9c2",
+  "controls": "Toca dos islas alineadas para poner uno o dos puentes. Flechas y Espacio con teclado.",
+  "goal": "Une todas las islas con puentes sin cruces, respetando el número de cada una.",
+  "duration": "8–15 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 25,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

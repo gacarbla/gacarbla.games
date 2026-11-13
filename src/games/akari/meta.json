@@ -1,0 +1,17 @@
+{
+  "slug": "akari",
+  "title": "Akari",
+  "tagline": "Ilumina cada celda blanca sin que dos bombillas se miren.",
+  "description": "Coloca bombillas en un tablero 7×7. Cada una ilumina su fila y su columna hasta un muro, pero dos bombillas no pueden verse entre sí.",
+  "category": "logica",
+  "tags": ["Lógica", "Bombillas", "7×7"],
+  "accent": "#d9b95f",
+  "controls": "Toca una celda blanca para poner o quitar una bombilla. Flechas mueven el cursor, Espacio coloca y R reinicia.",
+  "goal": "Ilumina todas las celdas blancas del tablero sin que dos bombillas se vean entre sí.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 16,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "tres-en-raya-ultimate",
+  "title": "Tres en raya definitivo",
+  "tagline": "Nueve tableros, una sola línea para ganar.",
+  "description": "El tres en raya llevado al tablero grande: cada casilla decide dónde juega el rival. Conquista tres tableros locales en línea antes que la máquina.",
+  "category": "estrategia",
+  "tags": ["Estrategia", "IA", "Tablero"],
+  "accent": "#df8b6c",
+  "controls": "Toca una celda del tablero activo. También puedes usar las flechas y Espacio.",
+  "goal": "Gana tres tableros locales en línea para conquistar la partida.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 35,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

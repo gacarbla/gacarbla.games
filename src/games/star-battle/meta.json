@@ -1,0 +1,17 @@
+{
+  "slug": "star-battle",
+  "title": "Batalla estelar",
+  "tagline": "Una estrella por fila, columna y región.",
+  "description": "Coloca seis estrellas en un tablero de 6×6 dividido en regiones irregulares. Solo puede haber una por fila, columna y región, y ninguna puede tocar a otra ni en diagonal.",
+  "category": "logica",
+  "tags": ["Lógica", "Deducción", "6×6"],
+  "accent": "#cf8a8a",
+  "controls": "Toca una celda para alternar vacío, estrella y descarte. Flechas para moverte, Espacio para poner estrella, X para descartar y R para reiniciar.",
+  "goal": "Coloca una estrella en cada fila, columna y región sin que dos estrellas se toquen ni en diagonal.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 22,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "futoshiki",
+  "title": "Futoshiki",
+  "tagline": "Cinco números, ninguna repetición y flechas que ordenan.",
+  "description": "Cinco rejillas de 5×5 con pistas y desigualdades. Coloca el 1 al 5 sin repetir en cada fila y columna, respetando cada signo. Cada nivel tiene una única solución.",
+  "category": "logica",
+  "tags": ["Lógica", "Números", "Desigualdades", "5×5"],
+  "accent": "#a78fbf",
+  "controls": "Selecciona una celda y elige un número del 1 al 5. Flechas para moverte, Borrar para limpiar y R para reiniciar.",
+  "goal": "Completa el 5×5 sin repetir números en filas ni columnas y respetando todos los signos de desigualdad.",
+  "duration": "5–12 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 18,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

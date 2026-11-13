@@ -1,0 +1,17 @@
+{
+  "slug": "rush-hour",
+  "title": "Hora punta",
+  "tagline": "Saca el coche rojo del atasco.",
+  "description": "Seis atascos de dificultad creciente en un tablero de 6×6. Mueve cada coche por su carril, esquiva los bloqueos y abre un hueco hasta la salida para que el coche rojo escape por la derecha.",
+  "category": "visual",
+  "tags": ["Coches", "Lógica espacial", "6 niveles"],
+  "accent": "#cf8a8a",
+  "controls": "Toca un coche y muévelo con las flechas, los botones o arrastrándolo. Tab cambia de coche y R reinicia el nivel.",
+  "goal": "Lleva el coche rojo hasta la salida de la derecha moviendo los demás coches por su carril.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 26,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

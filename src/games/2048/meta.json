@@ -1,0 +1,17 @@
+{
+  "slug": "2048",
+  "title": "2048",
+  "tagline": "Fusiona fichas iguales hasta llegar a 2048.",
+  "description": "Desliza las fichas en las cuatro direcciones y une las que tengan el mismo número. Cada fusión suma puntos y cada movimiento hace aparecer una ficha nueva. El reto termina al llegar a 2048 o al quedarse sin movimientos.",
+  "category": "visual",
+  "tags": ["Puzle", "Números", "4×4"],
+  "accent": "#df8b6c",
+  "controls": "Flechas o desliza el dedo para mover las fichas. R reinicia la partida.",
+  "goal": "Consigue una ficha de 2048 fusionando números iguales sin bloquear el tablero.",
+  "duration": "3–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 28,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

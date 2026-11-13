@@ -1,0 +1,17 @@
+{
+  "slug": "reversi",
+  "title": "Reversi",
+  "tagline": "Ocho por ocho. Cada ficha cuenta.",
+  "description": "Juega al reversi clásico contra una máquina que calcula sus jugadas. Rodea fichas en ocho direcciones, domina las esquinas y termina la partida con más fichas en el tablero.",
+  "category": "estrategia",
+  "tags": ["Estrategia", "IA", "8×8"],
+  "accent": "#6f9a80",
+  "controls": "Toca una casilla resaltada para colocar tu ficha. La máquina responderá sola.",
+  "goal": "Termina la partida con más fichas que la máquina en el tablero de 8×8.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 34,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

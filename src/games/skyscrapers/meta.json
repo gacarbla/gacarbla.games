@@ -1,0 +1,17 @@
+{
+  "slug": "skyscrapers",
+  "title": "Rascacielos",
+  "tagline": "Cuenta los edificios que se ven desde cada borde.",
+  "description": "Cinco niveles de rascacielos 6×6. Coloca los números del 1 al 6 sin repetir en cada fila y columna y respeta las pistas de los cuatro bordes, que indican cuántos edificios se ven desde esa dirección.",
+  "category": "logica",
+  "tags": ["Lógica", "Números", "5 niveles"],
+  "accent": "#7fa9c2",
+  "controls": "Toca una celda y elige un número del 1 al 6. En teclado, usa las flechas, los números, Borrar y R para reiniciar el nivel.",
+  "goal": "Completa el tablero 6×6 sin repetir números en filas ni columnas y con todas las pistas de los bordes correctas.",
+  "duration": "10–20 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 19,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

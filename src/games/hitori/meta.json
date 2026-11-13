@@ -1,0 +1,17 @@
+{
+  "slug": "hitori",
+  "title": "Hitori",
+  "tagline": "Sombrea los números repetidos sin romper el tablero.",
+  "description": "Cinco tableros de 6×6 con una única solución. Sombrea las celdas sobrantes: sin repetir números en filas ni columnas, sin sombras pegadas y con todas las celdas claras conectadas.",
+  "category": "logica",
+  "tags": ["Lógica", "Deducción", "6×6"],
+  "accent": "#8fb397",
+  "controls": "Toca una celda para sombrearla. Flechas mueven el cursor, Espacio alterna la sombra y R reinicia el nivel.",
+  "goal": "Sombrea celdas hasta que no queden números repetidos, no haya sombras adyacentes y las celdas claras sigan conectadas.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 17,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

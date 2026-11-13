@@ -1,0 +1,17 @@
+{
+  "slug": "tetromino",
+  "title": "Tetrominó",
+  "tagline": "Cinco piezas, veinte celdas, ningún hueco.",
+  "description": "Encaja cinco tetrominós en tableros de 4×5 y 5×4 hasta cubrir cada celda. Gira las piezas, devuélvelas a la bandeja y busca el encaje exacto.",
+  "category": "visual",
+  "tags": ["Puzles", "Encaje", "Tetrominós"],
+  "accent": "#8fb397",
+  "controls": "Toca una pieza y luego una celda. Teclas 1–5, flechas, Espacio y R.",
+  "goal": "Coloca los cinco tetrominós sin solapar hasta cubrir por completo el tablero.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 29,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}
