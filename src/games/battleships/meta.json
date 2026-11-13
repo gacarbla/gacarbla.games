@@ -1,0 +1,17 @@
+{
+  "slug": "battleships",
+  "title": "Batalla naval lógica",
+  "tagline": "Una flota completa cabe en el tablero si no se toca.",
+  "description": "Resuelve cinco tableros de 8×8 colocando una flota completa. Las cifras de filas y columnas indican cuántas casillas ocupar; los barcos no pueden tocarse ni siquiera en diagonal.",
+  "category": "logica",
+  "tags": ["Deducción", "Barcos", "8×8"],
+  "accent": "#5f93b0",
+  "controls": "Toca una casilla para marcar un barco. Flechas mueven el cursor, Espacio marca, C comprueba y R reinicia.",
+  "goal": "Coloca la flota respetando las cifras de filas y columnas, sin que los barcos se toquen.",
+  "duration": "8–15 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 20,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

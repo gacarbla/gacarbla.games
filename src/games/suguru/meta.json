@@ -1,0 +1,17 @@
+{
+  "slug": "suguru",
+  "title": "Suguru",
+  "tagline": "Cada región, sus números. Sin repetir al tocar.",
+  "description": "Un tablero de 6×6 dividido en regiones irregulares. Rellena cada región con los números 1..n sin repetir dentro de ella ni en celdas que se toquen. Cinco niveles con solución única.",
+  "category": "logica",
+  "tags": ["Números", "Lógica", "Regiones"],
+  "accent": "#df8b6c",
+  "controls": "Toca una celda y elige un número. Flechas mueven la selección, 1–6 escriben, Borrar limpia y R reinicia.",
+  "goal": "Completa el tablero sin repetir números dentro de cada región ni entre celdas vecinas.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 23,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

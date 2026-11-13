@@ -1,0 +1,17 @@
+{
+  "slug": "damas",
+  "title": "Damas",
+  "tagline": "Damas clásicas contra una IA que calcula cada captura.",
+  "description": "Juega a las damas en un tablero de 8×8 contra una inteligencia artificial. Las capturas son obligatorias y pueden encadenarse; los peones que alcanzan la última fila se coronan.",
+  "category": "estrategia",
+  "tags": ["Estrategia", "Damas", "IA", "8×8"],
+  "accent": "#7fa9c2",
+  "controls": "Toca una de tus piezas y después la casilla de destino. Si hay captura, debes capturar.",
+  "goal": "Captura todas las piezas rivales o deja a la máquina sin movimientos legales.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 33,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

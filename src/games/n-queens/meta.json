@@ -1,0 +1,17 @@
+{
+  "slug": "n-queens",
+  "title": "Ocho damas",
+  "tagline": "Ocho damas, un tablero y ninguna amenaza.",
+  "description": "Coloca ocho damas en un tablero de 8×8 sin que se ataquen entre sí. Las casillas amenazadas se tiñen al instante y cada colocación cuenta para tu récord.",
+  "category": "logica",
+  "tags": ["Lógica", "Ajedrez", "8×8"],
+  "accent": "#a78fbf",
+  "controls": "Toca una casilla para poner o quitar una dama. Flechas para mover el cursor, Espacio para colocar y R para reiniciar.",
+  "goal": "Coloca las ocho damas sin que ninguna comparta fila, columna ni diagonal.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 24,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

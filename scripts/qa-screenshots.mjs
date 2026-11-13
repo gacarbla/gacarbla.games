@@ -50,6 +50,26 @@ const GAMES = [
   'sopa-de-letras',
   'sokoban',
   'conecta-cuatro',
+  'akari',
+  'hitori',
+  'futoshiki',
+  'skyscrapers',
+  'battleships',
+  'tents',
+  'star-battle',
+  'suguru',
+  'n-queens',
+  'bridges',
+  'rush-hour',
+  'flood',
+  '2048',
+  'tetromino',
+  'ahorcado',
+  'anagramas',
+  'palabra-oculta',
+  'damas',
+  'reversi',
+  'tres-en-raya-ultimate',
 ];
 
 async function scrollThrough(page) {
@@ -115,12 +135,12 @@ console.info('home desktop', entry.info);
 
 entry = await openPage(desktop, '/juegos/', 'catalog desktop');
 const total = await entry.page.locator('[data-game-card]:visible').count();
-if (total !== 15) problems.push(`catalog desktop: se esperaban 15 juegos, hay ${total}`);
+if (total !== 35) problems.push(`catalog desktop: se esperaban 35 juegos, hay ${total}`);
 for (const [category, expected] of [
-  ['logica', 7],
-  ['visual', 5],
-  ['palabras', 1],
-  ['estrategia', 2],
+  ['logica', 17],
+  ['visual', 9],
+  ['palabras', 4],
+  ['estrategia', 5],
 ]) {
   await entry.page.locator(`[data-filter="${category}"]`).click();
   const count = await entry.page.locator('[data-game-card]:visible').count();
@@ -135,7 +155,8 @@ if (searchCount !== 1) problems.push(`catalog desktop: búsqueda sudoku devuelve
 await entry.page.locator('[data-game-search]').fill('');
 await entry.page.locator('[data-filter="todos"]').click();
 const resetCount = await entry.page.locator('[data-game-card]:visible').count();
-if (resetCount !== 15) problems.push(`catalog desktop: reset deja ${resetCount} juegos`);
+if (resetCount !== 35) problems.push(`catalog desktop: reset deja ${resetCount} juegos`);
+await scrollThrough(entry.page);
 await shot(entry.page, 'catalog-desktop', true);
 console.info('catalog desktop', entry.info, { total, searchCount, resetCount });
 
@@ -145,6 +166,9 @@ const representative = new Set([
   'tuberias',
   'sokoban',
   'conecta-cuatro',
+  'akari',
+  'rush-hour',
+  'palabra-oculta',
 ]);
 
 for (const slug of GAMES) {

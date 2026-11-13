@@ -1,0 +1,17 @@
+{
+  "slug": "palabra-oculta",
+  "title": "Palabra oculta",
+  "tagline": "Cinco letras, seis intentos, una palabra.",
+  "description": "Adivina la palabra de cinco letras en seis intentos. Cada letra se tiñe de verde, ámbar o gris para indicarte cuánto te acercas, respetando las letras repetidas.",
+  "category": "palabras",
+  "tags": ["Palabras", "Deducción", "Wordle"],
+  "accent": "#8fb397",
+  "controls": "Escribe con el teclado físico o toca las teclas en pantalla. Enter comprueba y Borrar elimina.",
+  "goal": "Descubre la palabra oculta de cinco letras antes de agotar los seis intentos.",
+  "duration": "2–5 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 32,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

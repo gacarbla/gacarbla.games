@@ -1,0 +1,17 @@
+{
+  "slug": "anagramas",
+  "title": "Anagramas",
+  "tagline": "Ocho palabras, letras revueltas.",
+  "description": "Ocho palabras por partida con las letras revueltas. Toca las fichas en orden, borra cuando te equivoques y usa una pista si te atascas. Cada acierto suma puntos; cada fallo resta.",
+  "category": "palabras",
+  "tags": ["Palabras", "Letras", "Ingenio"],
+  "accent": "#cf8a8a",
+  "controls": "Toca las fichas para formar la palabra. Borrar vacía, Pista revela la primera letra. Esc reinicia.",
+  "goal": "Ordena las letras de cada ficha para escribir las ocho palabras escondidas.",
+  "duration": "4–8 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 31,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "tents",
+  "title": "Tiendas de campaña",
+  "tagline": "Cada árbol necesita su tienda. Ordena el campamento.",
+  "description": "Coloca una tienda de campaña junto a cada árbol del bosque. Las tiendas no pueden tocarse ni en diagonal, y las cifras de filas y columnas indican cuántas hay en cada línea. Cinco campamentos de 8 × 8 te esperan.",
+  "category": "logica",
+  "tags": ["Lógica", "Deducción", "Campamento"],
+  "accent": "#6f9a80",
+  "controls": "Toca una celda para poner o quitar una tienda. Con teclado, flechas y Espacio; C comprueba y R reinicia el nivel.",
+  "goal": "Coloca una tienda junto a cada árbol sin que dos tiendas se toquen, ni siquiera en diagonal.",
+  "duration": "5–10 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 21,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "ahorcado",
+  "title": "Ahorcado",
+  "tagline": "Seis fallos y la palabra se escapa.",
+  "description": "Descubre la palabra oculta letra a letra con una pista por categoría. Tienes seis fallos, un teclado en pantalla y una partida rápida para cualquier rato libre.",
+  "category": "palabras",
+  "tags": ["Palabras", "Adivinar", "Teclado", "Clásico"],
+  "accent": "#a78fbf",
+  "controls": "Toca las letras del teclado en pantalla o escribe con tu teclado físico. El botón del resultado empieza otra palabra.",
+  "goal": "Descubre la palabra oculta antes de cometer seis fallos y suma puntos por cada letra acertada.",
+  "duration": "2–5 min",
+  "scoreLabel": "PUNTOS",
+  "bestSuffix": "pts",
+  "order": 30,
+  "released": "2026-11-13",
+  "version": "3.0.0"
+}

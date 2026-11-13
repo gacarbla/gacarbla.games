@@ -2,7 +2,7 @@
 
 ## 1. La idea
 
-Un portal de juegos para una pausa tranquila. Quince juegos originales, un mismo lenguaje
+Un portal de juegos para una pausa tranquila. Treinta y cinco juegos originales, un mismo lenguaje
 visual y ninguna mecánica que intente retenerte más de lo que quieras. Nada de anuncios,
 cuentas, notificaciones ni monedas.
 
@@ -90,25 +90,45 @@ Cada juego implementa `update(dt)` y `draw(ctx)`, y declara su HUD. El shell (As
 encarga de inicio, pausa, fin, audio, pantalla completa, récord y navegación. Así un juego
 nuevo hereda gratis la experiencia completa.
 
-### Los quince juegos
+### Los treinta y cinco juegos
 
-| Juego               | Categoría  | Mecánica                               | Lo que demuestra                         |
-| ------------------- | ---------- | -------------------------------------- | ---------------------------------------- |
-| **Buscaminas**      | Lógica     | Tres dificultades, primer clic seguro. | Flood-fill, banderas, generación segura. |
-| **Nonograma**       | Lógica     | Pistas de fila y columna.              | Patrones, validación exacta.             |
-| **Sudoku**          | Lógica     | 4×4, 6×6 y 9×9 con solución única.     | Backtracking, conflictos.                |
-| **Mastermind**      | Lógica     | Código de cuatro colores.              | Feedback exacto/desplazado.              |
-| **Nim**             | Lógica     | Misère contra IA.                      | Minimax, estrategia.                     |
-| **Veinticuatro**    | Lógica     | Cuatro números, una meta.              | Solver con fracciones.                   |
-| **Torres de Hanoi** | Lógica     | Cinco discos.                          | Planificación, mínimo 31.                |
-| **Luces**           | Visual     | Lights Out 5×5.                        | Generación reversible.                   |
-| **Tuberías**        | Visual     | Conexión de red 7×7.                   | DFS, rotaciones, conectividad.           |
-| **Deslizante**      | Visual     | 15-puzzle.                             | Desorden soluble.                        |
-| **Memoria**         | Visual     | 15 parejas con preview.                | Memoria, emparejamiento.                 |
-| **Laberinto**       | Visual     | 15×15 con niebla.                      | DFS, exploración.                        |
-| **Sopa de letras**  | Palabras   | 10×10, 12×12 y 15×15.                  | Colocación en 8 direcciones.             |
-| **Sokoban**         | Estrategia | Diez niveles de empuje.                | Planificación, deshacer.                 |
-| **Conecta cuatro**  | Estrategia | 7×6 contra IA.                         | Minimax con poda alfa-beta.              |
+| Juego                       | Categoría  | Mecánica                                 |
+| --------------------------- | ---------- | ---------------------------------------- |
+| **Buscaminas**              | Lógica     | Tres dificultades, primer clic seguro.   |
+| **Nonograma**               | Lógica     | Pistas de fila y columna.                |
+| **Sudoku**                  | Lógica     | 4×4, 6×6 y 9×9 con solución única.       |
+| **Mastermind**              | Lógica     | Código de cuatro colores.                |
+| **Nim**                     | Lógica     | Misère contra IA.                        |
+| **Veinticuatro**            | Lógica     | Cuatro números, una meta.                |
+| **Torres de Hanoi**         | Lógica     | Cinco discos.                            |
+| **Luces**                   | Visual     | Lights Out 5×5.                          |
+| **Tuberías**                | Visual     | Conexión de red 7×7.                     |
+| **Deslizante**              | Visual     | 15-puzzle.                               |
+| **Memoria**                 | Visual     | 15 parejas con preview.                  |
+| **Laberinto**               | Visual     | 15×15 con niebla.                        |
+| **Sopa de letras**          | Palabras   | 10×10, 12×12 y 15×15.                    |
+| **Sokoban**                 | Estrategia | Diez niveles de empuje.                  |
+| **Conecta cuatro**          | Estrategia | 7×6 contra IA.                           |
+| **Akari**                   | Lógica     | Bombillas y sombras en 7×7.              |
+| **Hitori**                  | Lógica     | Sombras conectadas en 6×6.               |
+| **Futoshiki**               | Lógica     | Latin square con desigualdades.          |
+| **Rascacielos**             | Lógica     | Visibilidad desde los bordes.            |
+| **Batalla naval lógica**    | Lógica     | Flota sin contacto en 8×8.               |
+| **Tiendas de campaña**      | Lógica     | Emparejamiento árbol-tienda.             |
+| **Batalla estelar**         | Lógica     | Una estrella por fila, columna y región. |
+| **Suguru**                  | Lógica     | Regiones irregulares sin repetición.     |
+| **Ocho damas**              | Lógica     | Ocho reinas sin ataques.                 |
+| **Puentes**                 | Lógica     | Islas conectadas con puentes.            |
+| **Hora punta**              | Visual     | Coches deslizantes y salida.             |
+| **Inundación**              | Visual     | Flood fill por colores.                  |
+| **2048**                    | Visual     | Fusión de fichas.                        |
+| **Tetrominó**               | Visual     | Encaje exacto de piezas.                 |
+| **Ahorcado**                | Palabras   | Letras y seis fallos.                    |
+| **Anagramas**               | Palabras   | Ocho palabras desordenadas.              |
+| **Palabra oculta**          | Palabras   | Wordle de cinco letras.                  |
+| **Damas**                   | Estrategia | Damas contra IA minimax.                 |
+| **Reversi**                 | Estrategia | Othello contra IA alfa-beta.             |
+| **Tres en raya definitivo** | Estrategia | Nueve tableros encadenados.              |
 
 ## 6. Rendimiento
 
