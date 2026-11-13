@@ -72,7 +72,7 @@ const og = `
   <!-- Titular -->
   <text x="72" y="268" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="500" fill="#24332d" letter-spacing="-2.4">Juegos para</text>
   <text x="72" y="360" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-style="italic" font-weight="500" fill="#2f5d50" letter-spacing="-2.4">jugar sin prisa.</text>
-  <text x="76" y="420" font-family="Verdana, Arial, sans-serif" font-size="21" fill="#5d6c63">Quince juegos originales. Sin anuncios, sin cuentas y sin prisa.</text>
+  <text x="76" y="420" font-family="Verdana, Arial, sans-serif" font-size="21" fill="#5d6c63">Treinta y cinco juegos originales. Sin anuncios ni cuentas.</text>
 
   <!-- Línea inferior -->
   <line x1="72" y1="518" x2="1128" y2="518" stroke="#24332d" stroke-opacity=".14"/>

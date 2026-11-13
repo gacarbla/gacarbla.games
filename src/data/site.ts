@@ -2,7 +2,7 @@ export const SITE = {
   name: 'gacarbla juegos',
   title: 'gacarbla juegos',
   description:
-    'Quince juegos originales para jugar un rato sin prisa. Sin anuncios, sin cuentas y sin notificaciones.',
+    'Treinta y cinco juegos originales para jugar un rato sin prisa. Sin anuncios, sin cuentas y sin notificaciones.',
   url: 'https://games.gacarbla.es',
   domain: 'games.gacarbla.es',
   locale: 'es_ES',
