@@ -63,9 +63,23 @@ class Sokoban extends BaseGame {
     });
 
     this.input.onPointerDown((point) => {
-      if (!this.complete) return;
-      if (pointInButton(point.x, point.y, this.advanceButton(this.runtime.view))) {
-        this.advance();
+      if (this.complete) {
+        if (pointInButton(point.x, point.y, this.advanceButton(this.runtime.view))) {
+          this.advance();
+        }
+        return;
+      }
+
+      const buttons = this.touchButtons(this.runtime.view);
+      const index = buttons.findIndex((button) => pointInButton(point.x, point.y, button));
+      if (index < 0) return;
+      if (index < 4) {
+        this.move([0, 3, 2, 1][index] as Move);
+      } else if (index === 4) {
+        this.undo();
+      } else {
+        this.reset();
+        this.setStatus(`Nivel ${this.level + 1} reiniciado.`);
       }
     });
   }
@@ -192,6 +206,7 @@ class Sokoban extends BaseGame {
     context.fill();
     context.restore();
 
+    if (!this.complete) this.drawTouchControls(context, view, layout);
     if (this.complete) this.drawComplete(context, view, layout);
 
     drawPuzzleFooter(
@@ -199,7 +214,7 @@ class Sokoban extends BaseGame {
       view,
       `${this.moves} movimientos`,
       `${this.boxes.filter((box) => this.levelData.goals[box]).length}/${this.boxes.length} cajas`,
-      this.complete ? '' : 'Flechas mueven · Z deshace · R reinicia',
+      this.complete ? '' : 'Flechas o botones · Z deshace · R reinicia',
     );
   }
 
@@ -265,6 +280,42 @@ class Sokoban extends BaseGame {
       width,
       height: 40,
     };
+  }
+
+  private touchButtons(view: View): UiButton[] {
+    const layout = puzzleLayout(view, this.levelData.width, this.levelData.height, {
+      maxCell: 54,
+      top: 92,
+      bottom: 82,
+      widthRatio: 0.86,
+      heightRatio: 0.62,
+    });
+    const width = 42;
+    const height = 36;
+    const gap = 6;
+    const total = width * 6 + gap * 5;
+    const startX = (view.width - total) / 2;
+    const y = Math.min(view.height - 96, layout.y + layout.height + 22);
+    return Array.from({ length: 6 }, (_, index) => ({
+      x: startX + index * (width + gap),
+      y,
+      width,
+      height,
+    }));
+  }
+
+  private drawTouchControls(
+    context: CanvasRenderingContext2D,
+    view: View,
+    _layout: ReturnType<typeof puzzleLayout>,
+  ): void {
+    const labels = ['↑', '←', '↓', '→', '↶', 'R'];
+    const buttons = this.touchButtons(view);
+    buttons.forEach((button, index) => {
+      drawUiButton(context, button, labels[index]!, {
+        accent: index === 5 ? PALETTE.apricot : '#7fa9c2',
+      });
+    });
   }
 
   private directionFor(code: string): Move | null {
