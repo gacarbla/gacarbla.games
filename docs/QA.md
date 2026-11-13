@@ -14,7 +14,7 @@ npm test
 npm run build
 ```
 
-Cubre formato, tipos de Astro/TypeScript, **51 tests** de lógica y el build estático de
+Cubre formato, tipos de Astro/TypeScript, **225 tests** de lógica y el build estático de
 producción. El despliegue de `main` repite las mismas comprobaciones antes de publicar.
 
 ## Navegador (`npm run qa`)
@@ -32,20 +32,22 @@ El script comprueba:
 | Flujo         | Comprobación                                                 |
 | ------------- | ------------------------------------------------------------ |
 | Portada       | Sin overflow, sin imágenes rotas, sin errores de consola.    |
-| Catálogo      | 15 tarjetas, filtros por categoría, búsqueda y reset.        |
-| Los 15 juegos | Carga, inicio, canvas dibujado, pausa y ausencia de errores. |
+| Catálogo      | 35 tarjetas, filtros por categoría, búsqueda y reset.        |
+| Los 35 juegos | Carga, inicio, canvas dibujado, pausa y ausencia de errores. |
 | Dificultad    | Buscaminas, Sudoku y Sopa cambian de tamaño sin errores.     |
 | Historial     | La portada muestra las partidas recientes.                   |
 | Móvil         | 390 × 844 en la portada, el catálogo y cada ficha.           |
 
 Cada juego tiene además tests de su lógica pura: minas, pistas, sudoku, feedback de
 código, Nim, solver de 24, luces, tuberías, deslizante, memoria, laberinto, sopa,
-sokoban y conecta cuatro.
+sokoban, conecta cuatro, akari, hitori, futoshiki, rascacielos, batalla naval, tiendas,
+batalla estelar, suguru, damas, puentes, hora punta, inundación, 2048, tetrominó,
+ahorcado, anagramas, palabra oculta, damas, reversi y tres en raya definitivo.
 
 ## Checklist manual antes de publicar
 
 - [ ] Home y catálogo en 1440, 1024, 768 y 390 px.
-- [ ] Recorrer los 15 juegos, con ratón y con teclado.
+- [ ] Recorrer los 35 juegos, con ratón y con teclado.
 - [ ] Verificar que cada puzzle se puede completar y que no se resuelve por accidente.
 - [ ] Pausa, reanudar, reiniciar, mute y pantalla completa.
 - [ ] El récord persiste al recargar.
@@ -55,6 +57,16 @@ sokoban y conecta cuatro.
 - [ ] Enlaces, canónicas y JSON-LD correctos (`view-source`).
 - [ ] Sin peticiones a dominios de terceros en la pestaña Network.
 - [ ] Lighthouse ≥ 95 en Accesibilidad, Buenas prácticas y SEO.
+
+## Resultados de la v3.0.0
+
+- **20 juegos nuevos**: 10 de lógica, 4 visuales, 3 de palabras y 3 de estrategia.
+- **35 juegos** en total: 17 de lógica, 9 visuales, 4 de palabras y 5 de estrategia.
+- **225 tests** de lógica en verde.
+- QA en navegador: los 35 juegos inician, dibujan canvas, pausan y no lanzan errores.
+- Catálogo de 35 tarjetas con filtros y búsqueda.
+- 1440 × 960 y 390 × 844 sin overflow horizontal.
+- Los 20 juegos nuevos revisados también en móvil: canvas no vacío y sin overflow.
 
 ## Resultados de la v2.3.0
 

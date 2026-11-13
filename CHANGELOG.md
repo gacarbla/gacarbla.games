@@ -4,6 +4,27 @@ Todas las versiones relevantes del portal. El formato sigue
 [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa
 versionado semántico.
 
+## [3.0.0] — 2026-11-13
+
+Catálogo ampliado de 15 a **35 juegos** con veinte incorporaciones nuevas.
+
+### Añadido
+
+- **Lógica (10):** Akari, Hitori, Futoshiki, Rascacielos, Batalla naval lógica, Tiendas de
+  campaña, Batalla estelar, Suguru, Ocho damas y Puentes.
+- **Visual (4):** Hora punta, Inundación, 2048 y Tetrominó.
+- **Palabras (3):** Ahorcado, Anagramas y Palabra oculta.
+- **Estrategia (3):** Damas, Reversi y Tres en raya definitivo.
+- Solvers, generadores y validadores propios para cada puzzle, con tests de solución.
+- Tres rivales nuevos con minimax y poda alfa-beta: Damas, Reversi y Tres en raya.
+- El catálogo, los textos del portal y la documentación se adaptan a 35 juegos.
+
+### Cambiado
+
+- Instrucciones de teclado revisadas en los juegos de palabras para no reservar letras
+  jugables como atajos de reinicio.
+- QA ampliado a los 35 juegos y a los recuentos de las cuatro categorías.
+
 ## [2.3.0] — 2026-11-13
 
 Más Sokoban y selectores de dificultad.

@@ -26,7 +26,7 @@ encajaba con un público familiar que quiere pasar un rato, no competir contra e
 
 Trabajamos el rediseño desde seis lentes complementarias:
 
-1. **Producto.** Un catálogo pequeño, claro y honesto. Quince juegos, sin secciones
+1. **Producto.** Un catálogo pequeño, claro y honesto. Treinta y cinco juegos, sin secciones
    escondidas ni promesas de retención.
 2. **UI.** Una identidad cálida y reconocible: flor, papel, tipografía editorial y
    portadas ilustradas.
@@ -122,14 +122,18 @@ contra la voluntad del jugador.
 
 ## Los juegos, en el nuevo lenguaje
 
-- **Lógica:** Buscaminas, Nonograma, Sudoku, Mastermind, Nim, Veinticuatro y Torres de
-  Hanoi. Deducción, números y planificación; cada partida pide pensar antes de tocar.
-- **Visual:** Luces, Tuberías, Deslizante, Memoria y Laberinto. Formas, conexiones,
-  orientación y memoria espacial.
-- **Palabras:** Sopa de letras. Tres tamaños y palabras en ocho direcciones.
+- **Lógica:** Buscaminas, Nonograma, Sudoku, Mastermind, Nim, Veinticuatro, Torres de
+  Hanoi, Akari, Hitori, Futoshiki, Rascacielos, Batalla naval, Tiendas de campaña, Batalla
+  estelar, Suguru, Ocho damas y Puentes. Deducción, números y planificación; cada partida
+  pide pensar antes de tocar.
+- **Visual:** Luces, Tuberías, Deslizante, Memoria, Laberinto, Hora punta, Inundación,
+  2048 y Tetrominó. Formas, conexiones, orientación y memoria espacial.
+- **Palabras:** Sopa de letras, Ahorcado, Anagramas y Palabra oculta. Letras, vocabulario
+  y deducción.
 - **Dificultad:** Buscaminas, Sudoku y Sopa de letras permiten elegir tamaño; Sokoban
   sube de nivel con diez almacenes.
-- **Estrategia:** Sokoban y Conecta cuatro. Empuje de cajas y una IA con minimax.
+- **Estrategia:** Sokoban, Conecta cuatro, Damas, Reversi y Tres en raya definitivo.
+  Empuje de cajas y rivales con minimax y poda alfa-beta.
 
 Todos comparten el mismo kit visual, los colores de la paleta, el HUD y los sonidos
 sintetizados. Los acentos cambian por juego, pero la experiencia se siente como una
