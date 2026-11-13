@@ -14,7 +14,7 @@ npm test
 npm run build
 ```
 
-Cubre formato, tipos de Astro/TypeScript, **48 tests** de lógica y el build estático de
+Cubre formato, tipos de Astro/TypeScript, **51 tests** de lógica y el build estático de
 producción. El despliegue de `main` repite las mismas comprobaciones antes de publicar.
 
 ## Navegador (`npm run qa`)
@@ -34,6 +34,7 @@ El script comprueba:
 | Portada       | Sin overflow, sin imágenes rotas, sin errores de consola.    |
 | Catálogo      | 15 tarjetas, filtros por categoría, búsqueda y reset.        |
 | Los 15 juegos | Carga, inicio, canvas dibujado, pausa y ausencia de errores. |
+| Dificultad    | Buscaminas, Sudoku y Sopa cambian de tamaño sin errores.     |
 | Historial     | La portada muestra las partidas recientes.                   |
 | Móvil         | 390 × 844 en la portada, el catálogo y cada ficha.           |
 
@@ -55,14 +56,16 @@ sokoban y conecta cuatro.
 - [ ] Sin peticiones a dominios de terceros en la pestaña Network.
 - [ ] Lighthouse ≥ 95 en Accesibilidad, Buenas prácticas y SEO.
 
-## Resultados de la v2.1.0
+## Resultados de la v2.3.0
 
-- **15 juegos nuevos**, 7 de lógica, 5 visuales, 1 de palabras y 2 de estrategia.
-- **48 tests** de lógica en verde.
+- **Sokoban** ampliado a **10 niveles**, con cinco nuevos almacenes más difíciles.
+- **Buscaminas**, **Sudoku** y **Sopa de letras** estrenan selector de dificultad.
+- **51 tests** de lógica en verde.
 - QA en navegador: los 15 juegos inician, dibujan canvas, pausan y no lanzan errores.
+- Dificultades verificadas en escritorio y móvil: 12×12 con 28 minas, sudoku 9×9,
+  sopa 15×15 con ocho palabras y diagonales.
 - Catálogo de 15 tarjetas con filtros (Lógica 7, Visual 5, Palabras 1, Estrategia 2).
 - 1440 × 960 y 390 × 844 sin overflow horizontal.
-- Revisión de los cuatro juegos anteriores: eliminados por completo, sin referencias.
 
 ## Limitaciones conocidas
 
@@ -72,7 +75,7 @@ sokoban y conecta cuatro.
 - `npm run qa` no se ejecuta en CI porque necesita un navegador instalado; es una
   comprobación local de release.
 - La IA de Conecta cuatro usa profundidad 4; es un rival real, no invencible.
-- Sokoban y Nonograma tienen niveles finitos; se pueden repetir desde el inicio.
+- Sokoban tiene diez niveles finitos; se pueden repetir desde el inicio.
 
 ## Artefactos
 

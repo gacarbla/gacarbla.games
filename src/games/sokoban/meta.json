@@ -4,11 +4,7 @@
   "tagline": "Cada caja, en su sitio.",
   "description": "Empuja cada caja hasta su destino en diez niveles que suben de dificultad. Pasillos estrechos, más recorrido y menos margen de error.",
   "category": "estrategia",
-  "tags": [
-    "Empuje",
-    "Planificación",
-    "10 niveles"
-  ],
+  "tags": ["Empuje", "Planificación", "10 niveles"],
   "accent": "#7fa9c2",
   "controls": "Mueve con flechas o WASD. Empuja cada caja a su destino. Z deshace, R reinicia. En móvil, usa los botones.",
   "goal": "Coloca todas las cajas sobre los destinos. Solo puedes empujar, no tirar.",
@@ -17,5 +13,5 @@
   "bestSuffix": "niveles",
   "order": 14,
   "released": "2026-11-12",
-  "version": "2.2.0"
+  "version": "2.3.0"
 }

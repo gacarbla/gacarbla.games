@@ -92,23 +92,23 @@ nuevo hereda gratis la experiencia completa.
 
 ### Los quince juegos
 
-| Juego               | Categoría  | Mecánica                                  | Lo que demuestra                         |
-| ------------------- | ---------- | ----------------------------------------- | ---------------------------------------- |
-| **Buscaminas**      | Lógica     | Deducción con minas y primer clic seguro. | Flood-fill, banderas, generación segura. |
-| **Nonograma**       | Lógica     | Pistas de fila y columna.                 | Patrones, validación exacta.             |
-| **Sudoku**          | Lógica     | 6×6 generado con solución única.          | Backtracking, conflictos.                |
-| **Mastermind**      | Lógica     | Código de cuatro colores.                 | Feedback exacto/desplazado.              |
-| **Nim**             | Lógica     | Misère contra IA.                         | Minimax, estrategia.                     |
-| **Veinticuatro**    | Lógica     | Cuatro números, una meta.                 | Solver con fracciones.                   |
-| **Torres de Hanoi** | Lógica     | Cinco discos.                             | Planificación, mínimo 31.                |
-| **Luces**           | Visual     | Lights Out 5×5.                           | Generación reversible.                   |
-| **Tuberías**        | Visual     | Conexión de red 7×7.                      | DFS, rotaciones, conectividad.           |
-| **Deslizante**      | Visual     | 15-puzzle.                                | Desorden soluble.                        |
-| **Memoria**         | Visual     | 15 parejas con preview.                   | Memoria, emparejamiento.                 |
-| **Laberinto**       | Visual     | 15×15 con niebla.                         | DFS, exploración.                        |
-| **Sopa de letras**  | Palabras   | 12×12, seis palabras.                     | Colocación en 8 direcciones.             |
-| **Sokoban**         | Estrategia | Cinco niveles de empuje.                  | Planificación, deshacer.                 |
-| **Conecta cuatro**  | Estrategia | 7×6 contra IA.                            | Minimax con poda alfa-beta.              |
+| Juego               | Categoría  | Mecánica                               | Lo que demuestra                         |
+| ------------------- | ---------- | -------------------------------------- | ---------------------------------------- |
+| **Buscaminas**      | Lógica     | Tres dificultades, primer clic seguro. | Flood-fill, banderas, generación segura. |
+| **Nonograma**       | Lógica     | Pistas de fila y columna.              | Patrones, validación exacta.             |
+| **Sudoku**          | Lógica     | 4×4, 6×6 y 9×9 con solución única.     | Backtracking, conflictos.                |
+| **Mastermind**      | Lógica     | Código de cuatro colores.              | Feedback exacto/desplazado.              |
+| **Nim**             | Lógica     | Misère contra IA.                      | Minimax, estrategia.                     |
+| **Veinticuatro**    | Lógica     | Cuatro números, una meta.              | Solver con fracciones.                   |
+| **Torres de Hanoi** | Lógica     | Cinco discos.                          | Planificación, mínimo 31.                |
+| **Luces**           | Visual     | Lights Out 5×5.                        | Generación reversible.                   |
+| **Tuberías**        | Visual     | Conexión de red 7×7.                   | DFS, rotaciones, conectividad.           |
+| **Deslizante**      | Visual     | 15-puzzle.                             | Desorden soluble.                        |
+| **Memoria**         | Visual     | 15 parejas con preview.                | Memoria, emparejamiento.                 |
+| **Laberinto**       | Visual     | 15×15 con niebla.                      | DFS, exploración.                        |
+| **Sopa de letras**  | Palabras   | 10×10, 12×12 y 15×15.                  | Colocación en 8 direcciones.             |
+| **Sokoban**         | Estrategia | Diez niveles de empuje.                | Planificación, deshacer.                 |
+| **Conecta cuatro**  | Estrategia | 7×6 contra IA.                         | Minimax con poda alfa-beta.              |
 
 ## 6. Rendimiento
 

@@ -4,11 +4,7 @@
   "tagline": "Tres sopas. Todas las direcciones.",
   "description": "Encuentra las palabras escondidas en tres dificultades: 10×10, 12×12 o 15×15 con diagonales. Cambia de nivel cuando quieras.",
   "category": "palabras",
-  "tags": [
-    "Palabras",
-    "Búsqueda",
-    "3 niveles"
-  ],
+  "tags": ["Palabras", "Búsqueda", "3 niveles"],
   "accent": "#cf8a8a",
   "controls": "Toca la primera y la última letra de cada palabra. 1–3 cambia la dificultad.",
   "goal": "Encuentra todas las palabras de la lista en la sopa de letras.",
@@ -17,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 13,
   "released": "2026-11-12",
-  "version": "2.2.0"
+  "version": "2.3.0"
 }

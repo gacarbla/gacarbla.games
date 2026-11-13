@@ -4,11 +4,7 @@
   "tagline": "Seis números. Ninguna repetición.",
   "description": "Un sudoku con tres dificultades: 4×4, 6×6 y 9×9. Cada puzzle tiene solución única y se genera al instante. Lógica, no suerte.",
   "category": "logica",
-  "tags": [
-    "Números",
-    "Lógica",
-    "3 niveles"
-  ],
+  "tags": ["Números", "Lógica", "3 niveles"],
   "accent": "#a78fbf",
   "controls": "Selecciona una celda y elige un número. Flechas para moverte y teclas numéricas para escribir.",
   "goal": "Rellena el tablero sin repetir ningún número en cada fila, columna o caja.",
@@ -17,5 +13,5 @@
   "bestSuffix": "pts",
   "order": 3,
   "released": "2026-11-12",
-  "version": "2.2.0"
+  "version": "2.3.0"
 }
