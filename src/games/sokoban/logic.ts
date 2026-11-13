@@ -1,6 +1,7 @@
 /**
- * Los cinco almacenes son compactos (10×10 o menos) y están pensados para
- * resolverse con calma, deshaciendo cuando una caja queda bloqueada.
+ * Los diez almacenes son compactos y están pensados para resolverse con calma,
+ * deshaciendo cuando una caja queda bloqueada. Los cinco últimos suben la
+ * dificultad: más recorrido, pasillos estrechos y menos margen de error.
  */
 export const LEVELS: readonly (readonly string[])[] = [
   ['#######', '#     #', '# . . #', '# $ $ #', '#  @  #', '#     #', '#######'],
@@ -39,6 +40,53 @@ export const LEVELS: readonly (readonly string[])[] = [
     '#        #',
     '##########',
   ],
+  // A partir de aquí, los almacenes piden más recorrido y pasillos estrechos.
+  ['####', '#. ##', '#.@ #', '#. $#', '##$ ###', ' # $  #', ' #    #', ' #  ###', ' ####'],
+  [
+    '      #####',
+    '      #.  #',
+    '      #.# #',
+    '#######.# #',
+    '# @ $ $ $ #',
+    '# # # # ###',
+    '#       #',
+    '#########',
+  ],
+  [
+    '#####',
+    '#   ####',
+    '# # # .#',
+    '#    $ ###',
+    '### #$.  #',
+    '#   #@   #',
+    '# # ######',
+    '#   #',
+    '#####',
+  ],
+  [
+    '########',
+    '# @ #  #',
+    '#      #',
+    '#####$ #',
+    '    #  ###',
+    ' ## #$ ..#',
+    ' ## #  ###',
+    '    ####',
+  ],
+  [
+    '  ######',
+    '  # ..@#',
+    '  # $$ #',
+    '  ## ###',
+    '   # #',
+    '   # #',
+    '#### #',
+    '#    ##',
+    '# #   #',
+    '#   # #',
+    '###   #',
+    '  #####',
+  ],
 ];
 
 export const LEVEL_NAMES = [
@@ -47,6 +95,11 @@ export const LEVEL_NAMES = [
   'Tres destinos',
   'Cuatro cajas',
   'Doble pasillo',
+  'Pasillo partido',
+  'Tres en fila',
+  'Sobre la cornisa',
+  'Almacén largo',
+  'El desván',
 ] as const;
 
 export interface Level {
@@ -73,27 +126,105 @@ export const MOVES: readonly { dx: number; dy: number }[] = [
 ] as const;
 
 export function parseLevel(rows: readonly string[]): Level {
-  const height = rows.length;
-  const width = Math.max(...rows.map((row) => row.length));
-  const walls = new Array<boolean>(width * height).fill(false);
-  const goals = new Array<boolean>(width * height).fill(false);
-  const boxes: number[] = [];
-  let start = -1;
+  const rawHeight = rows.length;
+  const rawWidth = Math.max(...rows.map((row) => row.length));
+  const rawSize = rawWidth * rawHeight;
+  const rawWalls = new Array<boolean>(rawSize).fill(false);
+  const rawGoals = new Array<boolean>(rawSize).fill(false);
+  const rawBoxes: number[] = [];
+  let rawStart = -1;
 
-  for (let row = 0; row < height; row += 1) {
+  for (let row = 0; row < rawHeight; row += 1) {
     const line = rows[row]!;
-    for (let column = 0; column < width; column += 1) {
-      const index = row * width + column;
+    for (let column = 0; column < rawWidth; column += 1) {
+      const index = row * rawWidth + column;
       const tile = line[column] ?? ' ';
-      if (tile === '#') walls[index] = true;
-      if (tile === '.' || tile === '*' || tile === '+') goals[index] = true;
-      if (tile === '$' || tile === '*') boxes.push(index);
-      if (tile === '@' || tile === '+') start = index;
+      if (tile === '#') rawWalls[index] = true;
+      if (tile === '.' || tile === '*' || tile === '+') rawGoals[index] = true;
+      if (tile === '$' || tile === '*') rawBoxes.push(index);
+      if (tile === '@' || tile === '+') rawStart = index;
     }
   }
 
-  if (start < 0) throw new Error('El nivel de Sokoban no tiene jugador.');
-  return { width, height, walls, goals, start, boxes };
+  if (rawStart < 0) throw new Error('El nivel de Sokoban no tiene jugador.');
+
+  // Los tableros irregulares llegan con relleno fuera de los muros. Se marca
+  // como muro todo hueco exterior alcanzable desde el borde, y luego se recorta
+  // el tablero a su caja real para que quepa bien en pantalla.
+  const exterior = new Array<boolean>(rawSize).fill(false);
+  const queue: number[] = [];
+  const visit = (row: number, column: number): void => {
+    if (row < 0 || row >= rawHeight || column < 0 || column >= rawWidth) return;
+    const index = row * rawWidth + column;
+    if (exterior[index] || rawWalls[index]) return;
+    if ((rows[row]![column] ?? ' ') !== ' ') return;
+    exterior[index] = true;
+    queue.push(index);
+  };
+
+  for (let column = 0; column < rawWidth; column += 1) {
+    visit(0, column);
+    visit(rawHeight - 1, column);
+  }
+  for (let row = 0; row < rawHeight; row += 1) {
+    visit(row, 0);
+    visit(row, rawWidth - 1);
+  }
+  for (let head = 0; head < queue.length; head += 1) {
+    const index = queue[head]!;
+    const row = Math.floor(index / rawWidth);
+    const column = index % rawWidth;
+    visit(row - 1, column);
+    visit(row + 1, column);
+    visit(row, column - 1);
+    visit(row, column + 1);
+  }
+  for (let index = 0; index < rawSize; index += 1) {
+    if (exterior[index]) rawWalls[index] = true;
+  }
+
+  let minRow = rawHeight;
+  let maxRow = -1;
+  let minColumn = rawWidth;
+  let maxColumn = -1;
+  for (let row = 0; row < rawHeight; row += 1) {
+    for (let column = 0; column < rawWidth; column += 1) {
+      if (exterior[row * rawWidth + column]) continue;
+      minRow = Math.min(minRow, row);
+      maxRow = Math.max(maxRow, row);
+      minColumn = Math.min(minColumn, column);
+      maxColumn = Math.max(maxColumn, column);
+    }
+  }
+  if (maxRow < 0) throw new Error('El nivel de Sokoban no tiene interior.');
+
+  const width = maxColumn - minColumn + 1;
+  const height = maxRow - minRow + 1;
+  const toLocal = (index: number): number => {
+    const row = Math.floor(index / rawWidth) - minRow;
+    const column = (index % rawWidth) - minColumn;
+    return row * width + column;
+  };
+
+  const walls = new Array<boolean>(width * height).fill(false);
+  const goals = new Array<boolean>(width * height).fill(false);
+  for (let row = minRow; row <= maxRow; row += 1) {
+    for (let column = minColumn; column <= maxColumn; column += 1) {
+      const raw = row * rawWidth + column;
+      const local = (row - minRow) * width + (column - minColumn);
+      walls[local] = rawWalls[raw]!;
+      goals[local] = rawGoals[raw]!;
+    }
+  }
+
+  return {
+    width,
+    height,
+    walls,
+    goals,
+    start: toLocal(rawStart),
+    boxes: rawBoxes.map(toLocal),
+  };
 }
 
 export function createState(level: Level): BoxState {

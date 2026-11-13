@@ -354,7 +354,7 @@ class Sokoban extends BaseGame {
     if (!this.pendingAdvance) {
       this.finishTimer = 1.4;
       this.setScore('NIVEL', LEVELS.length);
-      this.setStatus('Quinto nivel completado. Fin de la partida.');
+      this.setStatus(`Nivel ${LEVELS.length} completado. Fin de la partida.`);
     } else {
       this.setStatus(`Nivel ${this.level + 1} completado.`);
     }

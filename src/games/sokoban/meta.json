@@ -2,11 +2,15 @@
   "slug": "sokoban",
   "title": "Sokoban",
   "tagline": "Cada caja, en su sitio.",
-  "description": "Empuja cada caja hasta su destino sin dejarla en una esquina. Cinco niveles de Sokoban que piden planificar antes de mover.",
+  "description": "Empuja cada caja hasta su destino en diez niveles que suben de dificultad. Pasillos estrechos, más recorrido y menos margen de error.",
   "category": "estrategia",
-  "tags": ["Empuje", "Planificación", "5 niveles"],
+  "tags": [
+    "Empuje",
+    "Planificación",
+    "10 niveles"
+  ],
   "accent": "#7fa9c2",
-  "controls": "Mueve con flechas o WASD. Empuja cada caja a su destino. Z deshace, R reinicia.",
+  "controls": "Mueve con flechas o WASD. Empuja cada caja a su destino. Z deshace, R reinicia. En móvil, usa los botones.",
   "goal": "Coloca todas las cajas sobre los destinos. Solo puedes empujar, no tirar.",
   "duration": "5–15 min",
   "scoreLabel": "NIVEL",
